@@ -1,6 +1,7 @@
 // Website information this came from
 // https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
+
 language: node_js 
 node_js:
-- "node"
-- "7"
+ - "stable"
+
