@@ -3,12 +3,14 @@ language: node_js
 node_js:
   - "stable"
 
+install:
+  npm
+
 cache:
   directories:
     - "node_modules"
 
-#install:
-#  npm ci
+
 
 #npm test
 
