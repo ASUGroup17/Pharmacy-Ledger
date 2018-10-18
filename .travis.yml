@@ -5,8 +5,8 @@ node_js:
 
 
 #npm ci
-install:
-  npm
+#install:
+npm install
 
 cache:
   directories:
