@@ -4,15 +4,15 @@ node_js:
   - "stable"
 
 
-
+  #npm ci
+install:
+  npm ci
+  npm install --save-dev jest
 
 cache:
   directories:
     - "node_modules"
 
-  #npm ci
-install:
-  npm ci
 
 
 #npm test
