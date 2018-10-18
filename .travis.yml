@@ -1,0 +1,10 @@
+//Video this came from  https://www.youtube.com/watch?v=Uft5KBimzyk&t=348s
+langauge: node_js
+
+node_js:
+ - "stable"
+
+ //Can add tasks or 'scripts' during the build process (gulp can be used for this)
+
+ /* gulp.task('travis', ['build', 'testServerJS'], function() {
+   process.exit(0);  }) */
