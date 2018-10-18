@@ -4,6 +4,9 @@ langauge: node_js
 node_js:
  - "stable"
 
+ services:
+  - mongodb
+ 
  //Can add tasks or 'scripts' during the build process (gulp can be used for this)
 
  /* gulp.task('travis', ['build', 'testServerJS'], function() {
