@@ -2,9 +2,16 @@ sudo: false
 language: node_js
 node_js:
   - "stable"
+
 cache:
-  
-env:
+  directories:
+    - "node_modules"
+
+npm ci
+npm test
+
+
+  env:
   - CXX=g++-4.8
 addons:
   apt:
@@ -12,6 +19,3 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
-
-install:
-  - npm ci
