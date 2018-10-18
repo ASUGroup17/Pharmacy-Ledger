@@ -4,9 +4,9 @@ node_js:
   - "stable"
 
 
-npm ci
-#install:
-#  npm
+#npm ci
+install:
+  npm
 
 cache:
   directories:
