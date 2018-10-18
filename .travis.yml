@@ -7,8 +7,8 @@ cache:
   directories:
     - "node_modules"
 
-install:
-  npm ci
+#install:
+#  npm ci
 
 #npm test
 
