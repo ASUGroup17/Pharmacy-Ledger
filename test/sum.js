@@ -30,3 +30,4 @@ describe('#sum()', function() {
   })
   
 })
+module.exports = sum;
