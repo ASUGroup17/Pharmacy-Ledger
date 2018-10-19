@@ -7,7 +7,7 @@ node_js:
   #npm ci
 install:
   npm ci
-  npm install --save-dev jest
+ # npm install --save-dev jest
 
 cache:
   directories:
