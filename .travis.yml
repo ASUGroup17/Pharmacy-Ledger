@@ -4,15 +4,14 @@ node_js:
   - "stable"
 
 
-  #npm ci
 install:
   npm ci
- # npm install --save-dev jest
-  
   npm i --save-dev mocha  #Proper installation of Mocha to make it a Dependency?
-  #Mocha will be accessable by : ./node_modules/mocha/bin/mocha
-
   npm i --save-dev chai  #Installation to make Chai a dependency?
+  # npm install --save-dev jest
+  #Mocha will be accessable by : ./node_modules/mocha/bin/mocha
+  #npm test
+  
 
 cache:
   directories:
@@ -20,7 +19,7 @@ cache:
 
 
 
-#npm test
+
 
 
   env:
