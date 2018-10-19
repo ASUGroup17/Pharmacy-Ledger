@@ -6,8 +6,10 @@ node_js:
 
 install:
   npm ci
-  npm i --save-dev mocha  #Proper installation of Mocha to make it a Dependency?
-  npm i --save-dev chai  #Installation to make Chai a dependency?
+  npm i --save-dev mocha  
+  npm i --save-dev chai  
+  #Proper installation of Mocha to make it a Dependency?
+  #Installation to make Chai a dependency?
   # npm install --save-dev jest
   #Mocha will be accessable by : ./node_modules/mocha/bin/mocha
   #npm test
