@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "mocha"
   },
   "dependencies": {
     "react": "16.6.0-alpha.8af6728",
@@ -12,11 +12,10 @@
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
+    "chai": "^4.2.0",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.48.1",
+    "mocha": "^5.2.0",
     "react-test-renderer": "16.6.0-alpha.8af6728"
-  },
-  "jest": {
-    "preset": "react-native"
   }
 }

@@ -1,13 +1,34 @@
-//Video this came from  https://www.youtube.com/watch?v=Uft5KBimzyk&t=348s
-langauge: node_js
-
+sudo: false
+language: node_js
 node_js:
- - "stable"
+  - "stable"
 
- services:
-  - mongodb
- 
- //Can add tasks or 'scripts' during the build process (gulp can be used for this)
 
- /* gulp.task('travis', ['build', 'testServerJS'], function() {
-   process.exit(0);  }) */
+install:
+  npm ci
+  #npm i --save-dev mocha  
+  #npm i --save-dev chai  
+  #Proper installation of Mocha to make it a Dependency?
+  #Installation to make Chai a dependency?
+  # npm install --save-dev jest
+  #Mocha will be accessable by : ./node_modules/mocha/bin/mocha
+  #npm test
+  
+
+cache:
+  directories:
+    - "node_modules"
+
+
+
+
+
+
+  env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
