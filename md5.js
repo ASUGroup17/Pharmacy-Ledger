@@ -1,4 +1,3 @@
-
 /* md5.js */
 
 var crypto = require('crypto');
