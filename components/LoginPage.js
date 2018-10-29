@@ -14,7 +14,6 @@ class LoginPage extends Component {
   render() {
     return (
       <Container style={styles.container}>
-        <Header><Text>Pharmacy Ledger</Text></Header>
         <Content>
         <View style={styles.content}>
           <Form>
