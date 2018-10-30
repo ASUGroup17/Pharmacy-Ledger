@@ -6,12 +6,12 @@ class PatientCapturePage extends Component {
     render () {
         return (
             <Container style={styles.containerStyle}>
-                <Content>
+                <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
                 <View style={styles.contentStyle}>
                     <Text>
                         Scan Patient's Wristband
                     </Text>
-                    <Button bordered>
+                    <Button bordered style={styles.buttonStyle}>
                         <Text>
                             Capture Image
                         </Text>
@@ -22,7 +22,7 @@ class PatientCapturePage extends Component {
                         </Text>
                         <Input placeholder="Patient ID" />
                     </View>
-                    <Button bordered>
+                    <Button bordered style={styles.buttonStyle}>
                         <Text>
                             Continue
                         </Text>
@@ -38,16 +38,23 @@ const styles = StyleSheet.create({
     containerStyle: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        flexGrow: 1
     },
     contentStyle: {
-        //flexDirection: 'column',
-        //flex: 1,
-        //alignContent: 'center',
-        //justifyContent: 'space-around'
+        flex: 1,
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'space-around',
     },
     patientIdView: {
-        flexDirection: 'row'
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        paddingLeft: 50
+    },
+    buttonStyle: {
+        alignSelf: 'center'
     }
 
 
