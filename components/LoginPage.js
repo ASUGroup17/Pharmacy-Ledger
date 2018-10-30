@@ -14,6 +14,7 @@ import startMainTabs from './startMainTabs';
 
 class LoginPage extends Component {
   loginHandler = () => {
+  console.log("Clicked")
   startMainTabs();
   }
 
