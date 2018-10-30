@@ -14,7 +14,6 @@ import startMainTabs from './startMainTabs';
 
 class LoginPage extends Component {
   loginHandler = () => {
-  alert("Button Pressed");
   startMainTabs();
   }
 
