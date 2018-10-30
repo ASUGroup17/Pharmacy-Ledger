@@ -3,6 +3,13 @@ import { View, StyleSheet } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
 
 class PatientCapturePage extends Component {
+
+    continueHandler = () => {
+        this.props.navigator.push({
+            screen: 'pharmacy-ledger.MedicationCapturePage',
+            title: 'Add Medication'
+        })
+    }
     render () {
         return (
             <Container style={styles.containerStyle}>
@@ -22,7 +29,7 @@ class PatientCapturePage extends Component {
                         </Text>
                         <Input placeholder="Patient ID" />
                     </View>
-                    <Button bordered style={styles.buttonStyle}>
+                    <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}>
                         <Text>
                             Continue
                         </Text>
