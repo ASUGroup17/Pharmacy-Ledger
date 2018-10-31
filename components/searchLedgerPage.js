@@ -10,14 +10,13 @@
 
 //Importing different types of components to be used
 import React, { Component } from 'react';
-import  { Platform, StyleSheet, Link, View} from 'reactnative';
+import  { Platform, StyleSheet, Link, View} from 'react-native';
 import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base';
 
-class searchLedgerPage extends Component {
+class SearchLedgerPage extends Component {
     render () {
         return (
             <Container style={styles.Container}>
-                <Header><Text><Search the Ledger></Search></Text></Header>
                 <Content>
                     <View style={styles.content}>
                         <Form>
@@ -29,15 +28,15 @@ class searchLedgerPage extends Component {
                             </Item>
                         </Form>
 
-                        <Button bordered style = {sytles.button}>
-                            <text>
+                        <Button bordered style = {styles.button}>
+                            <Text>
                                 Search
-                            </text>
+                            </Text>
                         </Button>
                         <Button bordered style= {styles.button}>
-                            <text>
+                            <Text>
                                 Cancel
-                            </text></Button>
+                            </Text></Button>
                     
                     </View>
                 </Content>
@@ -46,9 +45,9 @@ class searchLedgerPage extends Component {
     }
 }
 
-export default searchLedgerPage;
+export default SearchLedgerPage;
 
-const styles = StyleSheet.creat({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-around',
@@ -69,7 +68,7 @@ const styles = StyleSheet.creat({
     },
 
     text: {
-        align: 'center',
+        alignContent: 'center',
         padding: 2
     },
 
