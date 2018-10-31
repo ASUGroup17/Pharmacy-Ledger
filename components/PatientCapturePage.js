@@ -1,6 +1,21 @@
 import React, {Component} from 'react';
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
+import { RNCamera } from 'react-native-camera'
+    
+const PendingView = () => (
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'lightgreen',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text>Waiting</Text>
+        </View>
+      );
+
 
 class PatientCapturePage extends Component {
 
@@ -9,7 +24,8 @@ class PatientCapturePage extends Component {
             screen: 'pharmacy-ledger.MedicationCapturePage',
             title: 'Add Medication'
         })
-    }
+    }    
+
     render () {
         return (
             <Container style={styles.containerStyle}>
@@ -18,11 +34,27 @@ class PatientCapturePage extends Component {
                     <Text>
                         Scan Patient's Wristband
                     </Text>
-                    <Button bordered style={styles.buttonStyle}>
-                        <Text>
-                            Capture Image
-                        </Text>
-                    </Button>
+
+                    <RNCamera
+                        style={styles.preview}
+                        type={RNCamera.Constants.Type.back}
+                        flashMode={RNCamera.Constants.FlashMode.on}
+                        permissionDialogTitle={'Permission to use camera'}
+                        permissionDialogMessage={'We need your permission to use your camera phone'}
+                        >
+                        {({ camera, status }) => {
+                            if (status !== 'READY') return <PendingView />;
+                            return (
+                            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+                                <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
+                                <Text style={{ fontSize: 14 }}> Capture Image </Text>
+                                </TouchableOpacity>
+                            </View>
+                            );
+                        }}
+                    </RNCamera>
+
+
                     <View style={styles.patientIdView}>
                         <Text>
                             Patient ID:
@@ -39,6 +71,13 @@ class PatientCapturePage extends Component {
             </Container>
         );
     }
+
+    takePicture = async function(camera) {
+        const options = { quality: 0.5, base64: true };
+        const data = await camera.takePictureAsync(options);
+        //  eslint-disable-next-line
+        console.log(data.uri);
+      }
 }
 
 const styles = StyleSheet.create({
@@ -54,6 +93,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
     },
+    preview: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    capture: {
+        flex: 0,
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        padding: 15,
+        paddingHorizontal: 20,
+        alignSelf: 'center',
+        margin: 20,
+      },
     patientIdView: {
         alignItems: 'center',
         justifyContent: 'space-around',
