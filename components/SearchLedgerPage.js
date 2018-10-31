@@ -1,3 +1,4 @@
+
 /**
  * Author: Kevin Nolf
  * Start Date: 10/24/18
@@ -12,6 +13,7 @@
 import React, { Component } from 'react';
 import  { Platform, StyleSheet, Link, View} from 'react-native';
 import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base';
+
 
 class SearchLedgerPage extends Component {
     render () {
@@ -41,11 +43,10 @@ class SearchLedgerPage extends Component {
                     </View>
                 </Content>
             </Container>
+
         );
     }
 }
-
-export default SearchLedgerPage;
 
 const styles = StyleSheet.create({
     container: {
@@ -78,3 +79,6 @@ const styles = StyleSheet.create({
         padding: 2
     }
 });
+
+export default SearchLedgerPage;
+
