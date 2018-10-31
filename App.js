@@ -7,49 +7,36 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet} from 'react-native';
-import { Container, Header, Content, Button, Text } from 'native-base'
+import {Platform, StyleSheet, View} from 'react-native';
+import LoginPage from './components/LoginPage';
+import { Navigation } from 'react-native-navigation';
+import PatientCapturePage from './components/PatientCapturePage';
+import SearchLedgerPage from './components/SearchLedgerPage';
+import MedicationCapturePage from './components/MedicationCapturePage';
+import ConfirmationPage from './components/ConfirmationPage';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+//Register Screens
+Navigation.registerComponent("pharmacy-ledger.LoginPage", () => LoginPage);
+Navigation.registerComponent("pharmacy-ledger.PatientCapturePage", () => PatientCapturePage);
+Navigation.registerComponent("pharmacy-ledger.SearchLedgerPage", () => SearchLedgerPage);
+Navigation.registerComponent("pharmacy-ledger.MedicationCapturePage", () => MedicationCapturePage);
+Navigation.registerComponent("pharmacy-ledger.ConfirmationPage", () => ConfirmationPage);
 
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <Container>
-        <Header><Text>Pharmacy Ledger</Text></Header>
-        <Content>
-        <Button bordered>
-          <Text>
-            Login!
-          </Text>
-        </Button>
-        </Content>
-      </Container>
-    );
+
+//Start App
+Navigation.startSingleScreenApp( {
+  screen: {
+    screen: "pharmacy-ledger.LoginPage",
+    title: "Pharmacy Ledger Login"
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
 });
+
+// type Props = {};
+// export default class App extends Component<Props> {
+//   render() {
+//     return (
+//         <LoginPage />
+//     );
+//   }
+// }
+
