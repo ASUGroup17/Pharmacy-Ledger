@@ -13,6 +13,7 @@
 import React, { Component } from 'react';
 import  { Platform, StyleSheet, Link, View} from 'react-native';
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base';
+import SearchResultsPage from './SearchResultsPage';
 
 
 /**
@@ -20,21 +21,23 @@ import { Container, Content, Button, Text, Form, Item, Input } from 'native-base
  * The SearchLedgerPage is not registered, and it's causing errors when the Submit button is selected
  * 
  */
-//import { Navigation } from 'react-native-navigation';
-//Navigation.registerComponent('components.SearchResultsPage', () => SearchResultsPage);
+import { Navigation } from 'react-native-navigation';
+Navigation.registerComponent('components.SearchResultsPage', () => SearchResultsPage);
 
 
 class SearchLedgerPage extends Component {
     //Creating handler to navigate to the Search Results Screen
-    /*searchResultsHandler = () => {
+    searchResultsHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.SearchResultsPage',
             title: 'Search Results'
         })
+    }
 
-
-         onPress={this.searchResultsHandler}>
-    }*/
+    //Creating handler to cancel the current search and navigate to the previous screen
+    cancelHandler = () => {
+        this.props.navigator.pop()
+    }
 
     render () {
         return (
@@ -50,15 +53,16 @@ class SearchLedgerPage extends Component {
                             </Item>
                         </Form>
 
-                        <Button bordered style = {styles.button}>
+                        <Button bordered style = {styles.button} onPress={this.searchResultsHandler}>
                             <Text>
                                 Search
                             </Text>
                         </Button>
-                        <Button bordered style= {styles.button}>
+                        <Button bordered style= {styles.button} onPress={this.cancelHandler}>
                             <Text>
                                 Cancel
-                            </Text></Button>
+                            </Text>
+                        </Button>
                     
                     </View>
                 </Content>

@@ -49,18 +49,11 @@ class SearchResultsPage extends Component {
                             </Item>
                         </Form>
 
-                        <Button bordered style = {styles.button}>
-                            <Text>
-                                Clear Search Results
-                            </Text>
-                        </Button>
-
                         <Button bordered style = {styles.button} onPress={this.newSearchHandler} >
                             <Text>
                                 New Search
                             </Text>
                         </Button>
-
                     </View>
                 </Content>
              </Container>
