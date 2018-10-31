@@ -31,7 +31,7 @@ class PatientCapturePage extends Component {
             <Container style={styles.containerStyle}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
                 <View style={styles.contentStyle}>
-                    <Text>
+                    <Text style={{alignSelf: 'center'}}>
                         Scan Patient's Wristband
                     </Text>
 
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     contentStyle: {
         flex: 1,
         flexGrow: 1,
-        alignItems: 'center',
+        //alignItems: 'center',
         justifyContent: 'space-around',
     },
     preview: {
@@ -108,6 +108,8 @@ const styles = StyleSheet.create({
         margin: 20,
       },
     patientIdView: {
+        flex: .2,
+        backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'space-around',
         flexDirection: 'row',

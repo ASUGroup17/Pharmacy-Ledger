@@ -13,12 +13,14 @@ import { Navigation } from 'react-native-navigation';
 import PatientCapturePage from './components/PatientCapturePage';
 import SearchLedgerPage from './components/SearchLedgerPage';
 import MedicationCapturePage from './components/MedicationCapturePage';
+import ConfirmationPage from './components/ConfirmationPage';
 
 //Register Screens
 Navigation.registerComponent("pharmacy-ledger.LoginPage", () => LoginPage);
 Navigation.registerComponent("pharmacy-ledger.PatientCapturePage", () => PatientCapturePage);
 Navigation.registerComponent("pharmacy-ledger.SearchLedgerPage", () => SearchLedgerPage);
 Navigation.registerComponent("pharmacy-ledger.MedicationCapturePage", () => MedicationCapturePage);
+Navigation.registerComponent("pharmacy-ledger.ConfirmationPage", () => ConfirmationPage);
 
 
 //Start App
