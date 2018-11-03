@@ -9,12 +9,18 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Link, View} from 'react-native';
 import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base'
+import startMainTabs from './startMainTabs';
+
 
 class LoginPage extends Component {
+  loginHandler = () => {
+  console.log("Clicked")
+  startMainTabs();
+  }
+
   render() {
     return (
       <Container style={styles.container}>
-        <Header><Text>Pharmacy Ledger</Text></Header>
         <Content>
         <View style={styles.content}>
           <Form>
@@ -25,7 +31,7 @@ class LoginPage extends Component {
               <Input placeholder="Password" />
             </Item>
           </Form> 
-          <Button bordered style={styles.button}>
+          <Button bordered style={styles.button} onPress={this.loginHandler}>
             <Text>
               Login!
             </Text>
@@ -39,6 +45,7 @@ class LoginPage extends Component {
     );
   }
 }
+
 
 export default LoginPage;
 
