@@ -14,6 +14,7 @@ import PatientCapturePage from './components/PatientCapturePage';
 import SearchLedgerPage from './components/SearchLedgerPage';
 import MedicationCapturePage from './components/MedicationCapturePage';
 import ConfirmationPage from './components/ConfirmationPage';
+import SearchResultsPage from './components/SearchResultsPage';
 
 //Register Screens
 Navigation.registerComponent("pharmacy-ledger.LoginPage", () => LoginPage);
@@ -21,6 +22,7 @@ Navigation.registerComponent("pharmacy-ledger.PatientCapturePage", () => Patient
 Navigation.registerComponent("pharmacy-ledger.SearchLedgerPage", () => SearchLedgerPage);
 Navigation.registerComponent("pharmacy-ledger.MedicationCapturePage", () => MedicationCapturePage);
 Navigation.registerComponent("pharmacy-ledger.ConfirmationPage", () => ConfirmationPage);
+Navigation.registerComponent("pharmacy-ledger.SearchResultsPage", () => SearchResultsPage);
 
 
 //Start App

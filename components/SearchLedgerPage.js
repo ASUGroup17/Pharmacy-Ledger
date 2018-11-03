@@ -12,10 +12,23 @@
 //Importing different types of components to be used
 import React, { Component } from 'react';
 import  { Platform, StyleSheet, Link, View} from 'react-native';
-import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base';
+import { Container, Content, Button, Text, Form, Item, Input } from 'native-base';
 
 
 class SearchLedgerPage extends Component {
+    //Creating handler to navigate to the Search Results Screen
+    searchResultsHandler = () => {
+        this.props.navigator.push({
+            screen: 'pharmacy-ledger.SearchResultsPage',
+            title: 'Search Results'
+        })
+    }
+
+    //Creating handler to cancel the current search and navigate to the previous screen
+    cancelHandler = () => {
+        this.props.navigator.pop()
+    }
+
     render () {
         return (
             <Container style={styles.Container}>
@@ -30,15 +43,16 @@ class SearchLedgerPage extends Component {
                             </Item>
                         </Form>
 
-                        <Button bordered style = {styles.button}>
+                        <Button bordered style = {styles.button} onPress={this.searchResultsHandler}>
                             <Text>
                                 Search
                             </Text>
                         </Button>
-                        <Button bordered style= {styles.button}>
+                        <Button bordered style= {styles.button} onPress={this.cancelHandler}>
                             <Text>
                                 Cancel
-                            </Text></Button>
+                            </Text>
+                        </Button>
                     
                     </View>
                 </Content>
