@@ -36,10 +36,18 @@ class MedicationCapturePage extends Component {
         }
     }
     onBarCodeRead = (e) => {
+        alert(e.data)
+        alert(e.rawData)
+        alert(e.type)
         this.setState({medicationUpc: e.data}, () => {
             this.createNdcStrings(this.state.medicationUpc);
         })   
     };
+
+    onTextRecognized = ({textBlocks}) => {
+        detectedTexts = textBlocks.map(b => b.value)
+        console.log("TEXTBLOCK: " + detectedTexts)
+    }
 
     createNdcStrings  = (medicationUpc) => {
         ndc442 = medicationUpc.substring(2,6) + "-" + medicationUpc.substring(6,10) + "-" + medicationUpc.substring(10,12);
@@ -105,6 +113,7 @@ class MedicationCapturePage extends Component {
                         permissionDialogTitle={'Permission to use camera'}
                         permissionDialogMessage={'We need your permission to use your camera phone'}
                         onBarCodeRead={this.onBarCodeRead}
+                        onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
                         {/* {({ camera, status }) => {
