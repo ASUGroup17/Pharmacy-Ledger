@@ -67,9 +67,9 @@ class MedicationCapturePage extends Component {
         .then(response => {
 
             if(response.data.ndcStatus.status == "ACTIVE"){
-                alert("**TERIN1**" + response.data.ndcStatus.status)
+                //alert("**TERIN1**" + response.data.ndcStatus.status)
                 names.push(response.data.ndcStatus.conceptName)
-                alert(names)
+                this.setState({medicationName: names[0]})
             }
         });
 
@@ -77,9 +77,9 @@ class MedicationCapturePage extends Component {
         .then(response => {
             
             if(response.data.ndcStatus.status == "ACTIVE"){
-                alert("**TERIN2**" + response.data.ndcStatus.status)
+                //alert("**TERIN2**" + response.data.ndcStatus.status)
                 names.push(response.data.ndcStatus.conceptName)
-                alert(names)
+                this.setState({medicationName: names[0]})
             }
         });
 
@@ -87,9 +87,9 @@ class MedicationCapturePage extends Component {
         .then(response => {
             
             if(response.data.ndcStatus.status == "ACTIVE"){
-                alert("**TERIN3**" + response.data.ndcStatus.status)
+                //alert("**TERIN3**" + response.data.ndcStatus.status)
                 names.push(response.data.ndcStatus.conceptName)
-                alert(names)
+                this.setState({medicationName: names[0]})
             }
         });
 
@@ -136,7 +136,7 @@ class MedicationCapturePage extends Component {
                             <Text>
                                 Medication:
                             </Text>
-                            <Input placeholder="Medication Name" />
+                            <Input placeholder="Medication Name" value={this.state.medicationName}/>
                         </View>
                         <View style={styles.viewStyle}>
                             <Text>
