@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
+import axios from 'axios'
     
 // const PendingView = () => (
 //         <View
@@ -30,7 +31,8 @@ class MedicationCapturePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            medicationUpc: ""
+            medicationUpc: "",
+            nedicationName: ""
         }
     }
     onBarCodeRead = (e) => {
@@ -44,7 +46,47 @@ class MedicationCapturePage extends Component {
         ndc532 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,10) + "-" + medicationUpc.substring(10,12);
         ndc541 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,11) + "-" + medicationUpc.substring(11,12);
         
-        alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
+        //alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
+        this.getMedName(ndc442,ndc532,ndc541)
+
+    };
+
+    getMedName = (ndc442,ndc532,ndc541) => {
+
+        var names = [];
+
+        axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc442)
+        .then(response => {
+
+            if(response.data.ndcStatus.status == "ACTIVE"){
+                alert("**TERIN1**" + response.data.ndcStatus.status)
+                names.push(response.data.ndcStatus.conceptName)
+                alert(names)
+            }
+        });
+
+        axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc532)
+        .then(response => {
+            
+            if(response.data.ndcStatus.status == "ACTIVE"){
+                alert("**TERIN2**" + response.data.ndcStatus.status)
+                names.push(response.data.ndcStatus.conceptName)
+                alert(names)
+            }
+        });
+
+        axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc541)
+        .then(response => {
+            
+            if(response.data.ndcStatus.status == "ACTIVE"){
+                alert("**TERIN3**" + response.data.ndcStatus.status)
+                names.push(response.data.ndcStatus.conceptName)
+                alert(names)
+            }
+        });
+
+        //alert(names.length + " " + names)
+
     };
 
     render () {
