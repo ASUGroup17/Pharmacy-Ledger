@@ -32,7 +32,9 @@ class MedicationCapturePage extends Component {
         super(props);
         this.state = {
             medicationUpc: "",
-            nedicationName: ""
+            medicationName: "",
+            lotNumber: "",
+            expDate: ""
         }
     }
     onBarCodeRead = (e) => {
@@ -112,7 +114,9 @@ class MedicationCapturePage extends Component {
                         flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
                         permissionDialogMessage={'We need your permission to use your camera phone'}
-                        onBarCodeRead={this.onBarCodeRead}
+                        
+                        onBarCodeRead= {(this.state.medicationName == "") ? this.onBarCodeRead : null}
+                        //onBarCodeRead = {this.onBarCodeRead}
                         onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
