@@ -1,3 +1,5 @@
+import { SOME_CASE } from '../actions/types'
+
 const INITIAL_STATE = {
     name: '',
     dateOfBirth: '',
@@ -9,7 +11,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case 'SOME_CASE': {
+        case SOME_CASE: {
             return { ...state, ...action.payload }
         }
         default:
