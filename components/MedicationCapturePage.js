@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
+import axios from 'axios'
     
 // const PendingView = () => (
 //         <View
@@ -30,21 +31,72 @@ class MedicationCapturePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            medicationUpc: ""
+            medicationUpc: "",
+            medicationName: "",
+            lotNumber: "",
+            expDate: ""
         }
     }
     onBarCodeRead = (e) => {
+        alert(e.data)
+        alert(e.rawData)
+        alert(e.type)
         this.setState({medicationUpc: e.data}, () => {
             this.createNdcStrings(this.state.medicationUpc);
         })   
     };
+
+    onTextRecognized = ({textBlocks}) => {
+        detectedTexts = textBlocks.map(b => b.value)
+        console.log("TEXTBLOCK: " + detectedTexts)
+    }
 
     createNdcStrings  = (medicationUpc) => {
         ndc442 = medicationUpc.substring(2,6) + "-" + medicationUpc.substring(6,10) + "-" + medicationUpc.substring(10,12);
         ndc532 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,10) + "-" + medicationUpc.substring(10,12);
         ndc541 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,11) + "-" + medicationUpc.substring(11,12);
         
-        alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
+        //alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
+        this.getMedName(ndc442,ndc532,ndc541)
+
+    };
+
+    getMedName = (ndc442,ndc532,ndc541) => {
+
+        var names = [];
+
+        axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc442)
+        .then(response => {
+
+            if(response.data.ndcStatus.status == "ACTIVE"){
+                //alert("**TERIN1**" + response.data.ndcStatus.status)
+                names.push(response.data.ndcStatus.conceptName)
+                this.setState({medicationName: names[0]})
+            }
+        });
+
+        axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc532)
+        .then(response => {
+            
+            if(response.data.ndcStatus.status == "ACTIVE"){
+                //alert("**TERIN2**" + response.data.ndcStatus.status)
+                names.push(response.data.ndcStatus.conceptName)
+                this.setState({medicationName: names[0]})
+            }
+        });
+
+        axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc541)
+        .then(response => {
+            
+            if(response.data.ndcStatus.status == "ACTIVE"){
+                //alert("**TERIN3**" + response.data.ndcStatus.status)
+                names.push(response.data.ndcStatus.conceptName)
+                this.setState({medicationName: names[0]})
+            }
+        });
+
+        //alert(names.length + " " + names)
+
     };
 
     render () {
@@ -62,7 +114,10 @@ class MedicationCapturePage extends Component {
                         flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
                         permissionDialogMessage={'We need your permission to use your camera phone'}
-                        onBarCodeRead={this.onBarCodeRead}
+                        
+                        onBarCodeRead= {(this.state.medicationName == "") ? this.onBarCodeRead : null}
+                        //onBarCodeRead = {this.onBarCodeRead}
+                        onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
                         {/* {({ camera, status }) => {
@@ -85,7 +140,7 @@ class MedicationCapturePage extends Component {
                             <Text>
                                 Medication:
                             </Text>
-                            <Input placeholder="Medication Name" />
+                            <Input placeholder="Medication Name" value={this.state.medicationName}/>
                         </View>
                         <View style={styles.viewStyle}>
                             <Text>
