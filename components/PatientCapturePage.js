@@ -24,12 +24,20 @@ class PatientCapturePage extends Component {
             screen: 'pharmacy-ledger.MedicationCapturePage',
             title: 'Add Medication'
         })
-    }    
+    }
+
+    //button disable
+    //--------------------
+    buttonHandler = (e) => {
+        this.setState({patientID: e.target.value});
+    }
+    //--------------------
 
     constructor(props) {
         super(props);
         this.state = {
-            qrcode: ""
+            qrcode: "",
+            patientID: ""
         }
     }
     onBarCodeRead = (e) => this.setState({qrcode: e.data});
@@ -64,9 +72,10 @@ class PatientCapturePage extends Component {
                             <Text>
                                 Patient ID:
                             </Text>
-                            <Input placeholder="Patient ID" />
+                            <Input placeholder="Patient ID" onChange={this.buttonHandler} />
                         </View>
-                    <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}>
+                    <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}
+                        disabled={!this.state.patientID}>
                         <Text>
                             Continue
                         </Text>
