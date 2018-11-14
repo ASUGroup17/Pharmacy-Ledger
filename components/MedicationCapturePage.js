@@ -24,7 +24,24 @@ class MedicationCapturePage extends Component {
             screen: 'pharmacy-ledger.ConfirmationPage',
             title: 'Confirm Transaction'
         })
-    }    
+    }
+    
+    //Creating a constructor object to be able to hold data from other Components and pass data to others
+    constructor (props) {
+        super(props);
+        this.state= {
+            patientBarCode : null
+        }
+    }
+    
+    /**  This is an attempt to implement sharing data from PatientCatpruePage to here
+    qrDataCallback = (patientQR) => {
+        this.setState({ patientBarCode: patientQR })
+    }
+    */    
+
+    //CallBack function that we call in PatientCapturePage.js
+
 
     render () {
         return (
@@ -52,6 +69,9 @@ class MedicationCapturePage extends Component {
                             </View>
                             );
                         }}
+                        <Text style={{
+                                backgroundColor: 'white'
+                            }}>{this.state.patientBarCode}</Text>
                     </RNCamera>
 
                     <View style={styles.groupTight}>

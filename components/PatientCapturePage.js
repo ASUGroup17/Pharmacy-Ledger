@@ -3,18 +3,6 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
     
-const PendingView = () => (
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'lightgreen',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text>Waiting</Text>
-        </View>
-      );
 
 
 class PatientCapturePage extends Component {
@@ -26,13 +14,22 @@ class PatientCapturePage extends Component {
         })
     }    
 
+    //
     constructor(props) {
         super(props);
-        this.state = {
-            qrcode: ""
-        }
+        this.state = { qrcode: "" }
     }
+
+    //Sets the state of this object's qrcode to e.data.  e is the barcode's info:
+    // data - textual representation of the barcode;  rawData - raw data encoded in the barcode; type - the type of barcode detected 
     onBarCodeRead = (e) => this.setState({qrcode: e.data});
+
+    //This function is meant to set the e.data as props to be passed to MedicationCapturePage.js
+    //we will make 'this.props.(CALLBACK) (e.data)' able to be called in the MedicationCapturepage
+    qrDataPassed = (e) => {
+        this.props.qrDataCallback(e.data);
+    }
+
 
     render () {
         return (
@@ -45,7 +42,7 @@ class PatientCapturePage extends Component {
 
                     <RNCamera
                         style={styles.preview}
-                        type={RNCamera.Constants.Type.back}
+                            type={RNCamera.Constants.Type.back}
                         //Turned flashMode to off; it was originally on
                         flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
@@ -128,18 +125,3 @@ const styles = StyleSheet.create({
 })
 
 export default PatientCapturePage;
-
-
-/*
-{({ camera, status }) => {
-                            if (status !== 'READY') return <PendingView />;
-                            return (
-                            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                                <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-                                <Text style={{ fontSize: 14 }}> Capture Image </Text>
-                                </TouchableOpacity>
-                                
-                            </View>
-                            );
-                        }}
-*/                        
