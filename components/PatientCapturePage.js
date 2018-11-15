@@ -26,6 +26,14 @@ class PatientCapturePage extends Component {
         })
     }    
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            qrcode: ""
+        }
+    }
+    onBarCodeRead = (e) => this.setState({qrcode: e.data});
+
     render () {
         return (
             <Container style={styles.containerStyle}>
@@ -38,29 +46,26 @@ class PatientCapturePage extends Component {
                     <RNCamera
                         style={styles.preview}
                         type={RNCamera.Constants.Type.back}
-                        flashMode={RNCamera.Constants.FlashMode.on}
+                        //Turned flashMode to off; it was originally on
+                        flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
                         permissionDialogMessage={'We need your permission to use your camera phone'}
+                        onBarCodeRead={this.onBarCodeRead}
+                        ref={cam => this.camera = cam}
+                        //aspect={RNCamera.Constants.Aspect.fill}
                         >
-                        {({ camera, status }) => {
-                            if (status !== 'READY') return <PendingView />;
-                            return (
-                            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                                <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-                                <Text style={{ fontSize: 14 }}> Capture Image </Text>
-                                </TouchableOpacity>
-                            </View>
-                            );
-                        }}
+                            <Text style={{
+                                backgroundColor: 'white'
+                            }}>{this.state.qrcode}</Text>                       
                     </RNCamera>
 
 
-                    <View style={styles.patientIdView}>
-                        <Text>
-                            Patient ID:
-                        </Text>
-                        <Input placeholder="Patient ID" />
-                    </View>
+                        <View style={styles.patientIdView}>
+                            <Text>
+                                Patient ID:
+                            </Text>
+                            <Input placeholder="Patient ID" />
+                        </View>
                     <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}>
                         <Text>
                             Continue
@@ -123,3 +128,18 @@ const styles = StyleSheet.create({
 })
 
 export default PatientCapturePage;
+
+
+/*
+{({ camera, status }) => {
+                            if (status !== 'READY') return <PendingView />;
+                            return (
+                            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+                                <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
+                                <Text style={{ fontSize: 14 }}> Capture Image </Text>
+                                </TouchableOpacity>
+                                
+                            </View>
+                            );
+                        }}
+*/                        
