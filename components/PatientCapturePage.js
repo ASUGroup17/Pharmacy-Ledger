@@ -10,14 +10,25 @@ class PatientCapturePage extends Component {
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.MedicationCapturePage',
-            title: 'Add Medication'
+            title: 'Add Medication',
+            passProps: { 
+                qrCode: this.state.qrcode, 
+                patientFirstName: "", 
+                patientLastName: "",
+                patientDOB: ""
+            }
         })
     }    
 
-    //
+    
     constructor(props) {
         super(props);
-        this.state = { qrcode: "" }
+        this.state = { 
+            qrcode: "",
+            patientfirstname: "",
+            patientlastname: "",
+            patientdob: ""            
+            }
     }
 
     //Sets the state of this object's qrcode to e.data.  e is the barcode's info:
@@ -26,9 +37,10 @@ class PatientCapturePage extends Component {
 
     //This function is meant to set the e.data as props to be passed to MedicationCapturePage.js
     //we will make 'this.props.(CALLBACK) (e.data)' able to be called in the MedicationCapturepage
+    /*
     qrDataPassed = (e) => {
         this.props.qrDataCallback(e.data);
-    }
+    }*/
 
 
     render () {
