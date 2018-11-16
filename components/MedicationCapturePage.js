@@ -4,19 +4,6 @@ import { Container, Content, Button, Text, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
     
-// const PendingView = () => (
-//         <View
-//           style={{
-//             flex: 1,
-//             //backgroundColor: 'lightgreen',
-//             justifyContent: 'center',
-//             alignItems: 'center',
-//           }}
-//         >
-//           <Text>Waiting</Text>
-//         </View>
-//       );
-
 
 class MedicationCapturePage extends Component {
 
@@ -24,36 +11,32 @@ class MedicationCapturePage extends Component {
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.ConfirmationPage',
-            title: 'Confirm Transaction'
+            title: 'Confirm Transaction',
+            
+            //Passing these props to the next Screen (ConfirmationPage) that will be pushed to the Navigator Stack
+            passProps: {
+                //These first 4 are from thr MedicationCapturePage
+                medicationUpc: "",
+                medicationName: "",
+                lotNumber: "",
+                expDate: "",
+                //These 4 come from the passProps of the Patient Capture page; currently qr code is the only valid data being used
+                qrCode: this.props.qrCode,
+                patientFirstName: "", 
+                patientLastName: "",
+                patientDOB: ""    
+            }
         })
     }
     
-    //Creating a constructor object to be able to hold data from other Components and pass data to others
-    /*constructor (props) {
-        super(props);
-        this.state= {
-            patientBarCode : null
-        }
-    }*/
-    
-
-    //  This is an attempt to implement sharing data from PatientCatpruePage to here
-    /*
-    qrDataCallback = (patientQR) => {
-        this.setState({ patientBarCode: patientQR })
-    }*/
-    
-
-    //CallBack function that we call in PatientCapturePage.js
-
-
     constructor(props) {
         super(props);
         this.state = {
             medicationUpc: "",
             medicationName: "",
             lotNumber: "",
-            expDate: ""
+            expDate: "",
+            qrCode: this.props.qrCode 
         }
     }
     onBarCodeRead = (e) => {
@@ -165,7 +148,7 @@ class MedicationCapturePage extends Component {
                             <Text>
                                 Lot#:
                             </Text>
-                            <Input placeholder="Lot#" />
+                            <Input placeholder="Lot#!! -- !!UPC" value ={this.state.qrCode} />
                         </View>
                         <View style={styles.viewStyle}>
                             <Text>

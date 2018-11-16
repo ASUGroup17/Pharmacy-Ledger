@@ -1,3 +1,8 @@
+/**
+ * Purpose: This is the screen displayed after the Login Screen.  Here we use the camera of an mobile device to capture
+ * the barcode of a Patient's Wristband.  Only one patient can be captured at any given time.  
+ */
+
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
@@ -11,12 +16,13 @@ class PatientCapturePage extends Component {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.MedicationCapturePage',
             title: 'Add Medication',
+            //These props will be passed to the MedicatioCapturePage
             passProps: { 
-                qrCode: this.state.qrcode, 
-                patientFirstName: "", 
-                patientLastName: "",
-                patientDOB: ""
-            }
+            qrCode: this.state.qrCode, 
+            patientFirstName: "", 
+            patientLastName: "",
+            patientDOB: ""
+            }     
         })
     }    
 
@@ -24,23 +30,17 @@ class PatientCapturePage extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            qrcode: "",
-            patientfirstname: "",
-            patientlastname: "",
-            patientdob: ""            
+            qrCode: "",
+            patientFirstName: "",
+            patientLastName: "",
+            patientDOB: ""            
             }
     }
 
     //Sets the state of this object's qrcode to e.data.  e is the barcode's info:
     // data - textual representation of the barcode;  rawData - raw data encoded in the barcode; type - the type of barcode detected 
-    onBarCodeRead = (e) => this.setState({qrcode: e.data});
+    onBarCodeRead = (e) => this.setState({qrCode: e.data});
 
-    //This function is meant to set the e.data as props to be passed to MedicationCapturePage.js
-    //we will make 'this.props.(CALLBACK) (e.data)' able to be called in the MedicationCapturepage
-    /*
-    qrDataPassed = (e) => {
-        this.props.qrDataCallback(e.data);
-    }*/
 
 
     render () {
@@ -65,7 +65,7 @@ class PatientCapturePage extends Component {
                         >
                             <Text style={{
                                 backgroundColor: 'white'
-                            }}>{this.state.qrcode}</Text>                       
+                            }}>{this.state.qrCode}</Text>                       
                     </RNCamera>
 
 
