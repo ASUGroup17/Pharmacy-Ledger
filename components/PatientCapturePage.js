@@ -24,15 +24,17 @@ class PatientCapturePage extends Component {
             screen: 'pharmacy-ledger.MedicationCapturePage',
             title: 'Add Medication'
         })
-    }    
+    }
+
 
     constructor(props) {
         super(props);
         this.state = {
-            qrcode: ""
+            qrcode: "",
+            patientID: ""
         }
     }
-    onBarCodeRead = (e) => this.setState({qrcode: e.data});
+    onBarCodeRead = (e) => this.setState({patientID: e.data});
 
     render () {
         return (
@@ -54,9 +56,6 @@ class PatientCapturePage extends Component {
                         ref={cam => this.camera = cam}
                         //aspect={RNCamera.Constants.Aspect.fill}
                         >
-                            <Text style={{
-                                backgroundColor: 'white'
-                            }}>{this.state.qrcode}</Text>                       
                     </RNCamera>
 
 
@@ -64,9 +63,10 @@ class PatientCapturePage extends Component {
                             <Text>
                                 Patient ID:
                             </Text>
-                            <Input placeholder="Patient ID" />
+                            <Input placeholder="Patient ID" value={this.state.patientID}/>
                         </View>
-                    <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}>
+                    <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}
+                        disabled={!this.state.patientID}>
                         <Text>
                             Continue
                         </Text>
@@ -130,16 +130,4 @@ const styles = StyleSheet.create({
 export default PatientCapturePage;
 
 
-/*
-{({ camera, status }) => {
-                            if (status !== 'READY') return <PendingView />;
-                            return (
-                            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                                <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-                                <Text style={{ fontSize: 14 }}> Capture Image </Text>
-                                </TouchableOpacity>
-                                
-                            </View>
-                            );
-                        }}
-*/                        
+        
