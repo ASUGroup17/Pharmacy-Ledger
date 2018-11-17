@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
+import { hydratePatientData } from '../store/actions/PatientActions'
     
 const PendingView = () => (
         <View
@@ -24,7 +25,16 @@ class PatientCapturePage extends Component {
             screen: 'pharmacy-ledger.MedicationCapturePage',
             title: 'Add Medication'
         })
-    }    
+    }
+
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            qrcode: ""
+        }
+    }
+    onBarCodeRead = (e) => this.props.onPatientCapture(e.data)
 
     render () {
         return (
@@ -38,30 +48,25 @@ class PatientCapturePage extends Component {
                     <RNCamera
                         style={styles.preview}
                         type={RNCamera.Constants.Type.back}
-                        flashMode={RNCamera.Constants.FlashMode.on}
+                        //Turned flashMode to off; it was originally on
+                        flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
                         permissionDialogMessage={'We need your permission to use your camera phone'}
+                        onBarCodeRead={this.onBarCodeRead}
+                        ref={cam => this.camera = cam}
+                        //aspect={RNCamera.Constants.Aspect.fill}
                         >
-                        {({ camera, status }) => {
-                            if (status !== 'READY') return <PendingView />;
-                            return (
-                            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                                <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-                                <Text style={{ fontSize: 14 }}> Capture Image </Text>
-                                </TouchableOpacity>
-                            </View>
-                            );
-                        }}
                     </RNCamera>
 
 
-                    <View style={styles.patientIdView}>
-                        <Text>
-                            Patient ID:
-                        </Text>
-                        <Input placeholder="Patient ID" />
-                    </View>
-                    <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}>
+                        <View style={styles.patientIdView}>
+                            <Text>
+                                Patient ID:
+                            </Text>
+                            <Input placeholder="Patient ID" value={this.props.patient.id}/>
+                        </View>
+                    <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}
+                        disabled={!this.props.patient.id}>
                         <Text>
                             Continue
                         </Text>
@@ -128,4 +133,10 @@ const mapStateToProps = ({ patient }) => {
     }
 }
 
-export default connect(mapStateToProps)(PatientCapturePage);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onPatientCapture: (data) => dispatch(hydratePatientData(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientCapturePage);
