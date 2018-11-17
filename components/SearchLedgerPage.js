@@ -13,7 +13,7 @@
 import React, { Component } from 'react';
 import  { Platform, StyleSheet, Link, View} from 'react-native';
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base';
-
+import {searchLedgerPageStyles as styles} from '../styles/common'
 
 class SearchLedgerPage extends Component {
     //Creating handler to navigate to the Search Results Screen
@@ -38,7 +38,7 @@ class SearchLedgerPage extends Component {
                             <Item>
                                 <Input placeholder = "Physician Name"/>
                             </Item>
-                            <Item last> 
+                            <Item last>
                                 <Input placeholder = "Medication Name"/>
                             </Item>
                         </Form>
@@ -53,7 +53,7 @@ class SearchLedgerPage extends Component {
                                 Cancel
                             </Text>
                         </Button>
-                    
+
                     </View>
                 </Content>
             </Container>
@@ -62,37 +62,4 @@ class SearchLedgerPage extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-around',
-        alignContent: 'space-between',
-    },
-
-    content: {
-        alignContent: 'space-around',
-        justifyContent: 'space-around'
-    },
-
-    buttton: {
-        alignSelf: 'center',
-        justifyContent: 'space-around',
-        alignContent: 'space-around',
-        marginBottom: 100,
-        marginTop: 50
-    },
-
-    text: {
-        alignContent: 'center',
-        padding: 2
-    },
-
-    link: {
-        alignSelf: 'center',
-        color: '#0000ff',
-        padding: 2
-    }
-});
-
 export default SearchLedgerPage;
-
