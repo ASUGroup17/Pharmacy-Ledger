@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
-    
+import {patientCapturePageStyles as styles, commonStyles} from '../styles/common'
+
 const PendingView = () => (
         <View
           style={{
@@ -16,7 +17,6 @@ const PendingView = () => (
         </View>
       );
 
-
 class PatientCapturePage extends Component {
 
     continueHandler = () => {
@@ -24,27 +24,28 @@ class PatientCapturePage extends Component {
             screen: 'pharmacy-ledger.MedicationCapturePage',
             title: 'Add Medication'
         })
-    }    
+    }
 
     constructor(props) {
         super(props);
         this.state = {
-            qrcode: ""
+            qrcode: "",
+            patientID: ""
         }
     }
-    onBarCodeRead = (e) => this.setState({qrcode: e.data});
+    onBarCodeRead = (e) => this.setState({patientID: e.data});
 
     render () {
         return (
-            <Container style={styles.containerStyle}>
+            <Container style={commonStyles.containerStyle}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
-                <View style={styles.contentStyle}>
+                <View style={commonStyles.contentStyle}>
                     <Text style={{alignSelf: 'center'}}>
                         Scan Patient's Wristband
                     </Text>
 
                     <RNCamera
-                        style={styles.preview}
+                        style={commonStyles.preview2}
                         type={RNCamera.Constants.Type.back}
                         //Turned flashMode to off; it was originally on
                         flashMode={RNCamera.Constants.FlashMode.off}
@@ -54,19 +55,16 @@ class PatientCapturePage extends Component {
                         ref={cam => this.camera = cam}
                         //aspect={RNCamera.Constants.Aspect.fill}
                         >
-                            <Text style={{
-                                backgroundColor: 'white'
-                            }}>{this.state.qrcode}</Text>                       
                     </RNCamera>
-
 
                         <View style={styles.patientIdView}>
                             <Text>
                                 Patient ID:
                             </Text>
-                            <Input placeholder="Patient ID" />
+                            <Input placeholder="Patient ID" value={this.state.patientID}/>
                         </View>
-                    <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}>
+                    <Button bordered style={commonStyles.buttonStyle} onPress={this.continueHandler}
+                        disabled={!this.state.patientID}>
                         <Text>
                             Continue
                         </Text>
@@ -83,63 +81,6 @@ class PatientCapturePage extends Component {
         //  eslint-disable-next-line
         console.log(data.uri);
       }
-}
-
-const styles = StyleSheet.create({
-    containerStyle: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        flexGrow: 1
-    },
-    contentStyle: {
-        flex: 1,
-        flexGrow: 1,
-        //alignItems: 'center',
-        justifyContent: 'space-around',
-    },
-    preview: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    },
-    capture: {
-        flex: 0,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
-        alignSelf: 'center',
-        margin: 20,
-      },
-    patientIdView: {
-        flex: .2,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        flexDirection: 'row',
-        paddingLeft: 50
-    },
-    buttonStyle: {
-        alignSelf: 'center'
-    }
-
-
-})
+};
 
 export default PatientCapturePage;
-
-
-/*
-{({ camera, status }) => {
-                            if (status !== 'READY') return <PendingView />;
-                            return (
-                            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                                <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-                                <Text style={{ fontSize: 14 }}> Capture Image </Text>
-                                </TouchableOpacity>
-                                
-                            </View>
-                            );
-                        }}
-*/                        
