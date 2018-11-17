@@ -125,3 +125,105 @@ export const medicationCaptureStyles = StyleSheet.create({
         justifyContent: 'center'
     }
 });
+
+export const patientCapturePageStyles = StyleSheet.create({
+    containerStyle: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        flexGrow: 1
+    },
+    contentStyle: {
+        flex: 1,
+        flexGrow: 1,
+        //alignItems: 'center',
+        justifyContent: 'space-around',
+    },
+    preview: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    capture: {
+        flex: 0,
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        padding: 15,
+        paddingHorizontal: 20,
+        alignSelf: 'center',
+        margin: 20,
+      },
+    patientIdView: {
+        flex: .2,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        paddingLeft: 50
+    },
+    buttonStyle: {
+        alignSelf: 'center'
+    }
+});
+
+export const searchLedgerPageStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'space-around',
+        alignContent: 'space-between',
+    },
+
+    content: {
+        alignContent: 'space-around',
+        justifyContent: 'space-around'
+    },
+
+    buttton: {
+        alignSelf: 'center',
+        justifyContent: 'space-around',
+        alignContent: 'space-around',
+        marginBottom: 100,
+        marginTop: 50
+    },
+
+    text: {
+        alignContent: 'center',
+        padding: 2
+    },
+
+    link: {
+        alignSelf: 'center',
+        color: '#0000ff',
+        padding: 2
+    }
+});
+
+export const searchResultsPageStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'space-around',
+        alignContent: 'space-between',
+    },
+    content: {
+       justifyContent: 'space-around',
+       alignContent: 'space-between',
+    },
+    button: {
+        alignSelf: 'center',
+        justifyContent: 'space-around',
+        alignContent: 'space-around',
+        marginBottom: 100,
+        marginTop: 50
+    },
+
+    text: {
+        alignContent: 'center',
+        padding: 2
+    },
+
+    link: {
+        alignSelf: 'center',
+        color: '#0000ff',
+        padding: 2
+    }
+});

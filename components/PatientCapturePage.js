@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
-    
+import {patientCapturePageStyles as styles} from '../styles/common'
+
 const PendingView = () => (
         <View
           style={{
@@ -16,7 +17,6 @@ const PendingView = () => (
         </View>
       );
 
-
 class PatientCapturePage extends Component {
 
     continueHandler = () => {
@@ -25,7 +25,6 @@ class PatientCapturePage extends Component {
             title: 'Add Medication'
         })
     }
-
 
     constructor(props) {
         super(props);
@@ -58,7 +57,6 @@ class PatientCapturePage extends Component {
                         >
                     </RNCamera>
 
-
                         <View style={styles.patientIdView}>
                             <Text>
                                 Patient ID:
@@ -83,51 +81,6 @@ class PatientCapturePage extends Component {
         //  eslint-disable-next-line
         console.log(data.uri);
       }
-}
-
-const styles = StyleSheet.create({
-    containerStyle: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        flexGrow: 1
-    },
-    contentStyle: {
-        flex: 1,
-        flexGrow: 1,
-        //alignItems: 'center',
-        justifyContent: 'space-around',
-    },
-    preview: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    },
-    capture: {
-        flex: 0,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
-        alignSelf: 'center',
-        margin: 20,
-      },
-    patientIdView: {
-        flex: .2,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        flexDirection: 'row',
-        paddingLeft: 50
-    },
-    buttonStyle: {
-        alignSelf: 'center'
-    }
-
-
-})
+};
 
 export default PatientCapturePage;
-
-
-        
