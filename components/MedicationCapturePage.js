@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
     
@@ -146,4 +147,18 @@ const styles = StyleSheet.create({
 
 })
 
-export default MedicationCapturePage;
+const mapStateToProps = ({ medication, patient }) => {
+    return { 
+        medication,
+        patient
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onMedicationCapture: () => dispatch(updateMedication())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MedicationCapturePage);

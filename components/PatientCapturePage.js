@@ -122,4 +122,10 @@ const styles = StyleSheet.create({
 
 })
 
-export default PatientCapturePage;
+const mapStateToProps = ({ patient }) => {
+    return {
+        patient
+    }
+}
+
+export default connect(mapStateToProps)(PatientCapturePage);
