@@ -39,17 +39,32 @@ class MedicationCapturePage extends Component {
         }
     }
     onBarCodeRead = (e) => {
-        alert(e.data)
-        alert(e.rawData)
-        alert(e.type)
         this.setState({medicationUpc: e.data}, () => {
             this.createNdcStrings(this.state.medicationUpc);
         })
     };
 
     onTextRecognized = ({textBlocks}) => {
+        var patt1, patt2, patt3
+        patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
+        patt2 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9]");
+        patt3 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9]");
+        
+
         detectedTexts = textBlocks.map(b => b.value)
         console.log("TEXTBLOCK: " + detectedTexts)
+        var match = patt1.exec(detectedTexts)
+        if(!match){
+            var match = patt2.exec(detectedTexts)
+        }
+        if(!match){
+            var match = patt3.exec(detectedTexts)
+        }
+
+        if(match){
+            this.getMedName(match,null,null)
+        }
+
     }
 
     createNdcStrings  = (medicationUpc) => {
