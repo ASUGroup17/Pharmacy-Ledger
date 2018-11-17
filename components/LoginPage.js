@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Link, View} from 'react-native';
 import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base'
 import startMainTabs from './startMainTabs';
-import {loginPageStyles as styles} from '../styles/common'
+import {loginPageStyles as styles, commonStyles} from '../styles/common'
 
 class LoginPage extends Component {
   loginHandler = () => {
@@ -20,9 +20,9 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <Container style={styles.container}>
+      <Container style={commonStyles.container}>
         <Content>
-        <View style={styles.content}>
+        <View style={commonStyles.content}>
           <Form>
             <Item>
               <Input placeholder="Username" />
@@ -31,14 +31,14 @@ class LoginPage extends Component {
               <Input placeholder="Password" />
             </Item>
           </Form>
-          <Button bordered style={styles.button} onPress={this.loginHandler}>
+          <Button bordered style={commonStyles.button} onPress={this.loginHandler}>
             <Text>
               Login!
             </Text>
           </Button>
-          <Text style={styles.text}>Selected EMR</Text>
-          <Text style={styles.text}>PCH - Allscripts</Text>
-          <Text style={styles.link}>Change System</Text>
+          <Text style={commonStyles.text}>Selected EMR</Text>
+          <Text style={commonStyles.text}>PCH - Allscripts</Text>
+          <Text style={commonStyles.link}>Change System</Text>
           </View>
         </Content>
       </Container>
