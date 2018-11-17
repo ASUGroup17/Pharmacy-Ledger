@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
-import {medicationCaptureStyles as styles} from '../styles/common'
+import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
 
 // const PendingView = () => (
 //         <View
@@ -102,15 +102,15 @@ class MedicationCapturePage extends Component {
 
     render () {
         return (
-            <Container style={styles.containerStyle}>
+            <Container style={commonStyles.containerStyle}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
-                <View style={styles.contentStyle}>
+                <View style={commonStyles.contentStyle2}>
                     <Text style={{alignSelf: 'center'}}>
                         Scan Medication
                     </Text>
 
                     <RNCamera
-                        style={styles.preview}
+                        style={commonStyles.preview}
                         type={RNCamera.Constants.Type.back}
                         flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
@@ -125,7 +125,7 @@ class MedicationCapturePage extends Component {
                             if (status !== 'READY') return <PendingView />;
                             return (
                             <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                                <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
+                                <TouchableOpacity onPress={() => this.takePicture(camera)} style={commonStyles.capture}>
                                 <Text style={{ fontSize: 14 }}> Capture Image </Text>
                                 </TouchableOpacity>
                             </View>
@@ -156,7 +156,7 @@ class MedicationCapturePage extends Component {
                             <Input placeholder="Expiration Date" />
                         </View>
                     </View>
-                    <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}>
+                    <Button bordered style={commonStyles.buttonStyle} onPress={this.continueHandler}>
                         <Text>
                             Continue
                         </Text>
