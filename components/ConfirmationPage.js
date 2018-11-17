@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native'
 import { Container, Content, Card, Body, Button, Text, Form, Item, Input, CardItem } from 'native-base'
-
+import {confirmationPageStyles as styles} from '../styles/common'
 
 class ConfirmationPage extends Component {
     render () {
@@ -33,7 +33,7 @@ class ConfirmationPage extends Component {
                                 </Body>
                             </CardItem>
                         </Card>
-                    </View> 
+                    </View>
                     <View style={styles.buttonRowStyle}>
                     <Button bordered primary style={styles.buttonStyle}>
                         <Text>
@@ -51,42 +51,4 @@ class ConfirmationPage extends Component {
         )
     }
 }
-
-
-const styles = StyleSheet.create({
-    containerStyle: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        flexGrow: 1
-    },
-    contentStyle: {
-        flex: 1,
-        flexGrow: 1,
-    },
-    viewStyle: {
-        flex: 0,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        justifyContent: 'flex-start',
-        flexDirection: 'row',
-        paddingLeft: 50,
-        backgroundColor: 'white',
-        paddingTop: 0,
-        paddingBottom: 0,
-        marginTop: 0,
-        marginBottom: 0
-    },
-    cardHeaderStyle: {
-        backgroundColor: 'lightgray'
-    },
-    cardBodyStyle: {
-        backgroundColor: 'gainsboro'
-    },
-    buttonRowStyle: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignContent: 'flex-end'
-    }
-})
 export default ConfirmationPage;

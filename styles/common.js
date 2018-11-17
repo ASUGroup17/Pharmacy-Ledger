@@ -1,6 +1,43 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Link, View} from 'react-native';
 
+export const confirmationPageStyles = StyleSheet.create({
+    containerStyle: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        flexGrow: 1
+    },
+    contentStyle: {
+        flex: 1,
+        flexGrow: 1,
+    },
+    viewStyle: {
+        flex: 0,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        paddingLeft: 50,
+        backgroundColor: 'white',
+        paddingTop: 0,
+        paddingBottom: 0,
+        marginTop: 0,
+        marginBottom: 0
+    },
+    cardHeaderStyle: {
+        backgroundColor: 'lightgray'
+    },
+    cardBodyStyle: {
+        backgroundColor: 'gainsboro'
+    },
+    buttonRowStyle: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignContent: 'flex-end'
+    }
+});
+
 export const loginPageStyles = StyleSheet.create({
   container: {
     flex: 1,
