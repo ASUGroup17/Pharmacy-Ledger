@@ -7,21 +7,21 @@
  "use Strict";
 
  //Importing Components
- import React, { Component } from 'react';
- import { Platform, StyleSheet, Link, View} from 'react-native';
- import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base';
- 
+import React, { Component } from 'react';
+import { Platform, StyleSheet, Link, View} from 'react-native';
+import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base';
+import {searchResultsPageStyles as styles} from '../styles/common'
 
 class SearchResultsPage extends Component {
-    
-    
+
+
     //Creating Handler to Navigate the 'New Search' button, will nagivate to the SearchLedgerPage.js screen
     newSearchHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.SearchLedgerPage',
             title: 'New Search'
         })
-    }   
+    }
 
      render () {
          return (
@@ -60,35 +60,5 @@ class SearchResultsPage extends Component {
          );
      }
  }
-
- const styles = StyleSheet.create({
-     container: {
-         flex: 1,
-         justifyContent: 'space-around',
-         alignContent: 'space-between',
-     },
-     content: {
-        justifyContent: 'space-around',
-        alignContent: 'space-between',
-     },
-     button: {
-         alignSelf: 'center',
-         justifyContent: 'space-around',
-         alignContent: 'space-around',
-         marginBottom: 100,
-         marginTop: 50
-     },
-
-     text: {
-         alignContent: 'center',
-         padding: 2
-     },
-
-     link: {
-         alignSelf: 'center',
-         color: '#0000ff',
-         padding: 2
-     }
- });
 
  export default SearchResultsPage;
