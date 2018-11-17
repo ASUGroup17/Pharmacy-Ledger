@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
-import {patientCapturePageStyles as styles} from '../styles/common'
+import {patientCapturePageStyles as styles, commonStyles} from '../styles/common'
 
 const PendingView = () => (
         <View
@@ -37,15 +37,15 @@ class PatientCapturePage extends Component {
 
     render () {
         return (
-            <Container style={styles.containerStyle}>
+            <Container style={commonStyles.containerStyle}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
-                <View style={styles.contentStyle}>
+                <View style={commonStyles.contentStyle}>
                     <Text style={{alignSelf: 'center'}}>
                         Scan Patient's Wristband
                     </Text>
 
                     <RNCamera
-                        style={styles.preview}
+                        style={commonStyles.preview2}
                         type={RNCamera.Constants.Type.back}
                         //Turned flashMode to off; it was originally on
                         flashMode={RNCamera.Constants.FlashMode.off}
@@ -63,7 +63,7 @@ class PatientCapturePage extends Component {
                             </Text>
                             <Input placeholder="Patient ID" value={this.state.patientID}/>
                         </View>
-                    <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}
+                    <Button bordered style={commonStyles.buttonStyle} onPress={this.continueHandler}
                         disabled={!this.state.patientID}>
                         <Text>
                             Continue
