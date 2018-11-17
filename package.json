@@ -16,10 +16,7 @@
     "react-native-vector-icons": "^6.0.2",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
-<<<<<<< HEAD
     "redux-axios-middleware": "^4.0.0",
-=======
->>>>>>> 24fff509bd01e9bc80cb34af3459bda28d283626
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
