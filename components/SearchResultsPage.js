@@ -10,7 +10,7 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Link, View} from 'react-native';
 import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base';
-import {searchResultsPageStyles as styles} from '../styles/common'
+import {searchResultsPageStyles as styles, commonStyles} from '../styles/common'
 
 class SearchResultsPage extends Component {
 
@@ -25,9 +25,9 @@ class SearchResultsPage extends Component {
 
      render () {
          return (
-             <Container style={styles.Container}>
+             <Container style={commonStyles.Container}>
                 <Content>
-                    <View style={styles.Container}>
+                    <View style={commonStyles.Container}>
                         <Form>
                             <Item>
                                 <Input placeholder = "Administering Physician"/>
@@ -49,7 +49,7 @@ class SearchResultsPage extends Component {
                             </Item>
                         </Form>
 
-                        <Button bordered style = {styles.button} onPress={this.newSearchHandler} >
+                        <Button bordered style = {commonStyles.button} onPress={this.newSearchHandler} >
                             <Text>
                                 New Search
                             </Text>
