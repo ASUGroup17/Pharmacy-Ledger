@@ -37,3 +37,54 @@ export const loginPageStyles = StyleSheet.create({
     padding: 2
   }
 });
+
+export const medicationCaptureStyles = StyleSheet.create({
+    containerStyle: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        flexGrow: 1
+    },
+    contentStyle: {
+        flex: 1,
+        flexGrow: 1,
+        //alignItems: 'center',
+        justifyContent: 'space-around',
+
+    },
+    preview: {
+        flex: 1,
+        flexGrow: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    capture: {
+        flex: 0,
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        padding: 15,
+        paddingHorizontal: 20,
+        alignSelf: 'center',
+        margin: 20
+      },
+    viewStyle: {
+        flex: 0,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        paddingLeft: 50,
+        backgroundColor: 'white',
+        paddingTop: 0,
+        paddingBottom: 0,
+        marginTop: 0,
+        marginBottom: 0
+    },
+    buttonStyle: {
+        alignSelf: 'center'
+    },
+    groupTight: {
+        flex: 0,
+        flexDirection: 'column',
+        justifyContent: 'center'
+    }
+});
