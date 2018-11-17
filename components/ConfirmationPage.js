@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native'
 import { Container, Content, Card, Body, Button, Text, Form, Item, Input, CardItem } from 'native-base'
-import {confirmationPageStyles as styles} from '../styles/common'
+import {confirmationPageStyles as styles, commonStyles} from '../styles/common'
 
 class ConfirmationPage extends Component {
     render () {
         return (
-            <Container style={styles.containerStyle}>
-                <Content contentContainerStyle={{justifyContent: "center"}} style={styles.contentStyle}>
+            <Container style={commonStyles.containerStyle}>
+                <Content contentContainerStyle={{justifyContent: "center"}} style={commonStyles.contentStyle}>
                     <View>
                         <Text style={styles.viewStyle}>Confirm Details to add to Ledger.</Text>
                         <View style={styles.viewStyle}>
