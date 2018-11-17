@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Link, View} from 'react-native';
 import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base'
 import startMainTabs from './startMainTabs';
-
+import {loginPageStyles as styles} from '../styles/common'
 
 class LoginPage extends Component {
   loginHandler = () => {
@@ -30,7 +30,7 @@ class LoginPage extends Component {
             <Item last>
               <Input placeholder="Password" />
             </Item>
-          </Form> 
+          </Form>
           <Button bordered style={styles.button} onPress={this.loginHandler}>
             <Text>
               Login!
@@ -46,42 +46,4 @@ class LoginPage extends Component {
   }
 }
 
-
 export default LoginPage;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-around',
-    alignContent: 'space-between',
-    //alignItems: 'center'
-    //backgroundColor: '#F5FCFF',
-  },
-  content: {
-    //fontSize: 20,
-    //textAlign: 'center',
-    //margin: 10,
-    //alignSelf: 'center',
-    alignContent: 'space-around',
-    justifyContent: 'space-around'
-  },
-  button: {
-    alignSelf: 'center',
-    justifyContent: 'space-around',
-    alignContent: 'space-around',
-    marginBottom: 100,
-    marginTop: 50
-    //textAlign: 'center',
-    //color: '#333333',
-    //marginBottom: 5,
-  },
-  text: {
-    alignSelf: 'center',
-    padding: 2
-  },
-  link: {
-    alignSelf: 'center',
-    color: '#0000ff',
-    padding: 2
-  }
-});
