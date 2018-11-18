@@ -39,6 +39,7 @@ export const medicationCaptureStyles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: 'row',
         paddingLeft: 50,
+        paddingRight: 50,
         backgroundColor: 'white',
         paddingTop: 0,
         paddingBottom: 0,

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Container, Content, Button, Text, Input } from 'native-base'
+import { Container, Content, Button, Text, Input, Item, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
 import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
@@ -148,19 +148,28 @@ class MedicationCapturePage extends Component {
                             <Text>
                                 Medication:
                             </Text>
-                            <Input placeholder="Medication Name" value={this.state.medicationName}/>
+                            <Item success ={(this.state.medicationName == "") ? false : true}>
+                                <Input placeholder="Medication Name" value={this.state.medicationName}/>
+                                <Icon name='checkmark-circle' />
+                            </Item>
                         </View>
                         <View style={styles.viewStyle}>
                             <Text>
                                 Lot#:
                             </Text>
-                            <Input placeholder="Lot#" value ={this.state.lotNumber} />
+                            <Item success ={(this.state.lotNumber == "") ? false : true}>
+                                <Input placeholder="Lot#" value ={this.state.lotNumber} />
+                                <Icon name='checkmark-circle' />
+                            </Item>
                         </View>
                         <View style={styles.viewStyle}>
                             <Text>
                                 Expiration Date:
                             </Text>
-                            <Input placeholder="Expiration Date" value={this.state.expDate} />
+                            <Item success ={(this.state.expDate == "") ? false : true}>
+                                <Input placeholder="Expiration Date" value={this.state.expDate} />
+                                <Icon name='checkmark-circle' />
+                            </Item>
                         </View>
                     </View>
                     <Button bordered style={commonStyles.buttonStyle} onPress={this.continueHandler}>
