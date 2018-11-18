@@ -1,20 +1,13 @@
+/**
+ * Purpose: This is the screen displayed after the Login Screen.  Here we use the camera of an mobile device to capture
+ * the barcode of a Patient's Wristband.  Only one patient can be captured at any given time.  
+ */
+
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
     
-const PendingView = () => (
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'lightgreen',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text>Waiting</Text>
-        </View>
-      );
 
 
 class PatientCapturePage extends Component {
@@ -22,17 +15,33 @@ class PatientCapturePage extends Component {
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.MedicationCapturePage',
-            title: 'Add Medication'
+            title: 'Add Medication',
+            //These props will be passed to the MedicatioCapturePage
+            passProps: { 
+            qrCode: this.state.qrCode, 
+            patientFirstName: "", 
+            patientLastName: "",
+            patientDOB: ""
+            }     
         })
     }    
 
+    
     constructor(props) {
         super(props);
-        this.state = {
-            qrcode: ""
-        }
+        this.state = { 
+            qrCode: "",
+            patientFirstName: "",
+            patientLastName: "",
+            patientDOB: ""            
+            }
     }
-    onBarCodeRead = (e) => this.setState({qrcode: e.data});
+
+    //Sets the state of this object's qrcode to e.data.  e is the barcode's info:
+    // data - textual representation of the barcode;  rawData - raw data encoded in the barcode; type - the type of barcode detected 
+    onBarCodeRead = (e) => this.setState({qrCode: e.data});
+
+
 
     render () {
         return (
@@ -45,7 +54,7 @@ class PatientCapturePage extends Component {
 
                     <RNCamera
                         style={styles.preview}
-                        type={RNCamera.Constants.Type.back}
+                            type={RNCamera.Constants.Type.back}
                         //Turned flashMode to off; it was originally on
                         flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
@@ -56,7 +65,7 @@ class PatientCapturePage extends Component {
                         >
                             <Text style={{
                                 backgroundColor: 'white'
-                            }}>{this.state.qrcode}</Text>                       
+                            }}>{this.state.qrCode}</Text>                       
                     </RNCamera>
 
 
@@ -128,18 +137,3 @@ const styles = StyleSheet.create({
 })
 
 export default PatientCapturePage;
-
-
-/*
-{({ camera, status }) => {
-                            if (status !== 'READY') return <PendingView />;
-                            return (
-                            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                                <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-                                <Text style={{ fontSize: 14 }}> Capture Image </Text>
-                                </TouchableOpacity>
-                                
-                            </View>
-                            );
-                        }}
-*/                        
