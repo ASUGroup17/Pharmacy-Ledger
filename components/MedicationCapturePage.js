@@ -3,7 +3,8 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
-    
+import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
+
 
 class MedicationCapturePage extends Component {
 
@@ -20,8 +21,8 @@ class MedicationCapturePage extends Component {
                 medicationName: "",
                 lotNumber: "",
                 expDate: "",
-                //These 4 come from the passProps of the Patient Capture page; currently qr code is the only valid data being used
-                qrCode: this.props.qrCode,
+                //These 4 come from the passProps of the Patient Capture page; currently patientID code is the only valid data being used
+                patientID: this.props.patientID,
                 patientFirstName: "", 
                 patientLastName: "",
                 patientDOB: ""    
@@ -36,28 +37,43 @@ class MedicationCapturePage extends Component {
             medicationName: "",
             lotNumber: "",
             expDate: "",
-            qrCode: this.props.qrCode 
+            patientID: this.props.patientID 
         }
     }
     onBarCodeRead = (e) => {
-        alert(e.data)
-        alert(e.rawData)
-        alert(e.type)
         this.setState({medicationUpc: e.data}, () => {
             this.createNdcStrings(this.state.medicationUpc);
-        })   
+        })
     };
 
     onTextRecognized = ({textBlocks}) => {
+        var patt1, patt2, patt3
+        patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
+        patt2 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9]");
+        patt3 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9]");
+        
+
         detectedTexts = textBlocks.map(b => b.value)
         console.log("TEXTBLOCK: " + detectedTexts)
+        var match = patt1.exec(detectedTexts)
+        if(!match){
+            var match = patt2.exec(detectedTexts)
+        }
+        if(!match){
+            var match = patt3.exec(detectedTexts)
+        }
+
+        if(match){
+            this.getMedName(match,null,null)
+        }
+
     }
 
     createNdcStrings  = (medicationUpc) => {
         ndc442 = medicationUpc.substring(2,6) + "-" + medicationUpc.substring(6,10) + "-" + medicationUpc.substring(10,12);
         ndc532 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,10) + "-" + medicationUpc.substring(10,12);
         ndc541 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,11) + "-" + medicationUpc.substring(11,12);
-        
+
         //alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
         this.getMedName(ndc442,ndc532,ndc541)
 
@@ -79,7 +95,7 @@ class MedicationCapturePage extends Component {
 
         axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc532)
         .then(response => {
-            
+
             if(response.data.ndcStatus.status == "ACTIVE"){
                 //alert("**TERIN2**" + response.data.ndcStatus.status)
                 names.push(response.data.ndcStatus.conceptName)
@@ -89,7 +105,7 @@ class MedicationCapturePage extends Component {
 
         axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc541)
         .then(response => {
-            
+
             if(response.data.ndcStatus.status == "ACTIVE"){
                 //alert("**TERIN3**" + response.data.ndcStatus.status)
                 names.push(response.data.ndcStatus.conceptName)
@@ -103,38 +119,28 @@ class MedicationCapturePage extends Component {
 
     render () {
         return (
-            <Container style={styles.containerStyle}>
+            <Container style={commonStyles.containerStyle}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
-                <View style={styles.contentStyle}>
+                <View style={commonStyles.contentStyle2}>
                     <Text style={{alignSelf: 'center'}}>
                         Scan Medication
                     </Text>
 
                     <RNCamera
-                        style={styles.preview}
+                        style={commonStyles.preview}
                         type={RNCamera.Constants.Type.back}
                         flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
                         permissionDialogMessage={'We need your permission to use your camera phone'}
-                        
+
                         onBarCodeRead= {(this.state.medicationName == "") ? this.onBarCodeRead : null}
                         //onBarCodeRead = {this.onBarCodeRead}
                         onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
-                        {/* {({ camera, status }) => {
-                            if (status !== 'READY') return <PendingView />;
-                            return (
-                            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                                <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-                                <Text style={{ fontSize: 14 }}> Capture Image </Text>
-                                </TouchableOpacity>
-                            </View>
-                            );
-                        }} */}
                             <Text style={{
                                 backgroundColor: 'white'
-                            }}>{this.state.medicationUpc}</Text> 
+                            }}>{this.state.medicationUpc}</Text>
                     </RNCamera>
 
                     <View style={styles.groupTight}>
@@ -148,16 +154,16 @@ class MedicationCapturePage extends Component {
                             <Text>
                                 Lot#:
                             </Text>
-                            <Input placeholder="Lot#!! -- !!UPC" value ={this.state.qrCode} />
+                            <Input placeholder="Lot#" value ={this.state.lotNumber} />
                         </View>
                         <View style={styles.viewStyle}>
                             <Text>
                                 Expiration Date:
                             </Text>
-                            <Input placeholder="Expiration Date" />
+                            <Input placeholder="Expiration Date" value={this.state.expDate} />
                         </View>
                     </View>
-                    <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}>
+                    <Button bordered style={commonStyles.buttonStyle} onPress={this.continueHandler}>
                         <Text>
                             Continue
                         </Text>
@@ -175,58 +181,5 @@ class MedicationCapturePage extends Component {
         console.log(data.uri);
       }
 }
-
-const styles = StyleSheet.create({
-    containerStyle: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        flexGrow: 1
-    },
-    contentStyle: {
-        flex: 1,
-        flexGrow: 1,
-        //alignItems: 'center',
-        justifyContent: 'space-around',
-
-    },
-    preview: {
-        flex: 1,
-        flexGrow: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-    },
-    capture: {
-        flex: 0,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
-        alignSelf: 'center',
-        margin: 20
-      },
-    viewStyle: {
-        flex: 0,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        flexDirection: 'row',
-        paddingLeft: 50,
-        backgroundColor: 'white',
-        paddingTop: 0,
-        paddingBottom: 0,
-        marginTop: 0,
-        marginBottom: 0
-    },
-    buttonStyle: {
-        alignSelf: 'center'
-    },
-    groupTight: {
-        flex: 0,
-        flexDirection: 'column',
-        justifyContent: 'center'
-    }
-
-
-})
 
 export default MedicationCapturePage;
