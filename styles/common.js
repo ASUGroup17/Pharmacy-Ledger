@@ -8,7 +8,7 @@ export const confirmationPageStyles = StyleSheet.create({
         justifyContent: 'space-around',
         justifyContent: 'flex-start',
         flexDirection: 'row',
-        paddingLeft: 50,
+        paddingLeft: 20,
         backgroundColor: 'white',
         paddingTop: 0,
         paddingBottom: 0,
@@ -38,16 +38,19 @@ export const medicationCaptureStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         flexDirection: 'row',
-        paddingLeft: 50,
-        paddingRight: 50,
+        paddingLeft: 10,
+        paddingRight: 150,
         backgroundColor: 'white',
         paddingTop: 0,
         paddingBottom: 0,
         marginTop: 0,
-        marginBottom: 0
+        marginBottom: 0,
+        marginLeft: 1,
+        marginRight: 1
     },
     groupTight: {
         flex: 0,
+        alignSelf: 'stretch',
         flexDirection: 'column',
         justifyContent: 'center'
     }
@@ -59,9 +62,20 @@ export const patientCapturePageStyles = StyleSheet.create({
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'space-around',
-        flexDirection: 'row',
-        paddingLeft: 50
+        paddingLeft: 5
     },
+    viewStyle: {
+      flex: .1,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      paddingLeft: 30,
+      paddingRight: 50,
+      backgroundColor: 'white',
+      paddingTop: 0,
+      paddingBottom: 0,
+      marginTop: 0,
+      marginBottom: 0
+  }
 });
 
 export const searchLedgerPageStyles = StyleSheet.create({

@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
+import { Container, Content, Button, Text, Form, Item, Icon, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import {patientCapturePageStyles as styles, commonStyles} from '../styles/common'
     
@@ -69,7 +69,10 @@ class PatientCapturePage extends Component {
                             <Text>
                                 Patient ID:
                             </Text>
-                            <Input placeholder="Patient ID" value={this.state.patientID}/>
+                            <Item success ={(this.state.patientID == "") ? false : true}>
+                                <Input placeholder="Patient ID" value={this.state.patientID}/>
+                                <Icon name='checkmark-circle' />
+                            </Item>
                         </View>
                     <Button bordered style={commonStyles.buttonStyle} onPress={this.continueHandler}
                         disabled={!this.state.patientID}>
