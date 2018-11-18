@@ -133,8 +133,10 @@ export const commonStyles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-around',
     alignContent: 'space-around',
-    marginBottom: 100,
-    marginTop: 50
+    color: '#7E0AF9',
+    backgroundColor: '#C5ECF4',
+    marginBottom: 20,
+    marginTop: 20
   },
 
   // loginPageStyles
