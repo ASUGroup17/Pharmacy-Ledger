@@ -5,19 +5,6 @@ import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
 import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
 
-// const PendingView = () => (
-//         <View
-//           style={{
-//             flex: 1,
-//             //backgroundColor: 'lightgreen',
-//             justifyContent: 'center',
-//             alignItems: 'center',
-//           }}
-//         >
-//           <Text>Waiting</Text>
-//         </View>
-//       );
-
 
 class MedicationCapturePage extends Component {
 
@@ -25,31 +12,61 @@ class MedicationCapturePage extends Component {
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.ConfirmationPage',
-            title: 'Confirm Transaction'
+            title: 'Confirm Transaction',
+            
+            //Passing these props to the next Screen (ConfirmationPage) that will be pushed to the Navigator Stack
+            passProps: {
+                //These first 4 are from thr MedicationCapturePage
+                medicationUpc: "",
+                medicationName: "",
+                lotNumber: "",
+                expDate: "",
+                //These 4 come from the passProps of the Patient Capture page; currently patientID code is the only valid data being used
+                patientID: this.props.patientID,
+                patientFirstName: "", 
+                patientLastName: "",
+                patientDOB: ""    
+            }
         })
     }
-
+    
     constructor(props) {
         super(props);
         this.state = {
             medicationUpc: "",
             medicationName: "",
             lotNumber: "",
-            expDate: ""
+            expDate: "",
+            patientID: this.props.patientID 
         }
     }
     onBarCodeRead = (e) => {
-        alert(e.data)
-        alert(e.rawData)
-        alert(e.type)
         this.setState({medicationUpc: e.data}, () => {
             this.createNdcStrings(this.state.medicationUpc);
         })
     };
 
     onTextRecognized = ({textBlocks}) => {
+        var patt1, patt2, patt3
+        patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
+        patt2 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9]");
+        patt3 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9]");
+        
+
         detectedTexts = textBlocks.map(b => b.value)
         console.log("TEXTBLOCK: " + detectedTexts)
+        var match = patt1.exec(detectedTexts)
+        if(!match){
+            var match = patt2.exec(detectedTexts)
+        }
+        if(!match){
+            var match = patt3.exec(detectedTexts)
+        }
+
+        if(match){
+            this.getMedName(match,null,null)
+        }
+
     }
 
     createNdcStrings  = (medicationUpc) => {
@@ -121,16 +138,6 @@ class MedicationCapturePage extends Component {
                         onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
-                        {/* {({ camera, status }) => {
-                            if (status !== 'READY') return <PendingView />;
-                            return (
-                            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                                <TouchableOpacity onPress={() => this.takePicture(camera)} style={commonStyles.capture}>
-                                <Text style={{ fontSize: 14 }}> Capture Image </Text>
-                                </TouchableOpacity>
-                            </View>
-                            );
-                        }} */}
                             <Text style={{
                                 backgroundColor: 'white'
                             }}>{this.state.medicationUpc}</Text>
@@ -147,13 +154,13 @@ class MedicationCapturePage extends Component {
                             <Text>
                                 Lot#:
                             </Text>
-                            <Input placeholder="Lot#" />
+                            <Input placeholder="Lot#" value ={this.state.lotNumber} />
                         </View>
                         <View style={styles.viewStyle}>
                             <Text>
                                 Expiration Date:
                             </Text>
-                            <Input placeholder="Expiration Date" />
+                            <Input placeholder="Expiration Date" value={this.state.expDate} />
                         </View>
                     </View>
                     <Button bordered style={commonStyles.buttonStyle} onPress={this.continueHandler}>

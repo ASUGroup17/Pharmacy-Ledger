@@ -1,39 +1,47 @@
+/**
+ * Purpose: This is the screen displayed after the Login Screen.  Here we use the camera of an mobile device to capture
+ * the barcode of a Patient's Wristband.  Only one patient can be captured at any given time.  
+ */
+
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import {patientCapturePageStyles as styles, commonStyles} from '../styles/common'
-
-const PendingView = () => (
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'lightgreen',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text>Waiting</Text>
-        </View>
-      );
+    
 
 class PatientCapturePage extends Component {
 
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.MedicationCapturePage',
-            title: 'Add Medication'
+            title: 'Add Medication',
+            //These props will be passed to the MedicatioCapturePage
+            passProps: { 
+            patientID: this.state.patientID, 
+            patientFirstName: "", 
+            patientLastName: "",
+            patientDOB: ""
+            }     
         })
     }
 
+    
     constructor(props) {
         super(props);
-        this.state = {
-            qrcode: "",
-            patientID: ""
-        }
+        this.state = { 
+            patientID: "",
+            patientFirstName: "",
+            patientLastName: "",
+            patientDOB: ""            
+            }
     }
+
+    //Sets the state of this object's patientID to e.data.  e is the barcode's info:
+    // data - textual representation of the barcode;  rawData - raw data encoded in the barcode; type - the type of barcode detected 
     onBarCodeRead = (e) => this.setState({patientID: e.data});
+
+
 
     render () {
         return (
@@ -56,7 +64,7 @@ class PatientCapturePage extends Component {
                         //aspect={RNCamera.Constants.Aspect.fill}
                         >
                     </RNCamera>
-
+                    <View style={styles.viewStyle}>
                         <View style={styles.patientIdView}>
                             <Text>
                                 Patient ID:
@@ -69,6 +77,7 @@ class PatientCapturePage extends Component {
                             Continue
                         </Text>
                     </Button>
+                    </View>
                 </View>
                 </Content>
             </Container>

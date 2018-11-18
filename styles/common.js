@@ -54,7 +54,7 @@ export const medicationCaptureStyles = StyleSheet.create({
 
 export const patientCapturePageStyles = StyleSheet.create({
     patientIdView: {
-        flex: .2,
+        flex: 1,
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'space-around',
