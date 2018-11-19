@@ -85,13 +85,29 @@ class MedicationCapturePage extends Component {
         
         if(lotStrings[0]){
             printText = lotStrings[0].map(b => b.value)
-            console.log("LOTSTRINGS11: " + printText)
+            console.log("LOTSTRINGS12: " + printText)
+            printText = lotStrings[0].map(b => b.bounds.size.width)
+            console.log("STRINGS:Size.width: " + printText)
+            printText = lotStrings[0].map(b => b.bounds.size.height)
+            console.log("STRINGS:Size.height: " + printText)
+            printText = lotStrings[0].map(b => b.bounds.origin.x)
+            console.log("STRINGS:point.x: " + printText)
+            printText = lotStrings[0].map(b => b.bounds.origin.y)
+            console.log("STRINGS:point.y: " + printText)
         }
 
 
         if(expStrings[0]){
             printText2 = expStrings[0].map(b => b.value)
-            console.log("EXPSTRINGS11: " + printText2)
+            console.log("EXPSTRINGS12: " + printText2)
+            printText = expStrings[0].map(b => b.bounds.size.width)
+            console.log("STRINGS:Size.width: " + printText)
+            printText = expStrings[0].map(b => b.bounds.size.height)
+            console.log("STRINGS:Size.height: " + printText)
+            printText = expStrings[0].map(b => b.bounds.origin.x)
+            console.log("STRINGS:point.x: " + printText)
+            printText = expStrings[0].map(b => b.bounds.origin.y)
+            console.log("STRINGS:point.y: " + printText)
         }
 
     }
