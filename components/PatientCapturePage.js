@@ -76,7 +76,7 @@ class PatientCapturePage extends Component {
                                 Patient ID:
                             </Text>
                             <Item success ={(this.state.patientID == "") ? false : true}>
-                                <Input placeholder="Patient ID" value={this.state.patientID}/>
+                                <Input placeholder="Patient ID" editable = {false} value={this.state.patientID}/>
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
