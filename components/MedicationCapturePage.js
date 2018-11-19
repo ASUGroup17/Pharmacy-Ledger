@@ -19,11 +19,11 @@ class MedicationCapturePage extends Component {
             passProps: {
                 //These first 4 are from thr MedicationCapturePage
                 medicationUpc: "",
-                medicationName: "",
-                lotNumber: "",
-                expDate: "",
+                medicationName: this.state.medicationName,
+                lotNumber: this.state.lotNumber,
+                expDate: this.state.expDate,
                 //These 4 come from the passProps of the Patient Capture page; currently patientID code is the only valid data being used
-                patientID: this.props.patientID,
+                patientID: this.state.patientID,
                 patientFirstName: "", 
                 patientLastName: "",
                 patientDOB: ""    
@@ -35,9 +35,9 @@ class MedicationCapturePage extends Component {
         super(props);
         this.state = {
             medicationUpc: "",
-            medicationName: "",
-            lotNumber: "",
-            expDate: "",
+            medicationName: this.props.medicationName ,
+            lotNumber: this.props.lotNumber ,
+            expDate: this.props.expDate, 
             patientID: this.props.patientID 
         }
     }
@@ -85,7 +85,7 @@ class MedicationCapturePage extends Component {
         
         if(lotStrings[0]){
             printText = lotStrings[0].map(b => b.value)
-            console.log("LOTSTRINGS12: " + printText)
+            console.log("LOTSTRINGS13: " + printText)
             printText = lotStrings[0].map(b => b.bounds.size.width)
             console.log("STRINGS:Size.width: " + printText)
             printText = lotStrings[0].map(b => b.bounds.size.height)
@@ -99,7 +99,7 @@ class MedicationCapturePage extends Component {
 
         if(expStrings[0]){
             printText2 = expStrings[0].map(b => b.value)
-            console.log("EXPSTRINGS12: " + printText2)
+            console.log("EXPSTRINGS13: " + printText2)
             printText = expStrings[0].map(b => b.bounds.size.width)
             console.log("STRINGS:Size.width: " + printText)
             printText = expStrings[0].map(b => b.bounds.size.height)
