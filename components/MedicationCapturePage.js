@@ -4,7 +4,6 @@ import { Container, Content, Button, Text, Input, Item, Icon } from 'native-base
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
 import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
-import Exif from 'react-native-exif'
 
 
 
@@ -53,8 +52,6 @@ class MedicationCapturePage extends Component {
         var lotStrings = []
         var expStrings = []
 
-        this.camera.exif = Exif.getExif('../icons/SplashScreen.png')
-
         patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
         patt2 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9]");
         patt3 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9]");
@@ -85,8 +82,17 @@ class MedicationCapturePage extends Component {
         //Grab information about each work in the detected text and log information about it's position.
         // List <? extends vision.Text> textComponents;
         // textComponents = lotStrings.getComponents();
-        printText = lotStrings.map(b => b.value)
-        console.log("LOTSTRINGS: " + detectedTexts)
+        
+        if(lotStrings[0]){
+            printText = lotStrings[0].map(b => b.value)
+            console.log("LOTSTRINGS11: " + printText)
+        }
+
+
+        if(expStrings[0]){
+            printText2 = expStrings[0].map(b => b.value)
+            console.log("EXPSTRINGS11: " + printText2)
+        }
 
     }
 
@@ -134,8 +140,6 @@ class MedicationCapturePage extends Component {
             }
         });
 
-        //alert(names.length + " " + names)
-
     };
 
     render () {
@@ -155,7 +159,6 @@ class MedicationCapturePage extends Component {
                         permissionDialogMessage={'We need your permission to use your camera phone'}
 
                         onBarCodeRead= {(this.state.medicationName == "") ? this.onBarCodeRead : null}
-                        //onBarCodeRead = {this.onBarCodeRead}
                         onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
