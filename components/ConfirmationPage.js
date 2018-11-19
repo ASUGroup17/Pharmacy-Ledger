@@ -22,7 +22,7 @@ class ConfirmationPage extends Component {
             lotNumber: this.props.lotNumber,
             expDate: this.props.expDate,
             //From PatientCapturePage
-            qrCode: this.props.qrCode,
+            patientID: this.props.patientID,
             patientFirstName: this.props.patientFirstName, 
             patientLastName: this.props.patientLastName,
             patientDOB: this.props.patientDOB
@@ -41,14 +41,14 @@ class ConfirmationPage extends Component {
                         <Text style={styles.viewStyle}>Confirm Details to add to Ledger.</Text>
                         <View style={styles.viewStyle}>
                         <Text>
-                            Patient ID: {this.props.qrCode} 
+                            Patient ID: {this.state.patientID} 
                         </Text>
                         <Input placeholder="Patient ID" />
                         </View>
                         <Card>
                             <CardItem header style={styles.cardHeaderStyle}>
                                 <Text>
-                                    Medication Name Here!!! {this.props.medicationName}
+                                    Medication Name: {this.state.medicationName}
                                 </Text>
                                 <Button transparent danger>
                                     <Text>Delete</Text>
@@ -57,7 +57,7 @@ class ConfirmationPage extends Component {
                             <CardItem style={styles.cardBodyStyle}>
                                 <Body>
                                     <Text>
-                                        Lot Number and Expiration Here!!! {this.props.lotNumber}
+                                        Lot Number: {this.state.lotNumber} Exp Date: {this.state.expDate} 
                                     </Text>
                                 </Body>
                             </CardItem>
