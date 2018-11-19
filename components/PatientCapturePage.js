@@ -21,7 +21,10 @@ class PatientCapturePage extends Component {
             patientID: this.state.patientID, 
             patientFirstName: "", 
             patientLastName: "",
-            patientDOB: ""
+            patientDOB: "",
+            medicationName: this.state.medicationName,
+            lotNumber: this.state.lotNumber,
+            expDate: this.state.expDate
             }     
         })
     }
@@ -30,10 +33,13 @@ class PatientCapturePage extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            patientID: "",
+            patientID: this.props.patientID,
             patientFirstName: "",
             patientLastName: "",
-            patientDOB: ""            
+            patientDOB: "",
+            medicationName: this.props.medicationName,
+            lotNumber: this.props.lotNumber,
+            expDate: this.props.expDate
             }
     }
 
