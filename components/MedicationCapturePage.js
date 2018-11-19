@@ -4,6 +4,8 @@ import { Container, Content, Button, Text, Input, Item, Icon } from 'native-base
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
 import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
+import Exif from 'react-native-exif'
+
 
 
 class MedicationCapturePage extends Component {
@@ -47,11 +49,17 @@ class MedicationCapturePage extends Component {
     };
 
     onTextRecognized = ({textBlocks}) => {
-        var patt1, patt2, patt3
+        var patt1, patt2, patt3, lotExp, expirationExp
+        var lotStrings = []
+        var expStrings = []
+
+        this.camera.exif = Exif.getExif('../icons/SplashScreen.png')
+
         patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
         patt2 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9]");
         patt3 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9]");
-        
+        lotExp = new RegExp('lot', 'i');
+        expirationExp = new RegExp('exp', 'i');
 
         detectedTexts = textBlocks.map(b => b.value)
         console.log("TEXTBLOCK: " + detectedTexts)
@@ -66,6 +74,19 @@ class MedicationCapturePage extends Component {
         if(match){
             this.getMedName(match,null,null)
         }
+
+        if(lotExp.test(detectedTexts)){
+            lotStrings.push(textBlocks)
+        }
+        if(expirationExp.test(detectedTexts)){
+            expStrings.push(textBlocks)
+        }
+
+        //Grab information about each work in the detected text and log information about it's position.
+        // List <? extends vision.Text> textComponents;
+        // textComponents = lotStrings.getComponents();
+        printText = lotStrings.map(b => b.value)
+        console.log("LOTSTRINGS: " + detectedTexts)
 
     }
 
@@ -138,9 +159,6 @@ class MedicationCapturePage extends Component {
                         onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
-                            <Text style={{
-                                backgroundColor: 'white'
-                            }}>{this.state.medicationUpc}</Text>
                     </RNCamera>
 
                     <View style={styles.groupTight}>
