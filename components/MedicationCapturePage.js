@@ -6,6 +6,7 @@ import axios from 'axios'
 import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
 
 
+
 class MedicationCapturePage extends Component {
 
 
@@ -47,11 +48,15 @@ class MedicationCapturePage extends Component {
     };
 
     onTextRecognized = ({textBlocks}) => {
-        var patt1, patt2, patt3
+        var patt1, patt2, patt3, lotExp, expirationExp
+        var lotStrings = []
+        var expStrings = []
+
         patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
         patt2 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9]");
         patt3 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9]");
-        
+        lotExp = new RegExp('lot', 'i');
+        expirationExp = new RegExp('exp', 'i');
 
         detectedTexts = textBlocks.map(b => b.value)
         console.log("TEXTBLOCK: " + detectedTexts)
@@ -65,6 +70,44 @@ class MedicationCapturePage extends Component {
 
         if(match){
             this.getMedName(match,null,null)
+        }
+
+        if(lotExp.test(detectedTexts)){
+            lotStrings.push(textBlocks)
+        }
+        if(expirationExp.test(detectedTexts)){
+            expStrings.push(textBlocks)
+        }
+
+        //Grab information about each work in the detected text and log information about it's position.
+        // List <? extends vision.Text> textComponents;
+        // textComponents = lotStrings.getComponents();
+        
+        if(lotStrings[0]){
+            printText = lotStrings[0].map(b => b.value)
+            console.log("LOTSTRINGS12: " + printText)
+            printText = lotStrings[0].map(b => b.bounds.size.width)
+            console.log("STRINGS:Size.width: " + printText)
+            printText = lotStrings[0].map(b => b.bounds.size.height)
+            console.log("STRINGS:Size.height: " + printText)
+            printText = lotStrings[0].map(b => b.bounds.origin.x)
+            console.log("STRINGS:point.x: " + printText)
+            printText = lotStrings[0].map(b => b.bounds.origin.y)
+            console.log("STRINGS:point.y: " + printText)
+        }
+
+
+        if(expStrings[0]){
+            printText2 = expStrings[0].map(b => b.value)
+            console.log("EXPSTRINGS12: " + printText2)
+            printText = expStrings[0].map(b => b.bounds.size.width)
+            console.log("STRINGS:Size.width: " + printText)
+            printText = expStrings[0].map(b => b.bounds.size.height)
+            console.log("STRINGS:Size.height: " + printText)
+            printText = expStrings[0].map(b => b.bounds.origin.x)
+            console.log("STRINGS:point.x: " + printText)
+            printText = expStrings[0].map(b => b.bounds.origin.y)
+            console.log("STRINGS:point.y: " + printText)
         }
 
     }
@@ -113,8 +156,6 @@ class MedicationCapturePage extends Component {
             }
         });
 
-        //alert(names.length + " " + names)
-
     };
 
     render () {
@@ -134,13 +175,9 @@ class MedicationCapturePage extends Component {
                         permissionDialogMessage={'We need your permission to use your camera phone'}
 
                         onBarCodeRead= {(this.state.medicationName == "") ? this.onBarCodeRead : null}
-                        //onBarCodeRead = {this.onBarCodeRead}
                         onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
-                            <Text style={{
-                                backgroundColor: 'white'
-                            }}>{this.state.medicationUpc}</Text>
                     </RNCamera>
 
                     <View style={styles.groupTight}>
