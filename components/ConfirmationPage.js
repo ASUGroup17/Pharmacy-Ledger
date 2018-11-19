@@ -40,14 +40,13 @@ class ConfirmationPage extends Component {
                     <View>
                         <Text style={styles.viewStyle}>Confirm Details to add to Ledger.</Text>
                         <View style={styles.viewStyle}>
-                        <Text>
+                        <Text editable = {false}>
                             Patient ID: {this.state.patientID} 
                         </Text>
-                        <Input placeholder="Patient ID" />
                         </View>
                         <Card>
                             <CardItem header style={styles.cardHeaderStyle}>
-                                <Text>
+                                <Text editable = {false}>
                                     Medication Name: {this.state.medicationName}
                                 </Text>
                                 <Button transparent danger>
@@ -56,7 +55,7 @@ class ConfirmationPage extends Component {
                             </CardItem>
                             <CardItem style={styles.cardBodyStyle}>
                                 <Body>
-                                    <Text>
+                                    <Text editable = {false}>
                                         Lot Number: {this.state.lotNumber} Exp Date: {this.state.expDate} 
                                     </Text>
                                 </Body>
