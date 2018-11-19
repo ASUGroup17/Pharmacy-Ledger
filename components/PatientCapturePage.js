@@ -1,48 +1,60 @@
+/**
+ * Purpose: This is the screen displayed after the Login Screen.  Here we use the camera of an mobile device to capture
+ * the barcode of a Patient's Wristband.  Only one patient can be captured at any given time.  
+ */
+
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Container, Content, Button, Text, Form, Item, Input } from 'native-base'
+import { Container, Content, Button, Text, Form, Item, Icon, Input } from 'native-base'
 import { RNCamera } from 'react-native-camera'
+import {patientCapturePageStyles as styles, commonStyles} from '../styles/common'
     
-
 
 class PatientCapturePage extends Component {
 
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.MedicationCapturePage',
-            title: 'Add Medication'
+            title: 'Add Medication',
+            //These props will be passed to the MedicatioCapturePage
+            passProps: { 
+            patientID: this.state.patientID, 
+            patientFirstName: "", 
+            patientLastName: "",
+            patientDOB: ""
+            }     
         })
-    }    
+    }
 
-    //
+    
     constructor(props) {
         super(props);
-        this.state = { qrcode: "" }
+        this.state = { 
+            patientID: "",
+            patientFirstName: "",
+            patientLastName: "",
+            patientDOB: ""            
+            }
     }
 
-    //Sets the state of this object's qrcode to e.data.  e is the barcode's info:
+    //Sets the state of this object's patientID to e.data.  e is the barcode's info:
     // data - textual representation of the barcode;  rawData - raw data encoded in the barcode; type - the type of barcode detected 
-    onBarCodeRead = (e) => this.setState({qrcode: e.data});
+    onBarCodeRead = (e) => this.setState({patientID: e.data});
 
-    //This function is meant to set the e.data as props to be passed to MedicationCapturePage.js
-    //we will make 'this.props.(CALLBACK) (e.data)' able to be called in the MedicationCapturepage
-    qrDataPassed = (e) => {
-        this.props.qrDataCallback(e.data);
-    }
 
 
     render () {
         return (
-            <Container style={styles.containerStyle}>
+            <Container style={commonStyles.containerStyle}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
-                <View style={styles.contentStyle}>
+                <View style={commonStyles.contentStyle}>
                     <Text style={{alignSelf: 'center'}}>
                         Scan Patient's Wristband
                     </Text>
 
                     <RNCamera
-                        style={styles.preview}
-                            type={RNCamera.Constants.Type.back}
+                        style={commonStyles.preview2}
+                        type={RNCamera.Constants.Type.back}
                         //Turned flashMode to off; it was originally on
                         flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
@@ -51,23 +63,24 @@ class PatientCapturePage extends Component {
                         ref={cam => this.camera = cam}
                         //aspect={RNCamera.Constants.Aspect.fill}
                         >
-                            <Text style={{
-                                backgroundColor: 'white'
-                            }}>{this.state.qrcode}</Text>                       
                     </RNCamera>
-
-
+                    <View style={styles.viewStyle}>
                         <View style={styles.patientIdView}>
                             <Text>
                                 Patient ID:
                             </Text>
-                            <Input placeholder="Patient ID" />
+                            <Item success ={(this.state.patientID == "") ? false : true}>
+                                <Input placeholder="Patient ID" value={this.state.patientID}/>
+                                <Icon name='checkmark-circle' />
+                            </Item>
                         </View>
-                    <Button bordered style={styles.buttonStyle} onPress={this.continueHandler}>
+                    <Button bordered style={commonStyles.buttonStyle} onPress={this.continueHandler}
+                        disabled={!this.state.patientID}>
                         <Text>
                             Continue
                         </Text>
                     </Button>
+                    </View>
                 </View>
                 </Content>
             </Container>
@@ -80,48 +93,6 @@ class PatientCapturePage extends Component {
         //  eslint-disable-next-line
         console.log(data.uri);
       }
-}
-
-const styles = StyleSheet.create({
-    containerStyle: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        flexGrow: 1
-    },
-    contentStyle: {
-        flex: 1,
-        flexGrow: 1,
-        //alignItems: 'center',
-        justifyContent: 'space-around',
-    },
-    preview: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    },
-    capture: {
-        flex: 0,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
-        alignSelf: 'center',
-        margin: 20,
-      },
-    patientIdView: {
-        flex: .2,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        flexDirection: 'row',
-        paddingLeft: 50
-    },
-    buttonStyle: {
-        alignSelf: 'center'
-    }
-
-
-})
+};
 
 export default PatientCapturePage;
