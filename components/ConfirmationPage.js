@@ -17,7 +17,7 @@ class ConfirmationPage extends Component {
         this.state = {
             //From MedicationCapturePage
             //Medications will likely have to be an array; this is mostly for building and testing purposes
-            medicationUpc: this.props.medicationUpc,
+            ndc: this.props.ndc,
             medicationName: this.props.medicationName,
             lotNumber: this.props.lotNumber,
             expDate: this.props.expDate,

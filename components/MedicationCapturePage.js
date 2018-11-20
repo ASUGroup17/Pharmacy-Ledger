@@ -9,7 +9,6 @@ import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
 
 class MedicationCapturePage extends Component {
 
-
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.ConfirmationPage',
@@ -18,7 +17,7 @@ class MedicationCapturePage extends Component {
             //Passing these props to the next Screen (ConfirmationPage) that will be pushed to the Navigator Stack
             passProps: {
                 //These first 4 are from thr MedicationCapturePage
-                medicationUpc: "",
+                ndc: this.state.ndc,
                 medicationName: this.state.medicationName,
                 lotNumber: this.state.lotNumber,
                 expDate: this.state.expDate,
@@ -34,7 +33,7 @@ class MedicationCapturePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            medicationUpc: "",
+            ndc: "",
             medicationName: this.props.medicationName ,
             lotNumber: this.props.lotNumber ,
             expDate: this.props.expDate, 
@@ -42,8 +41,8 @@ class MedicationCapturePage extends Component {
         }
     }
     onBarCodeRead = (e) => {
-        this.setState({medicationUpc: e.data}, () => {
-            this.createNdcStrings(this.state.medicationUpc);
+        this.setState({ndc: e.data}, () => {
+            this.createNdcStrings(this.state.ndc);
         })
     };
 
@@ -112,10 +111,10 @@ class MedicationCapturePage extends Component {
 
     }
 
-    createNdcStrings  = (medicationUpc) => {
-        ndc442 = medicationUpc.substring(2,6) + "-" + medicationUpc.substring(6,10) + "-" + medicationUpc.substring(10,12);
-        ndc532 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,10) + "-" + medicationUpc.substring(10,12);
-        ndc541 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,11) + "-" + medicationUpc.substring(11,12);
+    createNdcStrings  = (ndc) => {
+        ndc442 = ndc.substring(2,6) + "-" + ndc.substring(6,10) + "-" + ndc.substring(10,12);
+        ndc532 = ndc.substring(2,7) + "-" + ndc.substring(7,10) + "-" + ndc.substring(10,12);
+        ndc541 = ndc.substring(2,7) + "-" + ndc.substring(7,11) + "-" + ndc.substring(11,12);
 
         //alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
         this.getMedName(ndc442,ndc532,ndc541)
