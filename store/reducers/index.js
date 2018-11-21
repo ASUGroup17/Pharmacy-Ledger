@@ -3,6 +3,6 @@ import MedsReducer from './MedsReducer'
 import PatientReducer from './PatientReducer'
 
 export default combineReducers({
-    medication: MedsReducer,
-    patient: PatientReducer
+  medication: MedsReducer,
+  patient: PatientReducer
 })
