@@ -51,6 +51,37 @@ export const updateMatch = matchList => new Promise((resolve, reject) => {
     Realm.open(databaseOptions).then(realm => {
         realm.write(() => {
             let updatingMatchList = realm.objectForPrimaryKey(MATCH_SCHEMA, matchList.id);
+            updatingMatchList.keyword = matchList.keyword;
+            resolve();
+        });
+    }).catch((error) => reject(error));;
+})
+
+export const deleteMatch = matchListId => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        realm.write(() => {
+            let deletingMatch = realm.objectForPrimaryKey(MATCH_SCHEMA, matchListId);
+            realm.delete(deletingMatch);
+            resolve();
+        });
+    }).catch((error) => reject(error));;
+})
+
+export const deleteAllMatches = () => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        realm.write(() => {
+            let allMatches = realm.opjects(MATCH_SCHEMA);
+            realm.delete(allMatches);
+            resolve();
         })
     }).catch((error) => reject(error));;
 })
+
+export const queryAllMatches = () => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        let allMatches = realm.objects(MATCH_SCHEMA);
+        resolve(allMatches);
+    }).catch((error) => reject(error));;
+})
+
+export default new Realm(databaseOptions);
