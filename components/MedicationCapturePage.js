@@ -34,9 +34,15 @@ class MedicationCapturePage extends Component {
         super(props);
         this.state = {
             ndc: "",
-            medicationName: this.props.medicationName ,
-            lotNumber: this.props.lotNumber ,
-            expDate: this.props.expDate, 
+            /*
+            -These three state props are being defined initially as null for the 'green check mark' logic, 
+            once this information is properly captured, the checkmark will go from black to green.
+            -This line(179 at the time) :onBarCodeRead= {(this.state.medicationName == null) ? this.onBarCodeRead : null}
+                had its logic changed as well. As far as I can tell this did not adversely change the app. Still works as intended.
+            */
+            medicationName: null,
+            lotNumber: null,
+            expDate: null, 
             patientID: this.props.patientID 
         }
     }
@@ -173,7 +179,7 @@ class MedicationCapturePage extends Component {
                         permissionDialogTitle={'Permission to use camera'}
                         permissionDialogMessage={'We need your permission to use your camera phone'}
 
-                        onBarCodeRead= {(this.state.medicationName == "") ? this.onBarCodeRead : null}
+                        onBarCodeRead= {(this.state.medicationName == null) ? this.onBarCodeRead : null}
                         onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
@@ -184,8 +190,8 @@ class MedicationCapturePage extends Component {
                             <Text>
                                 Medication:
                             </Text>
-                            <Item success ={(this.state.medicationName == "") ? false : true}>
-                                <Input placeholder="Medication Name" value={this.state.medicationName}/>
+                            <Item success ={(this.state.medicationName == null) ? false : true}>
+                                <Input placeholder="Medication Name" editable = {false} value={this.state.medicationName}/>
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
@@ -193,8 +199,8 @@ class MedicationCapturePage extends Component {
                             <Text>
                                 Lot#:
                             </Text>
-                            <Item success ={(this.state.lotNumber == "") ? false : true}>
-                                <Input placeholder="Lot#" value ={this.state.lotNumber} />
+                            <Item success ={(this.state.lotNumber == null) ? false : true}>
+                                <Input placeholder="Lot#" editable = {false} value ={this.state.lotNumber} />
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
@@ -202,8 +208,8 @@ class MedicationCapturePage extends Component {
                             <Text>
                                 Expiration Date:
                             </Text>
-                            <Item success ={(this.state.expDate == "") ? false : true}>
-                                <Input placeholder="Expiration Date" value={this.state.expDate} />
+                            <Item success ={(this.state.expDate == null) ? false : true}>
+                                <Input placeholder="Expiration Date" editable = {false} value={this.state.expDate} />
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>

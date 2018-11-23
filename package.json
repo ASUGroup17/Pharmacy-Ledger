@@ -26,6 +26,7 @@
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.48.1",
     "mocha": "^5.2.0",
-    "react-test-renderer": "16.6.0-alpha.8af6728"
+    "react-test-renderer": "16.6.0-alpha.8af6728",
+    "standard": "^12.0.1"
   }
 }
