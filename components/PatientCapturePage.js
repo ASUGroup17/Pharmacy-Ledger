@@ -77,7 +77,7 @@ class PatientCapturePage extends Component {
                     <View style={styles.viewStyle}>
                         <View style={styles.patientIdView}>
                             <Text>
-                                Patient ID:{this.state.patientID}
+                                Patient ID:
                             </Text>
                             <Item success ={(this.state.patientID == null) ? false : true}>
                                 <Input placeholder="Patient ID" editable = {false} value={this.state.patientID}/>
