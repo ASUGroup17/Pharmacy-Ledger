@@ -13,6 +13,7 @@ import startMainTabs from './startMainTabs';
 import {loginPageStyles as styles, commonStyles} from '../styles/common'
 
 class LoginPage extends Component {
+  
   loginHandler = () => {
   console.log("Clicked")
   startMainTabs();
@@ -45,5 +46,4 @@ class LoginPage extends Component {
     );
   }
 }
-
 export default LoginPage;
