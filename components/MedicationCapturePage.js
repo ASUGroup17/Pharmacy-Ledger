@@ -5,40 +5,43 @@ import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
 import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
 
-
-
 class MedicationCapturePage extends Component {
-
 
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.ConfirmationPage',
             title: 'Confirm Transaction',
-            
-            //Passing these props to the next Screen (ConfirmationPage) that will be pushed to the Navigator Stack
+
+            /*
+              Passing these props to the next Screen (ConfirmationPage)
+              that will be pushed to the Navigator Stack.
+            */
             passProps: {
-                //These first 4 are from thr MedicationCapturePage
+                // These first 4 are from the MedicationCapturePage.
                 medicationUpc: "",
                 medicationName: this.state.medicationName,
                 lotNumber: this.state.lotNumber,
                 expDate: this.state.expDate,
-                //These 4 come from the passProps of the Patient Capture page; currently patientID code is the only valid data being used
+                /*
+                  These 4 come from the passProps of the Patient Capture page;
+                  currently patientID code is the only valid data being used.
+                */
                 patientID: this.state.patientID,
-                patientFirstName: "", 
+                patientFirstName: "",
                 patientLastName: "",
-                patientDOB: ""    
+                patientDOB: ""
             }
         })
     }
-    
+
     constructor(props) {
         super(props);
         this.state = {
             medicationUpc: "",
             medicationName: this.props.medicationName ,
             lotNumber: this.props.lotNumber ,
-            expDate: this.props.expDate, 
-            patientID: this.props.patientID 
+            expDate: this.props.expDate,
+            patientID: this.props.patientID
         }
     }
     onBarCodeRead = (e) => {
@@ -67,11 +70,9 @@ class MedicationCapturePage extends Component {
         if(!match){
             var match = patt3.exec(detectedTexts)
         }
-
         if(match){
             this.getMedName(match,null,null)
         }
-
         if(lotExp.test(detectedTexts)){
             lotStrings.push(textBlocks)
         }
@@ -79,10 +80,12 @@ class MedicationCapturePage extends Component {
             expStrings.push(textBlocks)
         }
 
-        //Grab information about each work in the detected text and log information about it's position.
-        // List <? extends vision.Text> textComponents;
-        // textComponents = lotStrings.getComponents();
-        
+        /*
+          Grab information about each work in the detected text
+          and log information about it's position.
+          List <? extends vision.Text> textComponents;
+          textComponents = lotStrings.getComponents();
+        */
         if(lotStrings[0]){
             printText = lotStrings[0].map(b => b.value)
             console.log("LOTSTRINGS13: " + printText)
@@ -95,8 +98,6 @@ class MedicationCapturePage extends Component {
             printText = lotStrings[0].map(b => b.bounds.origin.y)
             console.log("STRINGS:point.y: " + printText)
         }
-
-
         if(expStrings[0]){
             printText2 = expStrings[0].map(b => b.value)
             console.log("EXPSTRINGS13: " + printText2)
@@ -109,7 +110,6 @@ class MedicationCapturePage extends Component {
             printText = expStrings[0].map(b => b.bounds.origin.y)
             console.log("STRINGS:point.y: " + printText)
         }
-
     }
 
     createNdcStrings  = (medicationUpc) => {
@@ -117,9 +117,8 @@ class MedicationCapturePage extends Component {
         ndc532 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,10) + "-" + medicationUpc.substring(10,12);
         ndc541 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,11) + "-" + medicationUpc.substring(11,12);
 
-        //alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
+        // alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
         this.getMedName(ndc442,ndc532,ndc541)
-
     };
 
     getMedName = (ndc442,ndc532,ndc541) => {
@@ -130,7 +129,7 @@ class MedicationCapturePage extends Component {
         .then(response => {
 
             if(response.data.ndcStatus.status == "ACTIVE"){
-                //alert("**TERIN1**" + response.data.ndcStatus.status)
+                // alert("**TERIN1**" + response.data.ndcStatus.status)
                 names.push(response.data.ndcStatus.conceptName)
                 this.setState({medicationName: names[0]})
             }
@@ -150,19 +149,18 @@ class MedicationCapturePage extends Component {
         .then(response => {
 
             if(response.data.ndcStatus.status == "ACTIVE"){
-                //alert("**TERIN3**" + response.data.ndcStatus.status)
+                // alert("**TERIN3**" + response.data.ndcStatus.status)
                 names.push(response.data.ndcStatus.conceptName)
                 this.setState({medicationName: names[0]})
             }
         });
-
     };
 
     render () {
         return (
-            <Container style={commonStyles.containerStyle}>
+            <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
-                <View style={commonStyles.contentStyle2}>
+                <View style={commonStyles.content}>
                     <Text style={{alignSelf: 'center'}}>
                         Scan Medication
                     </Text>
@@ -209,7 +207,7 @@ class MedicationCapturePage extends Component {
                             </Item>
                         </View>
                     </View>
-                    <Button bordered style={commonStyles.buttonStyle} onPress={this.continueHandler}>
+                    <Button bordered style={commonStyles.button} onPress={this.continueHandler}>
                         <Text>
                             Continue
                         </Text>
@@ -223,9 +221,8 @@ class MedicationCapturePage extends Component {
     takePicture = async function(camera) {
         const options = { quality: 0.5, base64: true };
         const data = await camera.takePictureAsync(options);
-        //  eslint-disable-next-line
+        // eslint-disable-next-line
         console.log(data.uri);
       }
 }
-
 export default MedicationCapturePage;

@@ -73,61 +73,24 @@ export const searchResultsPageStyles = StyleSheet.create({
 
 export const commonStyles = StyleSheet.create({
 
-  // confirmationPageStyles
-  // medicationCaptureStyles
-  // patientCapturePageStyles
-  containerStyle: {
+  container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
+    alignContent: 'space-between',
     flexGrow: 1
   },
 
-  // loginPageStyles
-  // searchLedgerPageStyles
-  // searchResultsPageStyles
-  container: {
-    flex: 1,
-    justifyContent: 'space-around',
-    alignContent: 'space-between'
-  },
-
-  // confirmationPageStyles
   contentStyle: {
     flex: 1,
-    flexGrow: 1
-  },
-
-  // medicationCaptureStyles
-  // patientCapturePageStyles
-  contentStyle2: {
-    flex: 1,
     flexGrow: 1,
-    justifyContent: 'space-around'
-  },
-
-  // searchLedgerPageStyles
-  // loginPageStyles
-  content: {
     alignContent: 'space-around',
     justifyContent: 'space-around'
   },
 
-  // searchResultsPageStyles
-  content2: {
-    justifyContent: 'space-around',
-    alignContent: 'space-between'
-  },
-
-  // medicationCaptureStyles
-  // patientCapturePageStyles
-  buttonStyle: {
-    alignSelf: 'center'
-  },
-
-  // searchLedgerPageStyles
-  // searchResultsPageStyles
-  // loginPageStyles
+  /*
+    not used in confirmationPageStyles
+  */
   button: {
     alignSelf: 'center',
     justifyContent: 'space-around',
@@ -138,15 +101,17 @@ export const commonStyles = StyleSheet.create({
     marginTop: 20
   },
 
-  // loginPageStyles
-  // searchLedgerPageStyles
-  // searchResultsPageStyles
+  /*
+    Used in loginPageStyles, searchLedgerPageStyles, searchResultsPageStyles
+  */
   text: {
     alignSelf: 'center',
     padding: 2
   },
 
-  // medicationCaptureStyles
+  /*
+    Used in medicationCaptureStyles, patientCapturePageStyles
+  */
   preview: {
     flex: 1,
     flexGrow: 1,
@@ -154,15 +119,9 @@ export const commonStyles = StyleSheet.create({
     alignItems: 'center'
   },
 
-  // patientCapturePageStyles
-  preview2: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
-
-  // medicationCaptureStyles
-  // patientCapturePageStyles
+  /*
+    Used in medicationCaptureStyles, patientCapturePageStyles
+  */
   capture: {
     flex: 0,
     backgroundColor: '#fff',
@@ -173,13 +132,12 @@ export const commonStyles = StyleSheet.create({
     margin: 20
   },
 
-  // loginPageStyles
-  // searchLedgerPageStyles
-  // searchResultsPageStyles
+  /*
+    Used in loginPageStyles, searchLedgerPageStyles, searchResultsPageStyles
+  */
   link: {
     alignSelf: 'center',
     color: '#0000ff',
     padding: 2
   }
-
 })
