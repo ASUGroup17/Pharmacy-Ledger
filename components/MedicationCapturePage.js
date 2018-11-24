@@ -4,6 +4,8 @@ import { Container, Content, Button, Text, Input, Item, Icon } from 'native-base
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
 import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
+import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
+import realm from '../db/allSchemas';
 
 class MedicationCapturePage extends Component {
 
@@ -94,7 +96,7 @@ class MedicationCapturePage extends Component {
         */
         if(lotStrings[0]){
             printText = lotStrings[0].map(b => b.value)
-            console.log("LOTSTRINGS13: " + printText)
+            console.log("LOTSTRINGS14: " + printText)
             printText = lotStrings[0].map(b => b.bounds.size.width)
             console.log("STRINGS:Size.width: " + printText)
             printText = lotStrings[0].map(b => b.bounds.size.height)
@@ -106,7 +108,7 @@ class MedicationCapturePage extends Component {
         }
         if(expStrings[0]){
             printText2 = expStrings[0].map(b => b.value)
-            console.log("EXPSTRINGS13: " + printText2)
+            console.log("EXPSTRINGS14: " + printText2)
             printText = expStrings[0].map(b => b.bounds.size.width)
             console.log("STRINGS:Size.width: " + printText)
             printText = expStrings[0].map(b => b.bounds.size.height)
@@ -116,6 +118,34 @@ class MedicationCapturePage extends Component {
             printText = expStrings[0].map(b => b.bounds.origin.y)
             console.log("STRINGS:point.y: " + printText)
         }
+    }
+
+    //Creates a match when passed the ndc number, the keyword, the field we are searching for
+    // and the two word elements involved in the match.
+    createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
+        match = {
+            ndc: ndc,
+            keyword: keyword,
+            width: keywordElement.map(b => b.bounds.size.width),
+            height: keywordElement.map(b => b.bounds.size.height),
+            x: keywordElement.map(b => b.bounds.origin.x),
+            y: keywordElement.map(b => b.bounds.origin.y),
+            findX: findFieldElement.map(b => b.bounds.origin.x),
+            findY: findFieldElement.map(b => b.bounds.origin.y),
+            findField: findField
+        }
+
+        this.addMatch(match);
+    }
+
+    //Adds the match to the database
+    addMatch = (match) => {
+
+    }
+
+    //Queries database for match by NDC number
+    getMatch = (ndc) => {
+
     }
 
     createNdcStrings  = (ndc) => {
