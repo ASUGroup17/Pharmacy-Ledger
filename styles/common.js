@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Platform, StyleSheet, Link, View } from 'react-native'
+//<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css"></link>
 
 export const confirmationPageStyles = StyleSheet.create({
   viewStyle: {
@@ -9,12 +10,20 @@ export const confirmationPageStyles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'row',
     paddingLeft: 50,
-    backgroundColor: 'white',
     paddingTop: 0,
     paddingBottom: 0,
     marginTop: 0,
     marginBottom: 0
   },
+  //this is the Styling for the Patient Information card at the top of some screens
+  patientInfoStyle: {    
+    // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
+     backgroundColor:'#000080',  //A Navy Blue Color
+     paddingRight:20, 
+     paddingBottom:0,
+     paddingTop: 0,
+     paddingLeft: 0
+   },
   cardHeaderStyle: {
     backgroundColor: 'lightgray'
   },
@@ -25,6 +34,18 @@ export const confirmationPageStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignContent: 'flex-end'
+  }
+})
+
+
+export const patientInfoStyles = StyleSheet.create ( {
+  patientInfoStyle: {    
+   // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
+    backgroundColor:'#000080',  //A Navy Blue Color
+    paddingRight:20, 
+    paddingBottom:0,
+    paddingTop: 0,
+    paddingLeft: 0
   }
 })
 
@@ -45,6 +66,14 @@ export const medicationCaptureStyles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 0
   },
+  patientInfoStyle: {    
+    // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
+     backgroundColor:'#000080',  //A Navy Blue Color
+     paddingRight:20, 
+     paddingBottom:0,
+     paddingTop: 0,
+     paddingLeft: 0
+   },
   groupTight: {
     flex: 0,
     flexDirection: 'column',

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Container, Content, Button, Text, Input, Item, Icon } from 'native-base'
+import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
 import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
@@ -24,9 +24,9 @@ class MedicationCapturePage extends Component {
                 expDate: this.state.expDate,
                 //These 4 come from the passProps of the Patient Capture page; currently patientID code is the only valid data being used
                 patientID: this.state.patientID,
-                patientFirstName: "", 
-                patientLastName: "",
-                patientDOB: ""    
+                patientFirstName: this.state.patientFirstName, 
+                patientLastName: this.state.patientLastName,
+                patientDOB: this.state.patientDOB    
             }
         })
     }
@@ -44,7 +44,11 @@ class MedicationCapturePage extends Component {
             medicationName: null,
             lotNumber: null,
             expDate: null, 
-            patientID: this.props.patientID 
+            patientID: this.props.patientID ,
+            //patientID: "#PATIENTID",//this.state.patientID,
+                patientFirstName: "#FirstName", 
+                patientLastName: "#LastName",
+                patientDOB: "#DOB"
         }
     }
     onBarCodeRead = (e) => {
@@ -166,6 +170,7 @@ class MedicationCapturePage extends Component {
 
     render () {
         return (
+           
             <Container style={commonStyles.containerStyle}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
                 <View style={commonStyles.contentStyle2}>
@@ -185,7 +190,21 @@ class MedicationCapturePage extends Component {
                         ref={cam => this.camera = cam}
                         >
                     </RNCamera>
-
+                {/*
+                This view contains the Patient Info displayed just below the Camera screen.
+                */}
+                <View>
+                    <CardItem style = {styles.patientInfoStyle}>
+                        <Text style= { { color : 'white' } }>
+                            Patient ID:{this.state.patientID}  DOB:{this.state.patientDOB}
+                        </Text>
+                    </CardItem >
+                    <CardItem style = {styles.patientInfoStyle}>
+                        <Text style = { { color: 'white' } }>
+                            Name: {this.state.patientLastName} {this.state.patientFirstName} 
+                        </Text>
+                    </CardItem>
+                </View>
                     <View style={styles.groupTight}>
                         <View style={styles.viewStyle}>
                             <Text>
