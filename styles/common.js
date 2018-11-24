@@ -81,11 +81,11 @@ export const commonStyles = StyleSheet.create({
     flexGrow: 1
   },
 
-  contentStyle: {
+  content: {
     flex: 1,
     flexGrow: 1,
-    alignContent: 'space-around',
-    justifyContent: 'space-around'
+    //alignContent: 'space-around',
+    //justifyContent: 'space-around'
   },
 
   /*

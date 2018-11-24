@@ -17,7 +17,7 @@ class MedicationCapturePage extends Component {
               that will be pushed to the Navigator Stack.
             */
             passProps: {
-                //These first 4 are from thr MedicationCapturePage
+                //These first 4 are from the MedicationCapturePage
                 ndc: this.state.ndc,
                 medicationName: this.state.medicationName,
                 lotNumber: this.state.lotNumber,
@@ -43,11 +43,10 @@ class MedicationCapturePage extends Component {
             -This line(179 at the time) :onBarCodeRead= {(this.state.medicationName == null) ? this.onBarCodeRead : null}
                 had its logic changed as well. As far as I can tell this did not adversely change the app. Still works as intended.
             */
-            ndc: "",
-            medicationUpc: "",
-            medicationName: this.props.medicationName ,
-            lotNumber: this.props.lotNumber ,
-            expDate: this.props.expDate,
+            ndc: null,
+            medicationName: null,
+            lotNumber: null,
+            expDate: null,
             patientID: this.props.patientID
         }
     }
