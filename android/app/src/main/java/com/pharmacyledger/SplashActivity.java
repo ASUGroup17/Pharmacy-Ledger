@@ -1,4 +1,3 @@
-//package com.splashexample; // make sure this is your package name
 package com.pharmacyledger;
 import android.content.Intent;
 import android.os.Bundle;

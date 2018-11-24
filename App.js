@@ -17,6 +17,8 @@ import SearchLedgerPage from './components/SearchLedgerPage';
 import MedicationCapturePage from './components/MedicationCapturePage';
 import ConfirmationPage from './components/ConfirmationPage';
 import SearchResultsPage from './components/SearchResultsPage';
+//added us115 11/24 -cal
+import SplashScreen from 'react-native-splash-screen';
 
 const store = configureStore()
 
@@ -54,3 +56,10 @@ Navigation.startSingleScreenApp( {
 //   }
 // }
 
+
+//Added us115 11/24 -cal
+export default class App extends Component {
+  componentDidMount() {
+    SplashScreen.hide()
+  }
+}
