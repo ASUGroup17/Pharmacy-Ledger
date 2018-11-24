@@ -4,52 +4,57 @@ import { Container, Content, Button, Text, Input, Item, Icon } from 'native-base
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
 import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
-
-
+import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
+import realm from '../db/allSchemas';
 
 class MedicationCapturePage extends Component {
-
 
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.ConfirmationPage',
             title: 'Confirm Transaction',
-            
-            //Passing these props to the next Screen (ConfirmationPage) that will be pushed to the Navigator Stack
+
+            /*
+              Passing these props to the next Screen (ConfirmationPage)
+              that will be pushed to the Navigator Stack.
+            */
             passProps: {
-                //These first 4 are from thr MedicationCapturePage
-                medicationUpc: "",
+                //These first 4 are from the MedicationCapturePage
+                ndc: this.state.ndc,
                 medicationName: this.state.medicationName,
                 lotNumber: this.state.lotNumber,
                 expDate: this.state.expDate,
-                //These 4 come from the passProps of the Patient Capture page; currently patientID code is the only valid data being used
+                /*
+                  These 4 come from the passProps of the Patient Capture page;
+                  currently patientID code is the only valid data being used.
+                */
                 patientID: this.state.patientID,
-                patientFirstName: "", 
+                patientFirstName: "",
                 patientLastName: "",
-                patientDOB: ""    
+                patientDOB: ""
             }
         })
     }
-    
+
     constructor(props) {
         super(props);
         this.state = {
-            medicationUpc: "",
             /*
             -These three state props are being defined initially as null for the 'green check mark' logic, 
             once this information is properly captured, the checkmark will go from black to green.
             -This line(179 at the time) :onBarCodeRead= {(this.state.medicationName == null) ? this.onBarCodeRead : null}
                 had its logic changed as well. As far as I can tell this did not adversely change the app. Still works as intended.
             */
+            ndc: null,
             medicationName: null,
             lotNumber: null,
-            expDate: null, 
-            patientID: this.props.patientID 
+            expDate: null,
+            patientID: this.props.patientID
         }
     }
     onBarCodeRead = (e) => {
-        this.setState({medicationUpc: e.data}, () => {
-            this.createNdcStrings(this.state.medicationUpc);
+        this.setState({ndc: e.data}, () => {
+            this.createNdcStrings(this.state.ndc);
         })
     };
 
@@ -73,11 +78,9 @@ class MedicationCapturePage extends Component {
         if(!match){
             var match = patt3.exec(detectedTexts)
         }
-
         if(match){
             this.getMedName(match,null,null)
         }
-
         if(lotExp.test(detectedTexts)){
             lotStrings.push(textBlocks)
         }
@@ -85,13 +88,15 @@ class MedicationCapturePage extends Component {
             expStrings.push(textBlocks)
         }
 
-        //Grab information about each work in the detected text and log information about it's position.
-        // List <? extends vision.Text> textComponents;
-        // textComponents = lotStrings.getComponents();
-        
+        /*
+          Grab information about each work in the detected text
+          and log information about it's position.
+          List <? extends vision.Text> textComponents;
+          textComponents = lotStrings.getComponents();
+        */
         if(lotStrings[0]){
             printText = lotStrings[0].map(b => b.value)
-            console.log("LOTSTRINGS13: " + printText)
+            console.log("LOTSTRINGS14: " + printText)
             printText = lotStrings[0].map(b => b.bounds.size.width)
             console.log("STRINGS:Size.width: " + printText)
             printText = lotStrings[0].map(b => b.bounds.size.height)
@@ -101,11 +106,9 @@ class MedicationCapturePage extends Component {
             printText = lotStrings[0].map(b => b.bounds.origin.y)
             console.log("STRINGS:point.y: " + printText)
         }
-
-
         if(expStrings[0]){
             printText2 = expStrings[0].map(b => b.value)
-            console.log("EXPSTRINGS13: " + printText2)
+            console.log("EXPSTRINGS14: " + printText2)
             printText = expStrings[0].map(b => b.bounds.size.width)
             console.log("STRINGS:Size.width: " + printText)
             printText = expStrings[0].map(b => b.bounds.size.height)
@@ -115,17 +118,43 @@ class MedicationCapturePage extends Component {
             printText = expStrings[0].map(b => b.bounds.origin.y)
             console.log("STRINGS:point.y: " + printText)
         }
+    }
+
+    //Creates a match when passed the ndc number, the keyword, the field we are searching for
+    // and the two word elements involved in the match.
+    createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
+        match = {
+            ndc: ndc,
+            keyword: keyword,
+            width: keywordElement.map(b => b.bounds.size.width),
+            height: keywordElement.map(b => b.bounds.size.height),
+            x: keywordElement.map(b => b.bounds.origin.x),
+            y: keywordElement.map(b => b.bounds.origin.y),
+            findX: findFieldElement.map(b => b.bounds.origin.x),
+            findY: findFieldElement.map(b => b.bounds.origin.y),
+            findField: findField
+        }
+
+        this.addMatch(match);
+    }
+
+    //Adds the match to the database
+    addMatch = (match) => {
 
     }
 
-    createNdcStrings  = (medicationUpc) => {
-        ndc442 = medicationUpc.substring(2,6) + "-" + medicationUpc.substring(6,10) + "-" + medicationUpc.substring(10,12);
-        ndc532 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,10) + "-" + medicationUpc.substring(10,12);
-        ndc541 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,11) + "-" + medicationUpc.substring(11,12);
+    //Queries database for match by NDC number
+    getMatch = (ndc) => {
 
-        //alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
+    }
+
+    createNdcStrings  = (ndc) => {
+        ndc442 = ndc.substring(2,6) + "-" + ndc.substring(6,10) + "-" + ndc.substring(10,12);
+        ndc532 = ndc.substring(2,7) + "-" + ndc.substring(7,10) + "-" + ndc.substring(10,12);
+        ndc541 = ndc.substring(2,7) + "-" + ndc.substring(7,11) + "-" + ndc.substring(11,12);
+
+        // alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
         this.getMedName(ndc442,ndc532,ndc541)
-
     };
 
     getMedName = (ndc442,ndc532,ndc541) => {
@@ -136,7 +165,7 @@ class MedicationCapturePage extends Component {
         .then(response => {
 
             if(response.data.ndcStatus.status == "ACTIVE"){
-                //alert("**TERIN1**" + response.data.ndcStatus.status)
+                // alert("**TERIN1**" + response.data.ndcStatus.status)
                 names.push(response.data.ndcStatus.conceptName)
                 this.setState({medicationName: names[0]})
             }
@@ -156,19 +185,18 @@ class MedicationCapturePage extends Component {
         .then(response => {
 
             if(response.data.ndcStatus.status == "ACTIVE"){
-                //alert("**TERIN3**" + response.data.ndcStatus.status)
+                // alert("**TERIN3**" + response.data.ndcStatus.status)
                 names.push(response.data.ndcStatus.conceptName)
                 this.setState({medicationName: names[0]})
             }
         });
-
     };
 
     render () {
         return (
-            <Container style={commonStyles.containerStyle}>
+            <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
-                <View style={commonStyles.contentStyle2}>
+                <View style={commonStyles.content}>
                     <Text style={{alignSelf: 'center'}}>
                         Scan Medication
                     </Text>
@@ -215,7 +243,7 @@ class MedicationCapturePage extends Component {
                             </Item>
                         </View>
                     </View>
-                    <Button bordered style={commonStyles.buttonStyle} onPress={this.continueHandler}>
+                    <Button bordered style={commonStyles.button} onPress={this.continueHandler}>
                         <Text>
                             Continue
                         </Text>
@@ -229,9 +257,8 @@ class MedicationCapturePage extends Component {
     takePicture = async function(camera) {
         const options = { quality: 0.5, base64: true };
         const data = await camera.takePictureAsync(options);
-        //  eslint-disable-next-line
+        // eslint-disable-next-line
         console.log(data.uri);
       }
 }
-
 export default MedicationCapturePage;

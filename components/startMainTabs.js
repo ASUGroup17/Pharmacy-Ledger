@@ -19,5 +19,4 @@ const startMainTabs = () => {
     ]
   })
 }
-
 export default startMainTabs
