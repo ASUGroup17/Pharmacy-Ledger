@@ -90,7 +90,7 @@ class MedicationCapturePage extends Component {
         
         if(lotStrings[0]){
             printText = lotStrings[0].map(b => b.value)
-            console.log("LOTSTRINGS13: " + printText)
+            console.log("LOTSTRINGS14: " + printText)
             printText = lotStrings[0].map(b => b.bounds.size.width)
             console.log("STRINGS:Size.width: " + printText)
             printText = lotStrings[0].map(b => b.bounds.size.height)
@@ -104,7 +104,7 @@ class MedicationCapturePage extends Component {
 
         if(expStrings[0]){
             printText2 = expStrings[0].map(b => b.value)
-            console.log("EXPSTRINGS13: " + printText2)
+            console.log("EXPSTRINGS14: " + printText2)
             printText = expStrings[0].map(b => b.bounds.size.width)
             console.log("STRINGS:Size.width: " + printText)
             printText = expStrings[0].map(b => b.bounds.size.height)

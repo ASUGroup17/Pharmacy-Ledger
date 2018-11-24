@@ -27,7 +27,7 @@ class ConfirmationPage extends Component {
         }
 
     }
-  }
+  
 
   render () {
     return (
