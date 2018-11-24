@@ -4,6 +4,8 @@ import { Container, Content, Button, Text, Input, Item, Icon } from 'native-base
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
 import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
+import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
+import realm from '../db/allSchemas';
 
 class MedicationCapturePage extends Component {
 
@@ -17,8 +19,8 @@ class MedicationCapturePage extends Component {
               that will be pushed to the Navigator Stack.
             */
             passProps: {
-                // These first 4 are from the MedicationCapturePage.
-                medicationUpc: "",
+                //These first 4 are from the MedicationCapturePage
+                ndc: this.state.ndc,
                 medicationName: this.state.medicationName,
                 lotNumber: this.state.lotNumber,
                 expDate: this.state.expDate,
@@ -43,16 +45,16 @@ class MedicationCapturePage extends Component {
             -This line(179 at the time) :onBarCodeRead= {(this.state.medicationName == null) ? this.onBarCodeRead : null}
                 had its logic changed as well. As far as I can tell this did not adversely change the app. Still works as intended.
             */
-            medicationUpc: "",
-            medicationName: this.props.medicationName ,
-            lotNumber: this.props.lotNumber ,
-            expDate: this.props.expDate,
+            ndc: null,
+            medicationName: null,
+            lotNumber: null,
+            expDate: null,
             patientID: this.props.patientID
         }
     }
     onBarCodeRead = (e) => {
-        this.setState({medicationUpc: e.data}, () => {
-            this.createNdcStrings(this.state.medicationUpc);
+        this.setState({ndc: e.data}, () => {
+            this.createNdcStrings(this.state.ndc);
         })
     };
 
@@ -94,7 +96,7 @@ class MedicationCapturePage extends Component {
         */
         if(lotStrings[0]){
             printText = lotStrings[0].map(b => b.value)
-            console.log("LOTSTRINGS13: " + printText)
+            console.log("LOTSTRINGS14: " + printText)
             printText = lotStrings[0].map(b => b.bounds.size.width)
             console.log("STRINGS:Size.width: " + printText)
             printText = lotStrings[0].map(b => b.bounds.size.height)
@@ -106,7 +108,7 @@ class MedicationCapturePage extends Component {
         }
         if(expStrings[0]){
             printText2 = expStrings[0].map(b => b.value)
-            console.log("EXPSTRINGS13: " + printText2)
+            console.log("EXPSTRINGS14: " + printText2)
             printText = expStrings[0].map(b => b.bounds.size.width)
             console.log("STRINGS:Size.width: " + printText)
             printText = expStrings[0].map(b => b.bounds.size.height)
@@ -118,10 +120,38 @@ class MedicationCapturePage extends Component {
         }
     }
 
-    createNdcStrings  = (medicationUpc) => {
-        ndc442 = medicationUpc.substring(2,6) + "-" + medicationUpc.substring(6,10) + "-" + medicationUpc.substring(10,12);
-        ndc532 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,10) + "-" + medicationUpc.substring(10,12);
-        ndc541 = medicationUpc.substring(2,7) + "-" + medicationUpc.substring(7,11) + "-" + medicationUpc.substring(11,12);
+    //Creates a match when passed the ndc number, the keyword, the field we are searching for
+    // and the two word elements involved in the match.
+    createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
+        match = {
+            ndc: ndc,
+            keyword: keyword,
+            width: keywordElement.map(b => b.bounds.size.width),
+            height: keywordElement.map(b => b.bounds.size.height),
+            x: keywordElement.map(b => b.bounds.origin.x),
+            y: keywordElement.map(b => b.bounds.origin.y),
+            findX: findFieldElement.map(b => b.bounds.origin.x),
+            findY: findFieldElement.map(b => b.bounds.origin.y),
+            findField: findField
+        }
+
+        this.addMatch(match);
+    }
+
+    //Adds the match to the database
+    addMatch = (match) => {
+
+    }
+
+    //Queries database for match by NDC number
+    getMatch = (ndc) => {
+
+    }
+
+    createNdcStrings  = (ndc) => {
+        ndc442 = ndc.substring(2,6) + "-" + ndc.substring(6,10) + "-" + ndc.substring(10,12);
+        ndc532 = ndc.substring(2,7) + "-" + ndc.substring(7,10) + "-" + ndc.substring(10,12);
+        ndc541 = ndc.substring(2,7) + "-" + ndc.substring(7,11) + "-" + ndc.substring(11,12);
 
         // alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
         this.getMedName(ndc442,ndc532,ndc541)
