@@ -138,6 +138,7 @@ android {
 
 dependencies {
     compile project(':realm')
+    compile project(':react-native-splash-screen')
     compile (project(':react-native-camera')) {
         exclude group: "com.google.android.gms"
         compile 'com.android.support:exifinterface:27.+'

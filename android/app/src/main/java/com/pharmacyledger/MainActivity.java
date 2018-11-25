@@ -1,7 +1,11 @@
 package com.pharmacyledger;
 
-//import com.facebook.react.ReactActivity;
+//import com.facebook.react.ReactActivity; //this was commented out -cal us115 11/24
+import android.os.Bundle; // added us15 11/24 cal
+
+import com.facebook.react.ReactActivity;
 import com.reactnativenavigation.controllers.SplashActivity;
+import org.devio.rn.splashscreen.SplashScreen; // import this us115
 
 public class MainActivity extends SplashActivity {
 
@@ -13,4 +17,11 @@ public class MainActivity extends SplashActivity {
     //protected String getMainComponentName() {
     //    return "PharmacyLedger";
     //}
+
+    //added us115 11/24 -cal
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.show(this);  // here
+        super.onCreate(savedInstanceState);
+    }
 }
