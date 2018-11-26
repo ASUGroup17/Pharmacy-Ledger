@@ -59,7 +59,7 @@ class ConfirmationPage extends Component {
             </CardItem>            
               <CardItem header style={styles.cardHeaderStyle}>
                 <Text>
-                  Medication Name Here!!! {this.props.medicationName}
+                  {this.props.medicationName}
                 </Text>
                 <Button transparent danger>
                   <Text>Delete</Text>
