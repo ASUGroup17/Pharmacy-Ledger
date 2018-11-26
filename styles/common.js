@@ -10,17 +10,17 @@ export const confirmationPageStyles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'row',
     paddingLeft: 20,
-    backgroundColor: 'white',
+    backgroundColor: 'lavender',
     paddingTop: 0,
     paddingBottom: 0,
     marginTop: 0,
     marginBottom: 0
   },
   //this is the Styling for the Patient Information card at the top of some screens
-  patientInfoStyle: {    
+  patientInfoStyle: {
     // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
-     backgroundColor:'#000080',  //A Navy Blue Color
-     paddingRight:20, 
+     backgroundColor:'#000080',  // A Navy Blue Color
+     paddingRight:20,
      paddingBottom:0,
      paddingTop: 0,
      paddingLeft: 0
@@ -40,10 +40,10 @@ export const confirmationPageStyles = StyleSheet.create({
 
 
 export const patientInfoStyles = StyleSheet.create ( {
-  patientInfoStyle: {    
+  patientInfoStyle: {
    // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
     backgroundColor:'#000080',  //A Navy Blue Color
-    paddingRight:20, 
+    paddingRight:20,
     paddingBottom:0,
     paddingTop: 0,
     paddingLeft: 0
@@ -62,7 +62,7 @@ export const medicationCaptureStyles = StyleSheet.create({
     flexDirection: 'row',
     paddingLeft: 10,
     paddingRight: 150,
-    backgroundColor: 'white',
+    backgroundColor: 'lavender',
     paddingTop: 0,
     paddingBottom: 0,
     marginTop: 0,
@@ -70,10 +70,10 @@ export const medicationCaptureStyles = StyleSheet.create({
     marginLeft: 1,
     marginRight: 1
   },
-  patientInfoStyle: {    
+  patientInfoStyle: {
     // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
      backgroundColor:'#000080',  //A Navy Blue Color
-     paddingRight:20, 
+     paddingRight:20,
      paddingBottom:0,
      paddingTop: 0,
      paddingLeft: 0
@@ -89,7 +89,7 @@ export const medicationCaptureStyles = StyleSheet.create({
 export const patientCapturePageStyles = StyleSheet.create({
   patientIdView: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'lavender', // upper part, patientID area
     alignItems: 'center',
     justifyContent: 'space-around',
     paddingLeft: 5
@@ -100,7 +100,7 @@ export const patientCapturePageStyles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingLeft: 30,
     paddingRight: 50,
-    backgroundColor: 'white',
+    backgroundColor: 'lavender', // lower part
     paddingTop: 0,
     paddingBottom: 0,
     marginTop: 0,
@@ -123,12 +123,14 @@ export const commonStyles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignContent: 'space-between',
+    backgroundColor: 'lavender',
     flexGrow: 1
   },
 
   content: {
     flex: 1,
     flexGrow: 1,
+    backgroundColor: 'lavender'
     //alignContent: 'space-around',
     //justifyContent: 'space-around'
   },

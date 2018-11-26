@@ -29,12 +29,12 @@ class ConfirmationPage extends Component {
             expDate: this.props.expDate,
             //From PatientCapturePage
             patientID: this.props.patientID,
-            patientFirstName: this.props.patientFirstName, 
+            patientFirstName: this.props.patientFirstName,
             patientLastName: this.props.patientLastName,
             patientDOB: this.props.patientDOB
         }
     }
-  
+
 
   render () {
     return (
@@ -42,11 +42,11 @@ class ConfirmationPage extends Component {
         <Content contentContainerStyle={{ justifyContent: 'center' }} style={commonStyles.content}>
           <View>
             {/*
-            -One card contains a series of Card Items to be displayed in this View.  
+            -One card contains a series of Card Items to be displayed in this View.
             -Specific Text Color styling wasn't working through CSS file common.js, so in-line
             styling was used; not ideal, perhaps this can be fixed
-            */} 
-          <Card>  
+            */}
+          <Card>
             <CardItem style = {styles.patientInfoStyle}>
               <Text style= { { color : 'white' } }>
                 Patient ID:{this.props.patientID}  DOB:{this.props.patientDOB}
@@ -54,9 +54,9 @@ class ConfirmationPage extends Component {
               </CardItem >
               <CardItem style = {styles.patientInfoStyle}>
               <Text style = { { color: 'white' } }>
-                Name: {this.props.patientLastName} {this.props.patientFirstName} 
+                Name: {this.props.patientLastName} {this.props.patientFirstName}
                 </Text>
-            </CardItem>            
+            </CardItem>
               <CardItem header style={styles.cardHeaderStyle}>
                 <Text>
                   Medication Name Here!!! {this.props.medicationName}

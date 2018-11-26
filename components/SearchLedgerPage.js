@@ -28,7 +28,7 @@ class SearchLedgerPage extends Component {
 
     render () {
         return (
-            <Container style={commonStyles.Container}>
+            <Container style={commonStyles.container}>
                 <Content>
                     <View style={commonStyles.content}>
                         <Form>

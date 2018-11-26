@@ -26,9 +26,9 @@ class SearchResultsPage extends Component {
 
      render () {
          return (
-             <Container style={commonStyles.Container}>
+             <Container style={commonStyles.container}>
                 <Content>
-                    <View style={commonStyles.Container}>
+                    <View style={commonStyles.container}>
                         <Form>
                             <Item>
                                 <Input placeholder = "Administering Physician"/>
