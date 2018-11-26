@@ -15,26 +15,25 @@ class ConfirmationPage extends Component {
       --NOTE: currently medications are a singular object,
       we will likely be changing this to an array
   */
-    constructor(props) {
-        super(props);
-        this.state = {
-            /*
+  constructor (props) {
+    super(props)
+    this.state = {
+      /*
             From MedicationCapturePage.
             Medications will likely have to be an array;
             this is mostly for building and testing purposes.
             */
-            ndc: this.props.ndc,
-            medicationName: this.props.medicationName,
-            lotNumber: this.props.lotNumber,
-            expDate: this.props.expDate,
-            //From PatientCapturePage
-            patientID: this.props.patientID,
-            patientFirstName: this.props.patientFirstName,
-            patientLastName: this.props.patientLastName,
-            patientDOB: this.props.patientDOB
-        }
+      ndc: this.props.ndc,
+      medicationName: this.props.medicationName,
+      lotNumber: this.props.lotNumber,
+      expDate: this.props.expDate,
+      // From PatientCapturePage
+      patientID: this.props.patientID,
+      patientFirstName: this.props.patientFirstName,
+      patientLastName: this.props.patientLastName,
+      patientDOB: this.props.patientDOB
     }
-
+  }
 
   render () {
     return (
@@ -46,17 +45,17 @@ class ConfirmationPage extends Component {
             -Specific Text Color styling wasn't working through CSS file common.js, so in-line
             styling was used; not ideal, perhaps this can be fixed
             */}
-          <Card>
-            <CardItem style = {styles.patientInfoStyle}>
-              <Text style= { { color : 'white' } }>
+            <Card>
+              <CardItem style={styles.patientInfoStyle}>
+                <Text style={{ color: 'white' }}>
                 Patient ID:{this.props.patientID}  DOB:{this.props.patientDOB}
-              </Text>
+                </Text>
               </CardItem >
-              <CardItem style = {styles.patientInfoStyle}>
-              <Text style = { { color: 'white' } }>
+              <CardItem style={styles.patientInfoStyle}>
+                <Text style={{ color: 'white' }}>
                 Name: {this.props.patientLastName} {this.props.patientFirstName}
                 </Text>
-            </CardItem>
+              </CardItem>
               <CardItem header style={styles.cardHeaderStyle}>
                 <Text>
                   Medication Name Here!!! {this.props.medicationName}
@@ -91,4 +90,4 @@ class ConfirmationPage extends Component {
     )
   }
 }
-export default ConfirmationPage;
+export default ConfirmationPage

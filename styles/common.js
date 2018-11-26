@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Platform, StyleSheet, Link, View } from 'react-native'
-//<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css"></link>
+// <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css"></link>
 
 export const confirmationPageStyles = StyleSheet.create({
   viewStyle: {
@@ -16,15 +16,15 @@ export const confirmationPageStyles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 0
   },
-  //this is the Styling for the Patient Information card at the top of some screens
+  // this is the Styling for the Patient Information card at the top of some screens
   patientInfoStyle: {
     // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
-     backgroundColor:'#000080',  // A Navy Blue Color
-     paddingRight:20,
-     paddingBottom:0,
-     paddingTop: 0,
-     paddingLeft: 0
-   },
+    backgroundColor: '#000080', // A Navy Blue Color
+    paddingRight: 20,
+    paddingBottom: 0,
+    paddingTop: 0,
+    paddingLeft: 0
+  },
   cardHeaderStyle: {
     backgroundColor: 'lightgray'
   },
@@ -38,13 +38,12 @@ export const confirmationPageStyles = StyleSheet.create({
   }
 })
 
-
-export const patientInfoStyles = StyleSheet.create ( {
+export const patientInfoStyles = StyleSheet.create({
   patientInfoStyle: {
-   // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
-    backgroundColor:'#000080',  //A Navy Blue Color
-    paddingRight:20,
-    paddingBottom:0,
+    // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
+    backgroundColor: '#000080', // A Navy Blue Color
+    paddingRight: 20,
+    paddingBottom: 0,
     paddingTop: 0,
     paddingLeft: 0
   }
@@ -72,12 +71,12 @@ export const medicationCaptureStyles = StyleSheet.create({
   },
   patientInfoStyle: {
     // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
-     backgroundColor:'#000080',  //A Navy Blue Color
-     paddingRight:20,
-     paddingBottom:0,
-     paddingTop: 0,
-     paddingLeft: 0
-   },
+    backgroundColor: '#000080', // A Navy Blue Color
+    paddingRight: 20,
+    paddingBottom: 0,
+    paddingTop: 0,
+    paddingLeft: 0
+  },
   groupTight: {
     flex: 0,
     alignSelf: 'stretch',
@@ -95,7 +94,7 @@ export const patientCapturePageStyles = StyleSheet.create({
     paddingLeft: 5
   },
   viewStyle: {
-    flex: .1,
+    flex: 0.1,
     alignItems: 'center',
     justifyContent: 'flex-start',
     paddingLeft: 30,
@@ -131,8 +130,8 @@ export const commonStyles = StyleSheet.create({
     flex: 1,
     flexGrow: 1,
     backgroundColor: 'lavender'
-    //alignContent: 'space-around',
-    //justifyContent: 'space-around'
+    // alignContent: 'space-around',
+    // justifyContent: 'space-around'
   },
 
   /*
