@@ -46,6 +46,7 @@ class MedicationCapturePage extends Component {
                 had its logic changed as well. As far as I can tell this did not adversely change the app. Still works as intended.
             */
             ndc: null,
+            matches: [],
             medicationName: null,
             lotNumber: null,
             expDate: null, 
@@ -55,6 +56,7 @@ class MedicationCapturePage extends Component {
                 patientLastName: "#LastName",
                 patientDOB: "#DOB"
         }
+        
     }
     onBarCodeRead = (e) => {
         this.setState({ndc: e.data}, () => {
@@ -125,9 +127,10 @@ class MedicationCapturePage extends Component {
     }
 
     //Creates a match when passed the ndc number, the keyword, the field we are searching for
-    // and the two word elements involved in the match.
+    // and the two word elements involved in the match and adds to DB.
     createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
         match = {
+            id: match.length,
             ndc: ndc,
             keyword: keyword,
             width: keywordElement.map(b => b.bounds.size.width),
@@ -139,12 +142,17 @@ class MedicationCapturePage extends Component {
             findField: findField
         }
 
-        this.addMatch(match);
-    }
+        insertNewMatch(match).then().catch((error) => {
+            alert(`Insert new match error ${error}`);
+        })
 
-    //Adds the match to the database
-    addMatch = (match) => {
+        queryAllMatches().then((matches) => {
+            this.setState({ matches });
+        }).catch((error) => {
+            this.setState({ matches: [] });
+        });
 
+        console.log(matches);
     }
 
     //Queries database for match by NDC number
