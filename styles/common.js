@@ -16,15 +16,6 @@ export const confirmationPageStyles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 0
   },
-  // this is the Styling for the Patient Information card at the top of some screens
-  patientInfoStyle: {
-    // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
-    backgroundColor: '#000080', // A Navy Blue Color
-    paddingRight: 20,
-    paddingBottom: 0,
-    paddingTop: 0,
-    paddingLeft: 0
-  },
   cardHeaderStyle: {
     backgroundColor: 'lightgray'
   },
@@ -38,20 +29,8 @@ export const confirmationPageStyles = StyleSheet.create({
   }
 })
 
-export const patientInfoStyles = StyleSheet.create({
-  patientInfoStyle: {
-    // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
-    backgroundColor: '#000080', // A Navy Blue Color
-    paddingRight: 20,
-    paddingBottom: 0,
-    paddingTop: 0,
-    paddingLeft: 0
-  }
-})
-
-export const loginPageStyles = StyleSheet.create({
-
-})
+// export const loginPageStyles = StyleSheet.create({
+// })
 
 export const medicationCaptureStyles = StyleSheet.create({
   viewStyle: {
@@ -68,14 +47,6 @@ export const medicationCaptureStyles = StyleSheet.create({
     marginBottom: 0,
     marginLeft: 1,
     marginRight: 1
-  },
-  patientInfoStyle: {
-    // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
-    backgroundColor: '#000080', // A Navy Blue Color
-    paddingRight: 20,
-    paddingBottom: 0,
-    paddingTop: 0,
-    paddingLeft: 0
   },
   groupTight: {
     flex: 0,
@@ -185,5 +156,14 @@ export const commonStyles = StyleSheet.create({
     alignSelf: 'center',
     color: '#0000ff',
     padding: 2
+  },
+
+  patientInfoStyle: {
+    // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
+    backgroundColor: '#000080', // A Navy Blue Color
+    paddingRight: 20,
+    paddingBottom: 0,
+    paddingTop: 0,
+    paddingLeft: 0
   }
 })

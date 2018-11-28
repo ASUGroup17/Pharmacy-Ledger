@@ -29,9 +29,9 @@ class MedicationCapturePage extends Component {
                   currently patientID code is the only valid data being used.
                 */
                 patientID: this.state.patientID,
-                patientFirstName: this.state.patientFirstName, 
+                patientFirstName: this.state.patientFirstName,
                 patientLastName: this.state.patientLastName,
-                patientDOB: this.state.patientDOB    
+                patientDOB: this.state.patientDOB
             }
         })
     }
@@ -40,7 +40,7 @@ class MedicationCapturePage extends Component {
         super(props);
         this.state = {
             /*
-            -These three state props are being defined initially as null for the 'green check mark' logic, 
+            -These three state props are being defined initially as null for the 'green check mark' logic,
             once this information is properly captured, the checkmark will go from black to green.
             -This line(179 at the time) :onBarCodeRead= {(this.state.medicationName == null) ? this.onBarCodeRead : null}
                 had its logic changed as well. As far as I can tell this did not adversely change the app. Still works as intended.
@@ -48,10 +48,10 @@ class MedicationCapturePage extends Component {
             ndc: null,
             medicationName: null,
             lotNumber: null,
-            expDate: null, 
+            expDate: null,
             patientID: this.props.patientID ,
             //patientID: "#PATIENTID",//this.state.patientID,
-                patientFirstName: "#FirstName", 
+                patientFirstName: "#FirstName",
                 patientLastName: "#LastName",
                 patientDOB: "#DOB"
         }
@@ -221,14 +221,14 @@ class MedicationCapturePage extends Component {
                 This view contains the Patient Info displayed just below the Camera screen.
                 */}
                 <View>
-                    <CardItem style = {styles.patientInfoStyle}>
+                    <CardItem style = {commonStyles.patientInfoStyle}>
                         <Text style= { { color : 'white' } }>
                             Patient ID:{this.state.patientID}  DOB:{this.state.patientDOB}
                         </Text>
                     </CardItem >
-                    <CardItem style = {styles.patientInfoStyle}>
+                    <CardItem style = {commonStyles.patientInfoStyle}>
                         <Text style = { { color: 'white' } }>
-                            Name: {this.state.patientLastName} {this.state.patientFirstName} 
+                            Name: {this.state.patientLastName} {this.state.patientFirstName}
                         </Text>
                     </CardItem>
                 </View>

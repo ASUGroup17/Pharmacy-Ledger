@@ -46,12 +46,12 @@ class ConfirmationPage extends Component {
             styling was used; not ideal, perhaps this can be fixed
             */}
             <Card>
-              <CardItem style={styles.patientInfoStyle}>
+              <CardItem style={commonStyles.patientInfoStyle}>
                 <Text style={{ color: 'white' }}>
                 Patient ID:{this.props.patientID}  DOB:{this.props.patientDOB}
                 </Text>
               </CardItem >
-              <CardItem style={styles.patientInfoStyle}>
+              <CardItem style={commonStyles.patientInfoStyle}>
                 <Text style={{ color: 'white' }}>
                 Name: {this.props.patientLastName} {this.props.patientFirstName}
                 </Text>
