@@ -26,10 +26,14 @@ export const confirmationPageStyles = StyleSheet.create({
      paddingLeft: 0
    },
   cardHeaderStyle: {
-    backgroundColor: 'lightgray'
+    backgroundColor: 'lightgray',
+    paddingTop:10,
+    paddingBottom:10
   },
   cardBodyStyle: {
-    backgroundColor: 'gainsboro'
+    backgroundColor: 'gainsboro',
+    paddingTop:5,
+    paddingBottom:0
   },
   buttonRowStyle: {
     flexDirection: 'row',
