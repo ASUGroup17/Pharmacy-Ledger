@@ -33,10 +33,12 @@ class SearchLedgerPage extends Component {
                     <View style={commonStyles.content}>
                         <Form>
                             <Item>
-                                <Input placeholder = "Physician Name"/>
+                                <Input placeholder = "Physician Name"
+                                  placeholderTextColor={commonStyles.text.color} />
                             </Item>
                             <Item last>
-                                <Input placeholder = "Medication Name"/>
+                                <Input placeholder = "Medication Name"
+                                  placeholderTextColor={commonStyles.text.color} />
                             </Item>
                         </Form>
                         <Button bordered style = {commonStyles.button} onPress={this.searchResultsHandler}>

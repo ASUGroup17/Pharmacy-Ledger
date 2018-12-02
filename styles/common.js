@@ -123,7 +123,8 @@ export const commonStyles = StyleSheet.create({
   */
   text: {
     alignSelf: 'center',
-    padding: 2
+    padding: 2,
+    color: '#d40303'
   },
 
   /*

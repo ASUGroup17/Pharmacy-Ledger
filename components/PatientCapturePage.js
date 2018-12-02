@@ -32,7 +32,7 @@ class PatientCapturePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            /* 
+            /*
              I set patientID to null initially for the 'greencheck mark' logic. Once a barcode is scanned
              the checkmark goes from black to green, and the patientID is not longer null
             */
@@ -58,8 +58,7 @@ class PatientCapturePage extends Component {
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
                 <View style={commonStyles.content}>
-                    <Text style={{alignSelf: 'center'}}>
-                        Scan Patient's Wristband
+                    <Text style={commonStyles.text}> Scan Patient's Wristband
                     </Text>
 
                     <RNCamera
@@ -76,11 +75,10 @@ class PatientCapturePage extends Component {
                     </RNCamera>
                     <View style={styles.viewStyle}>
                         <View style={styles.patientIdView}>
-                            <Text>
-                                Patient ID:
-                            </Text>
+                            <Text style={commonStyles.text}> Patient ID: </Text>
                             <Item success ={(this.state.patientID == null) ? false : true}>
-                                <Input placeholder="Patient ID" editable = {false} value={this.state.patientID}/>
+                                <Input placeholder="Patient ID" editable = {false} value={this.state.patientID}
+                                  placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
