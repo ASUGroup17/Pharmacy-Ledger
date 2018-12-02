@@ -60,7 +60,7 @@ class LoginPage extends Component {
               <DialogTitle
                 title="U.S. National Library of Medicine Terms of Service"
                 style={{
-                  backgroundColor: '#F7F7F8',
+                  backgroundColor: '#e0f2dc',
                 }}
                 hasTitleBar={false}
                 align="left"
@@ -69,6 +69,9 @@ class LoginPage extends Component {
             actions={[
               <DialogButton
                 text="OK"
+                style={{
+                  backgroundColor: '#e0f2dc',
+                }}
                 onPress={() => {
                   this.setState({ visiblePopup: false });
                 }}
@@ -76,7 +79,11 @@ class LoginPage extends Component {
               />
             ]}
           >
-            <DialogContent>
+            <DialogContent
+              style={{
+                backgroundColor: '#e0f2dc',
+              }}
+            >
               <Text>This product uses publicly available data from the U.S. National Library of Medicine (NLM), National Institutes of Health, Department of Health and Human Services; NLM is not responsible for the product and does not endorse or recommend this or any other product.</Text>
             </DialogContent>
           </Dialog>
