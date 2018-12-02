@@ -19,33 +19,11 @@ class PatientCapturePage extends Component {
             screen: 'pharmacy-ledger.MedicationCapturePage',
             title: 'Add Medication',
             // These props will be passed to the MedicatioCapturePage.
-            passProps: {
-            patientID: this.state.patientID,
-            patientFirstName: "",
-            patientLastName: "",
-            patientDOB: "",
-            medicationName: this.state.medicationName,
-            lotNumber: this.state.lotNumber,
-            expDate: this.state.expDate
-            }
         })
     }
 
     constructor(props) {
         super(props);
-        this.state = {
-            /* 
-             I set patientID to null initially for the 'greencheck mark' logic. Once a barcode is scanned
-             the checkmark goes from black to green, and the patientID is not longer null
-            */
-            patientID: null,
-            patientFirstName: "",
-            patientLastName: "",
-            patientDOB: "",
-            medicationName: null,
-            lotNumber: null,
-            expDate: null
-        }
     }
 
     /*
@@ -56,6 +34,8 @@ class PatientCapturePage extends Component {
     onBarCodeRead = (e) => this.props.onPatientCapture(e.data)
 
     render () {
+        // destructures patient from this.props object
+        const { patient } = this.props
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
@@ -71,7 +51,7 @@ class PatientCapturePage extends Component {
                         flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
                         permissionDialogMessage={'We need your permission to use your camera phone'}
-                        onBarCodeRead={e=> console.log(e)}//this.onBarCodeRead}
+                        onBarCodeRead={this.onBarCodeRead}
                         ref={cam => this.camera = cam}
                         //aspect={RNCamera.Constants.Aspect.fill}
                         >
@@ -81,23 +61,23 @@ class PatientCapturePage extends Component {
                             <Text>
                                 Patient ID:
                             </Text>
-                            <Item success ={(this.state.patientID == null) ? false : true}>
-                                <Input placeholder="Patient ID" editable = {false} value={this.state.patientID}/>
+                            <Item success ={!patient.id ? false : true}>
+                                <Input placeholder="Patient ID" editable = {false} value={patient.id}/>
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
-                    <Button bordered style={commonStyles.button} onPress={this.continueHandler}
-                        disabled={!this.state.patientID}>
-                        <Text>
-                            Continue
-                        </Text>
-                    </Button>
+                        <Button bordered style={commonStyles.button} onPress={this.continueHandler}
+                            disabled={!patient.id}>
+                            <Text>
+                                Continue
+                            </Text>
+                        </Button>
                     </View>
                 </View>
                 </Content>
             </Container>
         );
-    }
+    } 
 
     takePicture = async function(camera) {
         const options = { quality: 0.5, base64: true };
