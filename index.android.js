@@ -1,3 +1,3 @@
 /** @format */
 
-import App from './App';
+import App from './App'
