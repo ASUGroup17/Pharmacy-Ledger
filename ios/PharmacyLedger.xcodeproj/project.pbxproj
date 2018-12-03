@@ -55,6 +55,10 @@
 		DC8874EE21867718003F0A72 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8874ED218676E9003F0A72 /* libReactNativeNavigation.a */; };
 		EBD6963962014E14B6DF0E77 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42346CD542964FF7B984C158 /* rubicon-icon-font.ttf */; };
 		533CBE1138B24228AEDCD75F /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AF80E73BC340C9BE0D0730 /* libRNCamera.a */; };
+		4100A5025A444A539A4AC65C /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3471048B747A4108B351980C /* libRealmReact.a */; };
+		91793366B9944AF6B80C67D8 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 871F16E15FFD4EEF91FA2CFF /* libc++.tbd */; };
+		943F175E63254B14A5F9735F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EFC7107B8214FF1A86CCB72 /* libz.tbd */; };
+		02C3C77E854F452ABCF1CC64 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21F1164830244A09904C88A5 /* libSplashScreen.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -400,6 +404,15 @@
 		FFE27287909B4AE1ACCE8DC2 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		A3EAD5D53491414A9E856743 /* RNCamera.xcodeproj */ = {isa = PBXFileReference; name = "RNCamera.xcodeproj"; path = "../node_modules/react-native-camera/ios/RNCamera.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		F7AF80E73BC340C9BE0D0730 /* libRNCamera.a */ = {isa = PBXFileReference; name = "libRNCamera.a"; path = "libRNCamera.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+<<<<<<< HEAD
+		0F394F0298AF4CCCBB96C1A9 /* RealmReact.xcodeproj */ = {isa = PBXFileReference; name = "RealmReact.xcodeproj"; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		3471048B747A4108B351980C /* libRealmReact.a */ = {isa = PBXFileReference; name = "libRealmReact.a"; path = "libRealmReact.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		871F16E15FFD4EEF91FA2CFF /* libc++.tbd */ = {isa = PBXFileReference; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		2EFC7107B8214FF1A86CCB72 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+=======
+		A1D132F67E78466184EC8497 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; name = "SplashScreen.xcodeproj"; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		21F1164830244A09904C88A5 /* libSplashScreen.a */ = {isa = PBXFileReference; name = "libSplashScreen.a"; path = "libSplashScreen.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+>>>>>>> 530a4694022f59a3c81705feb04e9d29a59f5a50
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,6 +443,13 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				533CBE1138B24228AEDCD75F /* libRNCamera.a in Frameworks */,
+<<<<<<< HEAD
+				4100A5025A444A539A4AC65C /* libRealmReact.a in Frameworks */,
+				91793366B9944AF6B80C67D8 /* libc++.tbd in Frameworks */,
+				943F175E63254B14A5F9735F /* libz.tbd in Frameworks */,
+=======
+				02C3C77E854F452ABCF1CC64 /* libSplashScreen.a in Frameworks */,
+>>>>>>> 530a4694022f59a3c81705feb04e9d29a59f5a50
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +620,8 @@
 			isa = PBXGroup;
 			children = (
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				871F16E15FFD4EEF91FA2CFF /* libc++.tbd */,
+				2EFC7107B8214FF1A86CCB72 /* libz.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -640,6 +662,11 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				A3EAD5D53491414A9E856743 /* RNCamera.xcodeproj */,
+<<<<<<< HEAD
+				0F394F0298AF4CCCBB96C1A9 /* RealmReact.xcodeproj */,
+=======
+				A1D132F67E78466184EC8497 /* SplashScreen.xcodeproj */,
+>>>>>>> 530a4694022f59a3c81705feb04e9d29a59f5a50
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1331,10 +1358,16 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-camera\ios/**",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\realm\src/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-splash-screen\ios",
+>>>>>>> 530a4694022f59a3c81705feb04e9d29a59f5a50
 				);
 			};
 			name = Debug;
@@ -1357,10 +1390,16 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-camera\ios/**",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\realm\src/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-splash-screen\ios",
+>>>>>>> 530a4694022f59a3c81705feb04e9d29a59f5a50
 				);
 			};
 			name = Release;
@@ -1374,6 +1413,11 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-camera\ios/**",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\realm\src/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-splash-screen\ios",
+>>>>>>> 530a4694022f59a3c81705feb04e9d29a59f5a50
 				);
 				INFOPLIST_FILE = PharmacyLedger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1396,6 +1440,11 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-camera\ios/**",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\realm\src/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-splash-screen\ios",
+>>>>>>> 530a4694022f59a3c81705feb04e9d29a59f5a50
 				);
 				INFOPLIST_FILE = PharmacyLedger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1436,10 +1485,16 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-camera\ios/**",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\realm\src/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-splash-screen\ios",
+>>>>>>> 530a4694022f59a3c81705feb04e9d29a59f5a50
 				);
 			};
 			name = Debug;
@@ -1470,10 +1525,16 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-camera\ios/**",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\realm\src/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-splash-screen\ios",
+>>>>>>> 530a4694022f59a3c81705feb04e9d29a59f5a50
 				);
 			};
 			name = Release;
@@ -1503,10 +1564,16 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-camera\ios/**",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\realm\src/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-splash-screen\ios",
+>>>>>>> 530a4694022f59a3c81705feb04e9d29a59f5a50
 				);
 			};
 			name = Debug;
@@ -1536,10 +1603,16 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-camera\ios/**",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\realm\src/**",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-splash-screen\ios",
+>>>>>>> 530a4694022f59a3c81705feb04e9d29a59f5a50
 				);
 			};
 			name = Release;
