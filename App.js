@@ -26,9 +26,9 @@ const store = configureStore()
 //   Provider
 // );
 
-<<<<<<< HEAD
+
 registerComponents()
-=======
+/*
 // Register Screens
 Navigation.registerComponent('pharmacy-ledger.LoginPage', () => LoginPage)
 Navigation.registerComponent('pharmacy-ledger.PatientCapturePage', () => PatientCapturePage, store, Provider)
@@ -36,8 +36,7 @@ Navigation.registerComponent('pharmacy-ledger.SearchLedgerPage', () => SearchLed
 Navigation.registerComponent('pharmacy-ledger.MedicationCapturePage', () => MedicationCapturePage, store, Provider)
 Navigation.registerComponent('pharmacy-ledger.ConfirmationPage', () => ConfirmationPage, store, Provider)
 Navigation.registerComponent('pharmacy-ledger.SearchResultsPage', () => SearchResultsPage)
->>>>>>> development
-
+*/
 // Start App
 Navigation.startSingleScreenApp({
   screen: {
