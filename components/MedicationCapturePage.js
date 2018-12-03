@@ -30,7 +30,7 @@ class MedicationCapturePage extends Component {
                   These 4 come from the passProps of the Patient Capture page;
                   currently patientID code is the only valid data being used.
                 */
-                patientID: this.state.patientID,
+                patientID: this.props.patient.id,
                 patientFirstName: this.state.patientFirstName, 
                 patientLastName: this.state.patientLastName,
                 patientDOB: this.state.patientDOB    
@@ -52,19 +52,15 @@ class MedicationCapturePage extends Component {
             lotNumber: null,
             expDate: null, 
             patientID: this.props.patientID ,
-            //patientID: "#PATIENTID",//this.state.patientID,
+            //patientID: "#PATIENTID",//this.props.patient.id,
                 patientFirstName: "#FirstName", 
                 patientLastName: "#LastName",
                 patientDOB: "#DOB"
         }
     }
-    onBarCodeRead = (e) => {
-        this.setState({ndc: e.data}, () => {
-            this.createNdcStrings(this.state.ndc);
-        })
-    };
+    onBarCodeRead = (e) => this.createNdcStrings(e.data)
 
-    onTextRecognized = ({textBlocks}) => {
+    onTextRecognized = ({ textBlocks }) => {
         var patt1, patt2, patt3, lotExp, expirationExp
         var lotStrings = []
         var expStrings = []
@@ -161,44 +157,10 @@ class MedicationCapturePage extends Component {
         ndc541 = ndc.substring(2,7) + "-" + ndc.substring(7,11) + "-" + ndc.substring(11,12);
 
         // alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
-        this.getMedName(ndc442,ndc532,ndc541)
+        // this.getMedName(ndc442,ndc532,ndc541)
+        this.props.onMedicationCapture([ndc442, ndc532, ndc541])
     };
 
-    
-    // getMedName = (ndc442,ndc532,ndc541) => {
-
-    //     var names = [];
-
-    //     axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc442)
-    //     .then(response => {
-
-    //         if(response.data.ndcStatus.status == "ACTIVE"){
-    //             // alert("**TERIN1**" + response.data.ndcStatus.status)
-    //             names.push(response.data.ndcStatus.conceptName)
-    //             this.setState({medicationName: names[0]})
-    //         }
-    //     });
-
-    //     axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc532)
-    //     .then(response => {
-
-    //         if(response.data.ndcStatus.status == "ACTIVE"){
-    //             //alert("**TERIN2**" + response.data.ndcStatus.status)
-    //             names.push(response.data.ndcStatus.conceptName)
-    //             this.setState({medicationName: names[0]})
-    //         }
-    //     });
-
-    //     axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc541)
-    //     .then(response => {
-
-    //         if(response.data.ndcStatus.status == "ACTIVE"){
-    //             // alert("**TERIN3**" + response.data.ndcStatus.status)
-    //             names.push(response.data.ndcStatus.conceptName)
-    //             this.setState({medicationName: names[0]})
-    //         }
-    //     });
-    // };
 
     render () {
         return (
@@ -218,7 +180,7 @@ class MedicationCapturePage extends Component {
                         
                         // onBarCodeRead= {(this.props.medication.medicationName == "") ? this.onBarCodeRead : null}
 
-                        onBarCodeRead= {(this.state.medicationName == null) ? this.onBarCodeRead : null}
+                        onBarCodeRead= {!this.props.medication.name ? this.onBarCodeRead : null}
                         onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
@@ -229,7 +191,7 @@ class MedicationCapturePage extends Component {
                 <View>
                     <CardItem style = {styles.patientInfoStyle}>
                         <Text style= { { color : 'white' } }>
-                            Patient ID:{this.state.patientID}  DOB:{this.state.patientDOB}
+                            Patient ID:{this.props.patient.id}  DOB:{this.props.patient.dob}
                         </Text>
                     </CardItem >
                     <CardItem style = {styles.patientInfoStyle}>
@@ -243,8 +205,8 @@ class MedicationCapturePage extends Component {
                             <Text>
                                 Medication:
                             </Text>
-                            <Item success ={(this.state.medicationName == null) ? false : true}>
-                                <Input placeholder="Medication Name" editable = {false} value={this.state.medicationName}/>
+                            <Item success ={(this.props.medication.name == null) ? false : true}>
+                                <Input placeholder="Medication Name" editable = {false} value={this.props.medication.name}/>
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
@@ -288,7 +250,7 @@ class MedicationCapturePage extends Component {
 
 
 const mapStateToProps = ({ medication, patient }) => {
-    return { 
+    return {
         medication,
         patient
     }
