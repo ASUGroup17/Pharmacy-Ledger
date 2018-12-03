@@ -47,17 +47,17 @@ class ConfirmationPage extends Component {
             */}
             <Card>
               <CardItem style={commonStyles.patientInfoStyle}>
-                <Text style={{ color: 'white' }}>
-                Patient ID:{this.props.patientID}  DOB:{this.props.patientDOB}
+                <Text style={commonStyles.patientTextStyle}>
+                  Patient ID:{this.props.patientID}  DOB:{this.props.patientDOB}
                 </Text>
               </CardItem >
               <CardItem style={commonStyles.patientInfoStyle}>
-                <Text style={{ color: 'white' }}>
-                Name: {this.props.patientLastName} {this.props.patientFirstName}
+                <Text style={commonStyles.patientTextStyle}>
+                  Name: {this.props.patientLastName} {this.props.patientFirstName}
                 </Text>
               </CardItem>
               <CardItem header style={styles.cardHeaderStyle}>
-                <Text>
+                <Text style={commonStyles.text}>
                   Medication Name Here!!! {this.props.medicationName}
                 </Text>
                 <Button transparent danger>
@@ -66,7 +66,7 @@ class ConfirmationPage extends Component {
               </CardItem>
               <CardItem style={styles.cardBodyStyle}>
                 <Body>
-                  <Text>
+                  <Text style={commonStyles.text}>
                     Lot Number and Expiration Here!!! {this.props.lotNumber}
                   </Text>
                 </Body>
@@ -74,12 +74,12 @@ class ConfirmationPage extends Component {
             </Card>
           </View>
           <View style={styles.buttonRowStyle}>
-            <Button bordered primary style={styles.buttonStyle}>
+            <Button bordered primary style={commonStyles.button}>
               <Text>
                 Continue
               </Text>
             </Button>
-            <Button bordered danger style={styles.buttonStyle}>
+            <Button bordered danger style={commonStyles.button}>
               <Text>
                 Cancel
               </Text>

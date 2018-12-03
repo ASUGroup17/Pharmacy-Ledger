@@ -26,7 +26,8 @@ export const confirmationPageStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignContent: 'flex-end'
-  }
+  },
+
 })
 
 // export const loginPageStyles = StyleSheet.create({
@@ -166,6 +167,10 @@ export const commonStyles = StyleSheet.create({
     paddingBottom: 0,
     paddingTop: 0,
     paddingLeft: 0
+  },
+
+  patientTextStyle: {
+    color: 'white'
   }
 })
 

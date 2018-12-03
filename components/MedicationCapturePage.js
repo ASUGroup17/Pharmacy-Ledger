@@ -223,12 +223,12 @@ class MedicationCapturePage extends Component {
                 */}
                 <View>
                     <CardItem style = {commonStyles.patientInfoStyle}>
-                        <Text style= { { color : 'white' } }>
+                        <Text style={commonStyles.patientTextStyle}>
                             Patient ID:{this.state.patientID}  DOB:{this.state.patientDOB}
                         </Text>
                     </CardItem >
                     <CardItem style = {commonStyles.patientInfoStyle}>
-                        <Text style = { { color: 'white' } }>
+                        <Text style={commonStyles.patientTextStyle}>
                             Name: {this.state.patientLastName} {this.state.patientFirstName}
                         </Text>
                     </CardItem>
