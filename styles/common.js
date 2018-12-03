@@ -124,7 +124,7 @@ export const commonStyles = StyleSheet.create({
   text: {
     alignSelf: 'center',
     padding: 2,
-    color: '#d40303'
+    color: '#0f2362'
   },
 
   /*
