@@ -1,6 +1,6 @@
 import { Navigation } from 'react-native-navigation'
 import { Icon } from 'react-native-vector-icons/Ionicons'
-import { navigatorStyle } from '../styles/common'
+import { navigatorStyle, tabBarStyle } from '../styles/common'
 
 const startMainTabs = () => {
   Navigation.startTabBasedApp({
@@ -19,7 +19,8 @@ const startMainTabs = () => {
         icon: require('../icons/if_11_Search_106236.png'),
         navigatorStyle: navigatorStyle
       }
-    ]
+    ],
+    appStyle: tabBarStyle
   })
 }
 export default startMainTabs

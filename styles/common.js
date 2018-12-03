@@ -171,5 +171,11 @@ export const commonStyles = StyleSheet.create({
 
 export const navigatorStyle = {
   navBarBackgroundColor: '#d40303',
-  navBarTextColor: "white"
-};
+  navBarTextColor: 'white'
+}
+
+export const tabBarStyle = {
+  tabBarBackgroundColor: '#0f2362',
+  tabBarButtonColor: '#ffffff',
+  tabBarSelectedButtonColor: '#63d7cc'
+}
