@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
+import { Container, Content, Card, Body, Button, Text, Form, Item, Input, Right, CardItem } from 'native-base'
 import { connect } from 'react-redux'
-import { Container, Content, Card, Body, Button, Text, Form, Item, Input, CardItem } from 'native-base'
 import { confirmationPageStyles as styles, commonStyles } from '../styles/common'
 
 class ConfirmationPage extends Component {
@@ -24,6 +24,29 @@ class ConfirmationPage extends Component {
             Medications will likely have to be an array;
             this is mostly for building and testing purposes.
             */
+           /*Commenting out the individual medication related items. Implementing an array here due to array state issues,
+           of creating the array in MedicationCapturePage.  This is for Testing & creating a proper display of multiple medications
+           from an array. 
+            ndc: this.props.ndc,
+            medicationName: this.props.medicationName,
+            lotNumber: this.props.lotNumber,
+            expDate: this.props.expDate,
+            */
+          //Fake array used to display an array of Medications dynamically
+          medicationArray : [
+            { ndc : 1110111, medicationName: "FakeMed1", lotNumber : 123, expDate : '12/2018' }, 
+            { ndc : 4454124, medicationName: "FakeMed2", lotNumber : 456, expDate : '3/2020' },
+            { ndc : 7777799, medicationName: "FakeLongMed3                 -------------   -------", lotNumber : 741, expDate : '1/2019' },
+            { ndc : 1234567, medicationName: "FakeMed4", lotNumber : 1289, expDate : '5/2020' },
+            { ndc : 7654321, medicationName: "FakeMed5", lotNumber : 8672, expDate : '12/2021' },
+          ],
+
+
+            //From PatientCapturePage
+            patientID: this.props.patient.id,
+            patientFirstName: this.props.patientFirstName, 
+            patientLastName: this.props.patientLastName,
+            patientDOB: this.props.patientDOB
         }
     }
   
@@ -48,7 +71,35 @@ class ConfirmationPage extends Component {
               <Text style = { { color: 'white' } }>
                 Name: {this.props.patientLastName} {this.props.patientFirstName} 
                 </Text>
-            </CardItem>            
+            </CardItem>  
+            {/*Here we create a portion of the screen, to dynically create new Cards for each Medication with its information displayed
+            This starts and ends with a 'Content' tag */}  
+            <Content>
+            {this.state.medicationArray.map( (med, index) => {
+              return (
+              <Card key={ index }>
+                <CardItem header style={styles.cardHeaderStyle}>
+                  <Text>
+                    {med.medicationName}
+                  </Text>
+                </CardItem>
+                <CardItem style={styles.cardBodyStyle}>
+                  <Text>
+                    Lot:{med.lotNumber}   Exp:{med.expDate}
+                  </Text>
+                  <Right>
+                    <Button transparent danger>
+                      <Text>
+                        Delete
+                      </Text>
+                    </Button>
+                  </Right>
+                </CardItem>
+                </Card>
+              );
+            })}
+            </Content>
+          { /*Previous Medication Display Cards used -------------------------        
               <CardItem header style={styles.cardHeaderStyle}>
                 <Text>
                   {this.props.medication.name}
@@ -64,6 +115,7 @@ class ConfirmationPage extends Component {
                   </Text>
                 </Body>
               </CardItem>
+          */}
             </Card>
           </View>
           <View style={styles.buttonRowStyle}>
