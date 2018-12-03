@@ -10,14 +10,15 @@
 import React, { Component } from 'react';
 import  { Platform, StyleSheet, Link, View} from 'react-native';
 import { Container, Content, Button, Text, Form, Item, Input } from 'native-base';
-import {searchLedgerPageStyles as styles, commonStyles} from '../styles/common'
+import { searchLedgerPageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 
 class SearchLedgerPage extends Component {
     // Creating handler to navigate to the Search Results Screen.
     searchResultsHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.SearchResultsPage',
-            title: 'Search Results'
+            title: 'Search Results',
+            navigatorStyle: navigatorStyle
         })
     }
 
@@ -28,15 +29,17 @@ class SearchLedgerPage extends Component {
 
     render () {
         return (
-            <Container style={commonStyles.Container}>
+            <Container style={commonStyles.container}>
                 <Content>
                     <View style={commonStyles.content}>
                         <Form>
                             <Item>
-                                <Input placeholder = "Physician Name"/>
+                                <Input placeholder = "Physician Name"
+                                  placeholderTextColor={commonStyles.text.color} />
                             </Item>
                             <Item last>
-                                <Input placeholder = "Medication Name"/>
+                                <Input placeholder = "Medication Name"
+                                  placeholderTextColor={commonStyles.text.color} />
                             </Item>
                         </Form>
                         <Button bordered style = {commonStyles.button} onPress={this.searchResultsHandler}>

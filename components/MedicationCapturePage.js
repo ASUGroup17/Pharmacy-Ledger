@@ -3,8 +3,8 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
-import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
-import { insertNewMatch, queryAllMatches, queryNdcMatches, MATCH_SCHEMA } from '../db/allSchemas';
+import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
+import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 
 class MedicationCapturePage extends Component {
@@ -13,6 +13,7 @@ class MedicationCapturePage extends Component {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.ConfirmationPage',
             title: 'Confirm Transaction',
+            navigatorStyle: navigatorStyle,
 
             /*
               Passing these props to the next Screen (ConfirmationPage)
@@ -29,7 +30,7 @@ class MedicationCapturePage extends Component {
                   currently patientID code is the only valid data being used.
                 */
                 patientID: this.state.patientID,
-                patientFirstName: this.state.patientFirstName, 
+                patientFirstName: this.state.patientFirstName,
                 patientLastName: this.state.patientLastName,
                 patientDOB: this.state.patientDOB,
                 //An Array of medications passed to confirmation Page
@@ -42,7 +43,7 @@ class MedicationCapturePage extends Component {
         super(props);
         this.state = {
             /*
-            -These three state props are being defined initially as null for the 'green check mark' logic, 
+            -These three state props are being defined initially as null for the 'green check mark' logic,
             once this information is properly captured, the checkmark will go from black to green.
             -This line(179 at the time) :onBarCodeRead= {(this.state.medicationName == null) ? this.onBarCodeRead : null}
                 had its logic changed as well. As far as I can tell this did not adversely change the app. Still works as intended.
@@ -51,10 +52,10 @@ class MedicationCapturePage extends Component {
             matches: [],
             medicationName: null,
             lotNumber: null,
-            expDate: null, 
+            expDate: null,
             patientID: this.props.patientID ,
             //patientID: "#PATIENTID",//this.state.patientID,
-                patientFirstName: "#FirstName", 
+                patientFirstName: "#FirstName",
                 patientLastName: "#LastName",
                 patientDOB: "#DOB",
             medicationArray: [ 
@@ -309,43 +310,46 @@ class MedicationCapturePage extends Component {
                 This view contains the Patient Info displayed just below the Camera screen.
                 */}
                 <View>
-                    <CardItem style = {styles.patientInfoStyle}>
-                        <Text style= { { color : 'white' } }>
+                    <CardItem style = {commonStyles.patientInfoStyle}>
+                        <Text style={commonStyles.patientTextStyle}>
                             Patient ID:{this.state.patientID}  DOB:{this.state.patientDOB}
                         </Text>
                     </CardItem >
-                    <CardItem style = {styles.patientInfoStyle}>
-                        <Text style = { { color: 'white' } }>
-                            Name: {this.state.patientLastName} {this.state.patientFirstName} 
+                    <CardItem style = {commonStyles.patientInfoStyle}>
+                        <Text style={commonStyles.patientTextStyle}>
+                            Name: {this.state.patientLastName} {this.state.patientFirstName}
                         </Text>
                     </CardItem>
                 </View>
                     <View style={styles.groupTight}>
                         <View style={styles.viewStyle}>
-                            <Text>
+                            <Text style={commonStyles.text}>
                                 Medication:
                             </Text>
-                            <Item success ={(this.state.medicationName == null) ? false : true }>
-                                <Input placeholder="Medication Name" editable = {false} value={this.state.medicationName}/* onChangeText = { () => this.handleBlur}*//>
+                            <Item success ={(this.state.medicationName == null) ? false : true}>
+                                <Input placeholder="Medication Name" editable = {false} value={this.state.medicationName}
+                                  placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                                 
                             </Item>
                         </View>
                         <View style={styles.viewStyle}>
-                            <Text>
+                            <Text style={commonStyles.text}>
                                 Lot#:
                             </Text>
                             <Item success ={(this.state.lotNumber == null) ? false : true}>
-                                <Input placeholder="Lot#" editable = {false} value ={this.state.lotNumber} />
+                                <Input placeholder="Lot#" editable = {false} value ={this.state.lotNumber}
+                                  placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
                         <View style={styles.viewStyle}>
-                            <Text>
+                            <Text style={commonStyles.text}>
                                 Expiration Date:
                             </Text>
                             <Item success ={(this.state.expDate == null) ? false : true}>
-                                <Input placeholder="Expiration Date" editable = {false} value={this.state.expDate} />
+                                <Input placeholder="Expiration Date" editable = {false} value={this.state.expDate}
+                                  placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
