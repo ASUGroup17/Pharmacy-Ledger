@@ -40,14 +40,22 @@ class ConfirmationPage extends Component {
       <Container style={commonStyles.container}>
         <Content contentContainerStyle={{ justifyContent: 'center' }} style={commonStyles.content}>
           <View>
-            <Text style={styles.viewStyle}>Confirm Details to add to Ledger.</Text>
-            <View style={styles.viewStyle}>
-              <Text>
-                Patient ID: {this.props.qrCode}
+            {/*
+            -One card contains a series of Card Items to be displayed in this View.  
+            -Specific Text Color styling wasn't working through CSS file common.js, so in-line
+            styling was used; not ideal, perhaps this can be fixed
+            */} 
+          <Card>  
+            <CardItem style = {styles.patientInfoStyle}>
+              <Text style= { { color : 'white' } }>
+                Patient ID:{this.props.patientID}  DOB:{this.props.patientDOB}
               </Text>
-              <Input placeholder='Patient ID' />
-            </View>
-            <Card>
+              </CardItem >
+              <CardItem style = {styles.patientInfoStyle}>
+              <Text style = { { color: 'white' } }>
+                Name: {this.props.patientLastName} {this.props.patientFirstName} 
+                </Text>
+            </CardItem>            
               <CardItem header style={styles.cardHeaderStyle}>
                 <Text>
                   Medication Name Here!!! {this.props.medicationName}
