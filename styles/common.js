@@ -95,7 +95,7 @@ export const patientCapturePageStyles = StyleSheet.create({
     paddingLeft: 5
   },
   viewStyle: {
-    flex: .1,
+    flex: 0.1,
     alignItems: 'center',
     justifyContent: 'flex-start',
     paddingLeft: 30,
@@ -128,9 +128,9 @@ export const commonStyles = StyleSheet.create({
 
   content: {
     flex: 1,
-    flexGrow: 1,
-    //alignContent: 'space-around',
-    //justifyContent: 'space-around'
+    flexGrow: 1
+    // alignContent: 'space-around',
+    // justifyContent: 'space-around'
   },
 
   /*
