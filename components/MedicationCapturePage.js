@@ -4,7 +4,7 @@ import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'n
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
 import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
-import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
+import { insertNewMatch, queryAllMatches, queryNdcMatches, MATCH_SCHEMA } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 
 class MedicationCapturePage extends Component {
@@ -46,6 +46,7 @@ class MedicationCapturePage extends Component {
                 had its logic changed as well. As far as I can tell this did not adversely change the app. Still works as intended.
             */
             ndc: null,
+            matches: [],
             medicationName: null,
             lotNumber: null,
             expDate: null, 
@@ -55,7 +56,33 @@ class MedicationCapturePage extends Component {
                 patientLastName: "#LastName",
                 patientDOB: "#DOB"
         }
+        
     }
+
+    
+    //Creates a match when passed the ndc number, the keyword, the field we are searching for
+    // and the two word elements involved in the match and adds to DB.
+    createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
+        console.log("NDC: " + this.state.ndc + " Type of:" + typeof this.state.ndc)
+        const match = {
+            id: realm.objects(MATCH_SCHEMA).length + 1,
+            ndc: ndc.toString(),
+            keyword: keyword,
+            width: parseFloat(keywordElement.map(b => b.bounds.size.width)),
+            height: parseFloat(keywordElement.map(b => b.bounds.size.height)),
+            x: parseFloat(keywordElement.map(b => b.bounds.origin.x)),
+            y: parseFloat(keywordElement.map(b => b.bounds.origin.y)),
+            findX: parseFloat(findFieldElement.map(b => b.bounds.origin.x)),
+            findY: parseFloat(findFieldElement.map(b => b.bounds.origin.y)),
+            findField: findField
+        }
+
+        insertNewMatch(match).then().catch((error) => {
+            alert(`Insert new match error ${error}`);
+        })
+
+    }
+
     onBarCodeRead = (e) => {
         this.setState({ndc: e.data}, () => {
             this.createNdcStrings(this.state.ndc);
@@ -122,35 +149,20 @@ class MedicationCapturePage extends Component {
             printText = expStrings[0].map(b => b.bounds.origin.y)
             console.log("STRINGS:point.y: " + printText)
         }
-    }
 
-    //Creates a match when passed the ndc number, the keyword, the field we are searching for
-    // and the two word elements involved in the match.
-    createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
-        match = {
-            ndc: ndc,
-            keyword: keyword,
-            width: keywordElement.map(b => b.bounds.size.width),
-            height: keywordElement.map(b => b.bounds.size.height),
-            x: keywordElement.map(b => b.bounds.origin.x),
-            y: keywordElement.map(b => b.bounds.origin.y),
-            findX: findFieldElement.map(b => b.bounds.origin.x),
-            findY: findFieldElement.map(b => b.bounds.origin.y),
-            findField: findField
+        //Testing CreateMatch and getMatch
+        if(lotStrings[0] || expStrings[0]){
+            this.createMatch(this.state.ndc, "Lot", "LotNumber", textBlocks, textBlocks);
+            queryNdcMatches(this.state.ndc).then((matches) => {
+                this.setState({ matches });
+            }).catch((error) => {
+                this.setState({ matches: [] });
+            });
+            console.log("MATCHES2: " + this.state.matches.toString());
         }
 
-        this.addMatch(match);
     }
 
-    //Adds the match to the database
-    addMatch = (match) => {
-
-    }
-
-    //Queries database for match by NDC number
-    getMatch = (ndc) => {
-
-    }
 
     createNdcStrings  = (ndc) => {
         ndc442 = ndc.substring(2,6) + "-" + ndc.substring(6,10) + "-" + ndc.substring(10,12);
@@ -172,6 +184,7 @@ class MedicationCapturePage extends Component {
                 // alert("**TERIN1**" + response.data.ndcStatus.status)
                 names.push(response.data.ndcStatus.conceptName)
                 this.setState({medicationName: names[0]})
+                this.setState({ndc: ndc442})
             }
         });
 
@@ -182,6 +195,7 @@ class MedicationCapturePage extends Component {
                 //alert("**TERIN2**" + response.data.ndcStatus.status)
                 names.push(response.data.ndcStatus.conceptName)
                 this.setState({medicationName: names[0]})
+                this.setState({ndc: ndc532})
             }
         });
 
@@ -192,8 +206,17 @@ class MedicationCapturePage extends Component {
                 // alert("**TERIN3**" + response.data.ndcStatus.status)
                 names.push(response.data.ndcStatus.conceptName)
                 this.setState({medicationName: names[0]})
+                this.setState({ndc: ndc541})
             }
         });
+
+        queryNdcMatches(this.state.ndc.toString()).then((matches) => {
+            this.setState({ matches });
+        }).catch((error) => {
+            this.setState({ matches: [] });
+        });
+
+        console.log("MATCHES: " + this.state.matches);
     };
 
     render () {

@@ -5,7 +5,10 @@ Project: Pharmacy Ledger
 Realm database Schemas to track word distance from keyword.
 */
 
-import Realm from 'realm'
+
+import Realm from 'realm';
+import { all } from 'rsvp';
+
 
 export const MATCH_SCHEMA = 'Match'
 
@@ -84,4 +87,13 @@ export const queryAllMatches = () => new Promise((resolve, reject) => {
   }).catch((error) => reject(error))
 })
 
-export default new Realm(databaseOptions)
+
+export const queryNdcMatches = (ndc) => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        let allMatches = realm.objects(MATCH_SCHEMA).filtered('ndc = $0', ndc);
+        resolve(allMatches);
+    }).catch((error) => reject(error));;
+})
+
+export default new Realm(databaseOptions);
+
