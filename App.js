@@ -14,6 +14,7 @@ import configureStore from './store/configureStore'
 // added us115 11/24 -cal
 import SplashScreen from 'react-native-splash-screen'
 import { registerComponents } from './components'
+import { navigatorStyle } from './styles/common'
 
 const store = configureStore()
 
@@ -31,7 +32,8 @@ registerComponents()
 Navigation.startSingleScreenApp({
   screen: {
     screen: 'pharmacy-ledger.LoginPage',
-    title: 'Pharmacy Ledger Login'
+    title: 'Pharmacy Ledger Login',
+    navigatorStyle: navigatorStyle
   }
 })
 

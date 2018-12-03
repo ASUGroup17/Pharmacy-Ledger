@@ -168,3 +168,8 @@ export const commonStyles = StyleSheet.create({
     paddingLeft: 0
   }
 })
+
+export const navigatorStyle =  {
+  navBarBackgroundColor: '#d40303',
+  navBarTextColor: "white"
+};
