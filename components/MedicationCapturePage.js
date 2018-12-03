@@ -26,11 +26,6 @@ class MedicationCapturePage extends Component {
                 medicationName: this.state.medicationName,
                 lotNumber: this.state.lotNumber,
                 expDate: this.state.expDate,
-                /*
-                  These 4 come from the passProps of the Patient Capture page;
-                  currently patientID code is the only valid data being used.
-                */
-                patientID: this.props.patient.id,
                 patientFirstName: this.state.patientFirstName, 
                 patientLastName: this.state.patientLastName,
                 patientDOB: this.state.patientDOB    
@@ -47,18 +42,20 @@ class MedicationCapturePage extends Component {
             -This line(179 at the time) :onBarCodeRead= {(this.state.medicationName == null) ? this.onBarCodeRead : null}
                 had its logic changed as well. As far as I can tell this did not adversely change the app. Still works as intended.
             */
+            barCodeRead: false,
             ndc: null,
             medicationName: null,
             lotNumber: null,
             expDate: null, 
-            patientID: this.props.patientID ,
-            //patientID: "#PATIENTID",//this.props.patient.id,
-                patientFirstName: "#FirstName", 
-                patientLastName: "#LastName",
-                patientDOB: "#DOB"
+            patientFirstName: "#FirstName", 
+            patientLastName: "#LastName",
+            patientDOB: "#DOB"
         }
     }
-    onBarCodeRead = (e) => this.createNdcStrings(e.data)
+    onBarCodeRead = (e) => {
+        this.createNdcStrings(e.data)
+        this.setState({ barCodeRead: true })
+    }
 
     onTextRecognized = ({ textBlocks }) => {
         var patt1, patt2, patt3, lotExp, expirationExp
@@ -155,11 +152,8 @@ class MedicationCapturePage extends Component {
         ndc442 = ndc.substring(2,6) + "-" + ndc.substring(6,10) + "-" + ndc.substring(10,12);
         ndc532 = ndc.substring(2,7) + "-" + ndc.substring(7,10) + "-" + ndc.substring(10,12);
         ndc541 = ndc.substring(2,7) + "-" + ndc.substring(7,11) + "-" + ndc.substring(11,12);
-
-        // alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
-        // this.getMedName(ndc442,ndc532,ndc541)
         this.props.onMedicationCapture([ndc442, ndc532, ndc541])
-    };
+    }
 
 
     render () {
@@ -180,7 +174,7 @@ class MedicationCapturePage extends Component {
                         
                         // onBarCodeRead= {(this.props.medication.medicationName == "") ? this.onBarCodeRead : null}
 
-                        onBarCodeRead= {!this.props.medication.name ? this.onBarCodeRead : null}
+                        onBarCodeRead= {!this.state.barCodeRead ? this.onBarCodeRead : null}
                         onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
