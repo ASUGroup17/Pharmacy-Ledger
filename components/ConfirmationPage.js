@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Container, Content, Card, Body, Button, Text, Form, Item, Input, Right, CardItem } from 'native-base'
+import { connect } from 'react-redux'
 import { confirmationPageStyles as styles, commonStyles } from '../styles/common'
 
 class ConfirmationPage extends Component {
@@ -23,17 +24,32 @@ class ConfirmationPage extends Component {
             Medications will likely have to be an array;
             this is mostly for building and testing purposes.
             */
-      ndc: this.props.ndc,
-      medicationName: this.props.medicationName,
-      lotNumber: this.props.lotNumber,
-      expDate: this.props.expDate,
-      // From PatientCapturePage
-      patientID: this.props.patientID,
-      patientFirstName: this.props.patientFirstName,
-      patientLastName: this.props.patientLastName,
-      patientDOB: this.props.patientDOB
+           /*Commenting out the individual medication related items. Implementing an array here due to array state issues,
+           of creating the array in MedicationCapturePage.  This is for Testing & creating a proper display of multiple medications
+           from an array. 
+            ndc: this.props.ndc,
+            medicationName: this.props.medicationName,
+            lotNumber: this.props.lotNumber,
+            expDate: this.props.expDate,
+            */
+          //Fake array used to display an array of Medications dynamically
+          medicationArray : [
+            { ndc : 1110111, medicationName: "FakeMed1", lotNumber : 123, expDate : '12/2018' }, 
+            { ndc : 4454124, medicationName: "FakeMed2", lotNumber : 456, expDate : '3/2020' },
+            { ndc : 7777799, medicationName: "FakeLongMed3                 -------------   -------", lotNumber : 741, expDate : '1/2019' },
+            { ndc : 1234567, medicationName: "FakeMed4", lotNumber : 1289, expDate : '5/2020' },
+            { ndc : 7654321, medicationName: "FakeMed5", lotNumber : 8672, expDate : '12/2021' },
+          ],
+
+
+            //From PatientCapturePage
+            patientID: this.props.patient.id,
+            patientFirstName: this.props.patientFirstName, 
+            patientLastName: this.props.patientLastName,
+            patientDOB: this.props.patientDOB
+        }
     }
-  }
+  
 
   render () {
     return (
@@ -44,12 +60,12 @@ class ConfirmationPage extends Component {
             -One card contains a series of Card Items to be displayed in this View.
             -Specific Text Color styling wasn't working through CSS file common.js, so in-line
             styling was used; not ideal, perhaps this can be fixed
-            */}
-            <Card>
-              <CardItem style={commonStyles.patientInfoStyle}>
-                <Text style={commonStyles.patientTextStyle}>
-                  Patient ID:{this.props.patientID}  DOB:{this.props.patientDOB}
-                </Text>
+            */} 
+          <Card>  
+            <CardItem style = {styles.patientInfoStyle}>
+              <Text style= { { color : 'white' } }>
+                Patient ID:{this.props.patient.id}  DOB:{this.props.patientDOB}
+              </Text>
               </CardItem >
               <CardItem style={commonStyles.patientInfoStyle}>
                 <Text style={commonStyles.patientTextStyle}>
@@ -57,8 +73,8 @@ class ConfirmationPage extends Component {
                 </Text>
               </CardItem>
               <CardItem header style={styles.cardHeaderStyle}>
-                <Text style={commonStyles.text}>
-                  Medication Name Here!!! {this.props.medicationName}
+                <Text>
+                  {this.props.medication.name}
                 </Text>
                 <Button transparent danger>
                   <Text>Delete</Text>
@@ -91,4 +107,12 @@ class ConfirmationPage extends Component {
     )
   }
 }
-export default ConfirmationPage
+
+const mapStateToProps = ({ medication, patient }) => {
+  return {
+      medication,
+      patient
+  }
+}
+
+export default connect(mapStateToProps)(ConfirmationPage);

@@ -1,4 +1,4 @@
-import { SOME_CASE } from '../actions/types'
+import { HYDRATE_MEDICATION } from '../actions/types'
 
 const INITIAL_STATE = {
   name: '',
@@ -10,7 +10,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case SOME_CASE: {
+    case HYDRATE_MEDICATION: {
+      console.log(action.payload)
       return { ...state, ...action.payload }
     }
     default:
