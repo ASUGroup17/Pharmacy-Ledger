@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Container, Content, Card, Body, Button, Text, Form, Item, Input, Right, CardItem } from 'native-base'
+import { connect } from 'react-redux'
 import { confirmationPageStyles as styles, commonStyles } from '../styles/common'
 
 class ConfirmationPage extends Component {
@@ -15,10 +16,10 @@ class ConfirmationPage extends Component {
       --NOTE: currently medications are a singular object,
       we will likely be changing this to an array
   */
-    constructor(props) {
-        super(props);
-        this.state = {
-            /*
+  constructor (props) {
+    super(props)
+    this.state = {
+      /*
             From MedicationCapturePage.
             Medications will likely have to be an array;
             this is mostly for building and testing purposes.
@@ -42,7 +43,7 @@ class ConfirmationPage extends Component {
 
 
             //From PatientCapturePage
-            patientID: this.props.patientID,
+            patientID: this.props.patient.id,
             patientFirstName: this.props.patientFirstName, 
             patientLastName: this.props.patientLastName,
             patientDOB: this.props.patientDOB
@@ -63,7 +64,7 @@ class ConfirmationPage extends Component {
           <Card>  
             <CardItem style = {styles.patientInfoStyle}>
               <Text style= { { color : 'white' } }>
-                Patient ID:{this.props.patientID}  DOB:{this.props.patientDOB}
+                Patient ID:{this.props.patient.id}  DOB:{this.props.patientDOB}
               </Text>
               </CardItem >
               <CardItem style = {styles.patientInfoStyle}>
@@ -101,7 +102,7 @@ class ConfirmationPage extends Component {
           { /*Previous Medication Display Cards used -------------------------        
               <CardItem header style={styles.cardHeaderStyle}>
                 <Text>
-                  {this.props.medicationName}
+                  {this.props.medication.name}
                 </Text>
                 <Button transparent danger>
                   <Text>Delete</Text>
@@ -134,4 +135,12 @@ class ConfirmationPage extends Component {
     )
   }
 }
-export default ConfirmationPage;
+
+const mapStateToProps = ({ medication, patient }) => {
+  return {
+      medication,
+      patient
+  }
+}
+
+export default connect(mapStateToProps)(ConfirmationPage);

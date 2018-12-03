@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
 import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
+import { getMedication } from '../store/actions/MedicationActions'
 import axios from 'axios'
 import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
-import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
+import { insertNewMatch, queryAllMatches, queryNdcMatches, MATCH_SCHEMA } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 
 class MedicationCapturePage extends Component {
@@ -24,11 +26,6 @@ class MedicationCapturePage extends Component {
                 medicationName: this.state.medicationName,
                 lotNumber: this.state.lotNumber,
                 expDate: this.state.expDate,
-                /*
-                  These 4 come from the passProps of the Patient Capture page;
-                  currently patientID code is the only valid data being used.
-                */
-                patientID: this.state.patientID,
                 patientFirstName: this.state.patientFirstName, 
                 patientLastName: this.state.patientLastName,
                 patientDOB: this.state.patientDOB,
@@ -47,7 +44,9 @@ class MedicationCapturePage extends Component {
             -This line(179 at the time) :onBarCodeRead= {(this.state.medicationName == null) ? this.onBarCodeRead : null}
                 had its logic changed as well. As far as I can tell this did not adversely change the app. Still works as intended.
             */
+            barCodeRead: false,
             ndc: null,
+            matches: [],
             medicationName: null,
             lotNumber: null,
             expDate: null, 
@@ -65,15 +64,43 @@ class MedicationCapturePage extends Component {
                 } ]
                  
         }
+        
     }
 
     onBarCodeRead = (e) => {
-        this.setState({ndc: e.data}, () => {
-            this.createNdcStrings(this.state.ndc);
-        })
-    };
+        this.createNdcStrings(e.data)
+        this.setState({ barCodeRead: true })
+    }
+    
+    //Creates a match when passed the ndc number, the keyword, the field we are searching for
+    // and the two word elements involved in the match and adds to DB.
+    createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
+        console.log("NDC: " + this.state.ndc + " Type of:" + typeof this.state.ndc)
+        const match = {
+            id: realm.objects(MATCH_SCHEMA).length + 1,
+            ndc: ndc.toString(),
+            keyword: keyword,
+            width: parseFloat(keywordElement.map(b => b.bounds.size.width)),
+            height: parseFloat(keywordElement.map(b => b.bounds.size.height)),
+            x: parseFloat(keywordElement.map(b => b.bounds.origin.x)),
+            y: parseFloat(keywordElement.map(b => b.bounds.origin.y)),
+            findX: parseFloat(findFieldElement.map(b => b.bounds.origin.x)),
+            findY: parseFloat(findFieldElement.map(b => b.bounds.origin.y)),
+            findField: findField
+        }
 
-    onTextRecognized = ({textBlocks}) => {
+        insertNewMatch(match).then().catch((error) => {
+            alert(`Insert new match error ${error}`);
+        })
+
+    }
+
+    onBarCodeRead = (e) => {
+        this.createNdcStrings(e.data)
+        this.setState({ barCodeRead: true })
+    }
+
+    onTextRecognized = ({ textBlocks }) => {
         var patt1, patt2, patt3, lotExp, expirationExp
         var lotStrings = []
         var expStrings = []
@@ -133,8 +160,8 @@ class MedicationCapturePage extends Component {
             printText = expStrings[0].map(b => b.bounds.origin.y)
             console.log("STRINGS:point.y: " + printText)
         }
-    }
 
+    // this.props.onMedicationCapture([ndc442, ndc532, ndc541])
     //Creates a match when passed the ndc number, the keyword, the field we are searching for
     // and the two word elements involved in the match.
     createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
@@ -150,63 +177,56 @@ class MedicationCapturePage extends Component {
             findField: findField
         }
 
-        this.addMatch(match);
     }
 
-    //Adds the match to the database
-    addMatch = (match) => {
-
-    }
-
-    //Queries database for match by NDC number
-    getMatch = (ndc) => {
-
-    }
 
     createNdcStrings  = (ndc) => {
         ndc442 = ndc.substring(2,6) + "-" + ndc.substring(6,10) + "-" + ndc.substring(10,12);
         ndc532 = ndc.substring(2,7) + "-" + ndc.substring(7,10) + "-" + ndc.substring(10,12);
         ndc541 = ndc.substring(2,7) + "-" + ndc.substring(7,11) + "-" + ndc.substring(11,12);
+        this.props.onMedicationCapture([ndc442, ndc532, ndc541])
+    }
+}
 
-        // alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
-        this.getMedName(ndc442,ndc532,ndc541)
-    };
+    //     // alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
+    //     this.getMedName(ndc442,ndc532,ndc541)
+    // };
 
-    getMedName = (ndc442,ndc532,ndc541) => {
+    // getMedName = (ndc442,ndc532,ndc541) => {
 
-        var names = [];
+    //     var names = [];
 
-        axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc442)
-        .then(response => {
+    //     axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc442)
+    //     .then(response => {
 
-            if(response.data.ndcStatus.status == "ACTIVE"){
-                // alert("**TERIN1**" + response.data.ndcStatus.status)
-                names.push(response.data.ndcStatus.conceptName)
-                this.setState({medicationName: names[0]})
-            }
-        });
+    //         if(response.data.ndcStatus.status == "ACTIVE"){
+    //             // alert("**TERIN1**" + response.data.ndcStatus.status)
+    //             names.push(response.data.ndcStatus.conceptName)
+    //             this.setState({medicationName: names[0]})
+    //         }
+    //     });
 
-        axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc532)
-        .then(response => {
+    //     axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc532)
+    //     .then(response => {
 
-            if(response.data.ndcStatus.status == "ACTIVE"){
-                //alert("**TERIN2**" + response.data.ndcStatus.status)
-                names.push(response.data.ndcStatus.conceptName)
-                this.setState({medicationName: names[0]})
-            }
-        });
+    //         if(response.data.ndcStatus.status == "ACTIVE"){
+    //             //alert("**TERIN2**" + response.data.ndcStatus.status)
+    //             names.push(response.data.ndcStatus.conceptName)
+    //             this.setState({medicationName: names[0]})
+    //         }
+    //     });
 
-        axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc541)
-        .then(response => {
+    //     axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc541)
+    //     .then(response => {
 
-            if(response.data.ndcStatus.status == "ACTIVE"){
-                // alert("**TERIN3**" + response.data.ndcStatus.status)
-                names.push(response.data.ndcStatus.conceptName)
-                this.setState({medicationName: names[0]})
-            }
-        });
+    //         if(response.data.ndcStatus.status == "ACTIVE"){
+    //             // alert("**TERIN3**" + response.data.ndcStatus.status)
+    //             names.push(response.data.ndcStatus.conceptName)
+    //             this.setState({medicationName: names[0]})
+    //         }
+    //     });
         
-    };
+    // };
 
     //checkCaptured =();
 
@@ -278,8 +298,10 @@ class MedicationCapturePage extends Component {
                         flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
                         permissionDialogMessage={'We need your permission to use your camera phone'}
+                        
+                        // onBarCodeRead= {(this.props.medication.medicationName == "") ? this.onBarCodeRead : null}
 
-                        onBarCodeRead= {(this.state.medicationName == null) ? this.onBarCodeRead : null}
+                        onBarCodeRead= {!this.state.barCodeRead ? this.onBarCodeRead : null}
                         onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
@@ -290,7 +312,7 @@ class MedicationCapturePage extends Component {
                 <View>
                     <CardItem style = {styles.patientInfoStyle}>
                         <Text style= { { color : 'white' } }>
-                            Patient ID:{this.state.patientID}  DOB:{this.state.patientDOB}
+                            Patient ID:{this.props.patient.id}  DOB:{this.props.patient.dob}
                         </Text>
                     </CardItem >
                     <CardItem style = {styles.patientInfoStyle}>
@@ -304,8 +326,8 @@ class MedicationCapturePage extends Component {
                             <Text>
                                 Medication:
                             </Text>
-                            <Item success ={(this.state.medicationName == null) ? false : true }>
-                                <Input placeholder="Medication Name" editable = {false} value={this.state.medicationName}/* onChangeText = { () => this.handleBlur}*//>
+                            <Item success ={(this.props.medication.name == null) ? false : true }>
+                                <Input placeholder="Medication Name" editable = {false} value={this.props.medication.name} />
                                 <Icon name='checkmark-circle' />
                                 
                             </Item>
@@ -351,4 +373,20 @@ class MedicationCapturePage extends Component {
 
       
 }
-export default MedicationCapturePage;
+
+
+const mapStateToProps = ({ medication, patient }) => {
+    return {
+        medication,
+        patient
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onMedicationCapture: (ndcNumbers) => dispatch(getMedication(ndcNumbers))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MedicationCapturePage);
