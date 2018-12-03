@@ -18,6 +18,7 @@ class PatientCapturePage extends Component {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.MedicationCapturePage',
             title: 'Add Medication',
+            navigatorStyle: navigatorStyle,
             // These props will be passed to the MedicatioCapturePage.
         })
     }
@@ -40,8 +41,7 @@ class PatientCapturePage extends Component {
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
                 <View style={commonStyles.content}>
-                    <Text style={{alignSelf: 'center'}}>
-                        Scan Patient's Wristband
+                    <Text style={commonStyles.text}> Scan Patient's Wristband
                     </Text>
 
                     <RNCamera
@@ -58,11 +58,10 @@ class PatientCapturePage extends Component {
                     </RNCamera>
                     <View style={styles.viewStyle}>
                         <View style={styles.patientIdView}>
-                            <Text>
-                                Patient ID:
-                            </Text>
+                            <Text style={commonStyles.text}> Patient ID: </Text>
                             <Item success ={!patient.id ? false : true}>
-                                <Input placeholder="Patient ID" editable = {false} value={patient.id}/>
+                                <Input placeholder="Patient ID" editable = {false} value={patient.id}
+                                  placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>

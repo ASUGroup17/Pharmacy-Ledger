@@ -8,17 +8,13 @@
 
 import React, { Component } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
-import LoginPage from './components/LoginPage'
 import { Navigation } from 'react-native-navigation'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
-import PatientCapturePage from './components/PatientCapturePage'
-import SearchLedgerPage from './components/SearchLedgerPage'
-import MedicationCapturePage from './components/MedicationCapturePage'
-import ConfirmationPage from './components/ConfirmationPage'
-import SearchResultsPage from './components/SearchResultsPage'
-//added us115 11/24 -cal
-import SplashScreen from 'react-native-splash-screen';
+// added us115 11/24 -cal
+import SplashScreen from 'react-native-splash-screen'
+import { registerComponents } from './components'
+import { navigatorStyle } from './styles/common'
 
 const store = configureStore()
 
@@ -30,6 +26,9 @@ const store = configureStore()
 //   Provider
 // );
 
+<<<<<<< HEAD
+registerComponents()
+=======
 // Register Screens
 Navigation.registerComponent('pharmacy-ledger.LoginPage', () => LoginPage)
 Navigation.registerComponent('pharmacy-ledger.PatientCapturePage', () => PatientCapturePage, store, Provider)
@@ -37,12 +36,14 @@ Navigation.registerComponent('pharmacy-ledger.SearchLedgerPage', () => SearchLed
 Navigation.registerComponent('pharmacy-ledger.MedicationCapturePage', () => MedicationCapturePage, store, Provider)
 Navigation.registerComponent('pharmacy-ledger.ConfirmationPage', () => ConfirmationPage, store, Provider)
 Navigation.registerComponent('pharmacy-ledger.SearchResultsPage', () => SearchResultsPage)
+>>>>>>> development
 
 // Start App
 Navigation.startSingleScreenApp({
   screen: {
     screen: 'pharmacy-ledger.LoginPage',
-    title: 'Pharmacy Ledger Login'
+    title: 'Pharmacy Ledger Login',
+    navigatorStyle: navigatorStyle
   }
 })
 
@@ -55,10 +56,9 @@ Navigation.startSingleScreenApp({
 //   }
 // }
 
-
-//Added us115 11/24 -cal
+// Added us115 11/24 -cal
 export default class App extends Component {
-  componentDidMount() {
+  componentDidMount () {
     SplashScreen.hide()
   }
 }

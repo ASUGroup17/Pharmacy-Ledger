@@ -57,7 +57,7 @@ class ConfirmationPage extends Component {
         <Content contentContainerStyle={{ justifyContent: 'center' }} style={commonStyles.content}>
           <View>
             {/*
-            -One card contains a series of Card Items to be displayed in this View.  
+            -One card contains a series of Card Items to be displayed in this View.
             -Specific Text Color styling wasn't working through CSS file common.js, so in-line
             styling was used; not ideal, perhaps this can be fixed
             */} 
@@ -67,39 +67,11 @@ class ConfirmationPage extends Component {
                 Patient ID:{this.props.patient.id}  DOB:{this.props.patientDOB}
               </Text>
               </CardItem >
-              <CardItem style = {styles.patientInfoStyle}>
-              <Text style = { { color: 'white' } }>
-                Name: {this.props.patientLastName} {this.props.patientFirstName} 
+              <CardItem style={commonStyles.patientInfoStyle}>
+                <Text style={commonStyles.patientTextStyle}>
+                  Name: {this.props.patientLastName} {this.props.patientFirstName}
                 </Text>
-            </CardItem>  
-            {/*Here we create a portion of the screen, to dynically create new Cards for each Medication with its information displayed
-            This starts and ends with a 'Content' tag */}  
-            <Content>
-            {this.state.medicationArray.map( (med, index) => {
-              return (
-              <Card key={ index }>
-                <CardItem header style={styles.cardHeaderStyle}>
-                  <Text>
-                    {med.medicationName}
-                  </Text>
-                </CardItem>
-                <CardItem style={styles.cardBodyStyle}>
-                  <Text>
-                    Lot:{med.lotNumber}   Exp:{med.expDate}
-                  </Text>
-                  <Right>
-                    <Button transparent danger>
-                      <Text>
-                        Delete
-                      </Text>
-                    </Button>
-                  </Right>
-                </CardItem>
-                </Card>
-              );
-            })}
-            </Content>
-          { /*Previous Medication Display Cards used -------------------------        
+              </CardItem>
               <CardItem header style={styles.cardHeaderStyle}>
                 <Text>
                   {this.props.medication.name}
@@ -110,7 +82,7 @@ class ConfirmationPage extends Component {
               </CardItem>
               <CardItem style={styles.cardBodyStyle}>
                 <Body>
-                  <Text>
+                  <Text style={commonStyles.text}>
                     Lot Number and Expiration Here!!! {this.props.lotNumber}
                   </Text>
                 </Body>
@@ -119,12 +91,12 @@ class ConfirmationPage extends Component {
             </Card>
           </View>
           <View style={styles.buttonRowStyle}>
-            <Button bordered primary style={styles.buttonStyle}>
+            <Button bordered primary style={commonStyles.button}>
               <Text>
                 Continue
               </Text>
             </Button>
-            <Button bordered danger style={styles.buttonStyle}>
+            <Button bordered danger style={commonStyles.button}>
               <Text>
                 Cancel
               </Text>

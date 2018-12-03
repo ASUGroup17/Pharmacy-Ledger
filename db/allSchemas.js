@@ -96,4 +96,3 @@ export const queryNdcMatches = (ndc) => new Promise((resolve, reject) => {
 })
 
 export default new Realm(databaseOptions);
-

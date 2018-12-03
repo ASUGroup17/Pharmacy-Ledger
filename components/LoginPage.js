@@ -16,8 +16,8 @@ import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-p
 class LoginPage extends Component {
 
   loginHandler = () => {
-  console.log("Clicked")
-  startMainTabs();
+    console.log("Clicked")
+    startMainTabs();
   }
 
   state = {
@@ -32,10 +32,12 @@ class LoginPage extends Component {
         <View style={commonStyles.content}>
           <Form>
             <Item>
-              <Input placeholder="Username" />
+              <Input placeholder="Username"
+                placeholderTextColor={commonStyles.text.color} />
             </Item>
             <Item last>
-              <Input placeholder="Password" />
+              <Input placeholder="Password"
+                placeholderTextColor={commonStyles.text.color} />
             </Item>
           </Form>
           <Button bordered style={commonStyles.button} onPress={this.loginHandler}>
