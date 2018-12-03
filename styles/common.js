@@ -177,5 +177,6 @@ export const navigatorStyle = {
 export const tabBarStyle = {
   tabBarBackgroundColor: '#0f2362',
   tabBarButtonColor: '#ffffff',
-  tabBarSelectedButtonColor: '#63d7cc'
+  tabBarSelectedButtonColor: '#63d7cc',
+  forceTitlesDisplay: true
 }
