@@ -35,7 +35,7 @@ Navigation.registerComponent('pharmacy-ledger.LoginPage', () => LoginPage)
 Navigation.registerComponent('pharmacy-ledger.PatientCapturePage', () => PatientCapturePage, store, Provider)
 Navigation.registerComponent('pharmacy-ledger.SearchLedgerPage', () => SearchLedgerPage)
 Navigation.registerComponent('pharmacy-ledger.MedicationCapturePage', () => MedicationCapturePage, store, Provider)
-Navigation.registerComponent('pharmacy-ledger.ConfirmationPage', () => ConfirmationPage)
+Navigation.registerComponent('pharmacy-ledger.ConfirmationPage', () => ConfirmationPage, store, Provider)
 Navigation.registerComponent('pharmacy-ledger.SearchResultsPage', () => SearchResultsPage)
 
 // Start App
