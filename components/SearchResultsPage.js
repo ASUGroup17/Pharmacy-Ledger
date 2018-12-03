@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Link, View} from 'react-native';
 import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base';
-import {searchResultsPageStyles as styles, commonStyles} from '../styles/common'
+import { searchResultsPageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 
 class SearchResultsPage extends Component {
 
@@ -20,7 +20,8 @@ class SearchResultsPage extends Component {
     newSearchHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.SearchLedgerPage',
-            title: 'New Search'
+            title: 'New Search',
+            navigatorStyle: navigatorStyle
         })
     }
 

@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import axios from 'axios'
-import {medicationCaptureStyles as styles, commonStyles} from '../styles/common'
+import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 
@@ -13,6 +13,7 @@ class MedicationCapturePage extends Component {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.ConfirmationPage',
             title: 'Confirm Transaction',
+            navigatorStyle: navigatorStyle,
 
             /*
               Passing these props to the next Screen (ConfirmationPage)
