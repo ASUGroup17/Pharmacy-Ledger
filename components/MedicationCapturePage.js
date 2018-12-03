@@ -235,29 +235,32 @@ class MedicationCapturePage extends Component {
                 </View>
                     <View style={styles.groupTight}>
                         <View style={styles.viewStyle}>
-                            <Text>
+                            <Text style={commonStyles.text}>
                                 Medication:
                             </Text>
                             <Item success ={(this.state.medicationName == null) ? false : true}>
-                                <Input placeholder="Medication Name" editable = {false} value={this.state.medicationName}/>
+                                <Input placeholder="Medication Name" editable = {false} value={this.state.medicationName}
+                                  placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
                         <View style={styles.viewStyle}>
-                            <Text>
+                            <Text style={commonStyles.text}>
                                 Lot#:
                             </Text>
                             <Item success ={(this.state.lotNumber == null) ? false : true}>
-                                <Input placeholder="Lot#" editable = {false} value ={this.state.lotNumber} />
+                                <Input placeholder="Lot#" editable = {false} value ={this.state.lotNumber}
+                                  placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
                         <View style={styles.viewStyle}>
-                            <Text>
+                            <Text style={commonStyles.text}>
                                 Expiration Date:
                             </Text>
                             <Item success ={(this.state.expDate == null) ? false : true}>
-                                <Input placeholder="Expiration Date" editable = {false} value={this.state.expDate} />
+                                <Input placeholder="Expiration Date" editable = {false} value={this.state.expDate}
+                                  placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
