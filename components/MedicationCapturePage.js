@@ -127,6 +127,7 @@ class MedicationCapturePage extends Component {
         }
         if(match){
             this.getMedName(match,null,null)
+            this.props.onMedicationCapture([match])
         }
         if(lotExp.test(detectedTexts)){
             lotStrings.push(textBlocks)
@@ -181,7 +182,6 @@ class MedicationCapturePage extends Component {
             findY: findFieldElement.map(b => b.bounds.origin.y),
             findField: findField
         }
-
     }
 
 }
