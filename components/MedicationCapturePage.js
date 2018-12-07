@@ -68,11 +68,6 @@ class MedicationCapturePage extends Component {
         
     }
 
-    onBarCodeRead = (e) => {
-        this.createNdcStrings(e.data)
-        this.setState({ barCodeRead: true })
-    }
-    
     //Creates a match when passed the ndc number, the keyword, the field we are searching for
     // and the two word elements involved in the match and adds to DB.
     createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
@@ -99,6 +94,15 @@ class MedicationCapturePage extends Component {
     onBarCodeRead = (e) => {
         this.createNdcStrings(e.data)
         this.setState({ barCodeRead: true })
+    }
+
+
+
+    createNdcStrings  = (ndc) => {
+        ndc442 = ndc.substring(2,6) + "-" + ndc.substring(6,10) + "-" + ndc.substring(10,12);
+        ndc532 = ndc.substring(2,7) + "-" + ndc.substring(7,10) + "-" + ndc.substring(10,12);
+        ndc541 = ndc.substring(2,7) + "-" + ndc.substring(7,11) + "-" + ndc.substring(11,12);
+        this.props.onMedicationCapture([ndc442, ndc532, ndc541])
     }
 
     onTextRecognized = ({ textBlocks }) => {
@@ -180,13 +184,6 @@ class MedicationCapturePage extends Component {
 
     }
 
-
-    createNdcStrings  = (ndc) => {
-        ndc442 = ndc.substring(2,6) + "-" + ndc.substring(6,10) + "-" + ndc.substring(10,12);
-        ndc532 = ndc.substring(2,7) + "-" + ndc.substring(7,10) + "-" + ndc.substring(10,12);
-        ndc541 = ndc.substring(2,7) + "-" + ndc.substring(7,11) + "-" + ndc.substring(11,12);
-        this.props.onMedicationCapture([ndc442, ndc532, ndc541])
-    }
 }
 
     //     // alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)

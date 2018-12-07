@@ -10,7 +10,7 @@ import { Container, Content, Button, Text, Form, Item, Icon, Input } from 'nativ
 import { connect } from 'react-redux'
 import { RNCamera } from 'react-native-camera'
 import { hydratePatientData } from '../store/actions/PatientActions'
-import { patientCapturePageStyles as styles, commonStyles } from '../styles/common'
+import { patientCapturePageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 
 class PatientCapturePage extends Component {
 
