@@ -87,7 +87,6 @@ class ConfirmationPage extends Component {
                   </Text>
                 </Body>
               </CardItem>
-          */}
             </Card>
           </View>
           <View style={styles.buttonRowStyle}>
