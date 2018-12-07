@@ -7,8 +7,10 @@
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Icon, Input } from 'native-base'
+import { connect } from 'react-redux'
 import { RNCamera } from 'react-native-camera'
-import {patientCapturePageStyles as styles, commonStyles} from '../styles/common'
+import { hydratePatientData } from '../store/actions/PatientActions'
+import { patientCapturePageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 
 class PatientCapturePage extends Component {
 
@@ -16,34 +18,13 @@ class PatientCapturePage extends Component {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.MedicationCapturePage',
             title: 'Add Medication',
+            navigatorStyle: navigatorStyle,
             // These props will be passed to the MedicatioCapturePage.
-            passProps: {
-            patientID: this.state.patientID,
-            patientFirstName: "",
-            patientLastName: "",
-            patientDOB: "",
-            medicationName: this.state.medicationName,
-            lotNumber: this.state.lotNumber,
-            expDate: this.state.expDate
-            }
         })
     }
 
     constructor(props) {
         super(props);
-        this.state = {
-            /* 
-             I set patientID to null initially for the 'greencheck mark' logic. Once a barcode is scanned
-             the checkmark goes from black to green, and the patientID is not longer null
-            */
-            patientID: null,
-            patientFirstName: "",
-            patientLastName: "",
-            patientDOB: "",
-            medicationName: null,
-            lotNumber: null,
-            expDate: null
-        }
     }
 
     /*
@@ -51,15 +32,16 @@ class PatientCapturePage extends Component {
       data - textual representation of the barcode; rawData -
       raw data encoded in the barcode; type - the type of barcode detected.
     */
-    onBarCodeRead = (e) => this.setState({patientID: e.data});
+    onBarCodeRead = (e) => this.props.onPatientCapture(e.data)
 
     render () {
+        // destructures patient from this.props object
+        const { patient } = this.props
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
                 <View style={commonStyles.content}>
-                    <Text style={{alignSelf: 'center'}}>
-                        Scan Patient's Wristband
+                    <Text style={commonStyles.text}> Scan Patient's Wristband
                     </Text>
 
                     <RNCamera
@@ -76,26 +58,25 @@ class PatientCapturePage extends Component {
                     </RNCamera>
                     <View style={styles.viewStyle}>
                         <View style={styles.patientIdView}>
-                            <Text>
-                                Patient ID:
-                            </Text>
-                            <Item success ={(this.state.patientID == null) ? false : true}>
-                                <Input placeholder="Patient ID" editable = {false} value={this.state.patientID}/>
+                            <Text style={commonStyles.text}> Patient ID: </Text>
+                            <Item success ={!patient.id ? false : true}>
+                                <Input placeholder="Patient ID" editable = {false} value={patient.id}
+                                  placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
-                    <Button bordered style={commonStyles.button} onPress={this.continueHandler}
-                        disabled={!this.state.patientID}>
-                        <Text>
-                            Continue
-                        </Text>
-                    </Button>
+                        <Button bordered style={commonStyles.button} onPress={this.continueHandler}
+                            disabled={!patient.id}>
+                            <Text>
+                                Continue
+                            </Text>
+                        </Button>
                     </View>
                 </View>
                 </Content>
             </Container>
         );
-    }
+    } 
 
     takePicture = async function(camera) {
         const options = { quality: 0.5, base64: true };
@@ -103,5 +84,18 @@ class PatientCapturePage extends Component {
         //  eslint-disable-next-line
         console.log(data.uri);
       }
-};
-export default PatientCapturePage;
+}
+
+const mapStateToProps = ({ patient }) => {
+    return {
+        patient
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onPatientCapture: (data) => dispatch(hydratePatientData(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientCapturePage);
