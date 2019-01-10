@@ -129,7 +129,6 @@ class MedicationCapturePage extends Component {
             var match = patt3.exec(detectedTexts)
         }
         if(match){
-            this.getMedName(match,null,null)
             this.props.onMedicationCapture([match])
         }
         if(lotExp.test(detectedTexts)){
