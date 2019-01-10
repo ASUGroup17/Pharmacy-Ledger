@@ -8,6 +8,7 @@ import axios from 'axios'
 import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
+import PatientInfoCard from './cards/PatientInfoCard';
 
 class MedicationCapturePage extends Component {
 
@@ -305,20 +306,10 @@ class MedicationCapturePage extends Component {
                         >
                     </RNCamera>
                 {/*
-                This view contains the Patient Info displayed just below the Camera screen.
+                PatientInfoCard contains the Patient Info displayed just below the Camera screen.
+                Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN
                 */}
-                <View>
-                    <CardItem style = {commonStyles.patientInfoStyle}>
-                        <Text style={commonStyles.patientTextStyle}>
-                            Patient ID:{this.state.patientID}  DOB:{this.state.patientDOB}
-                        </Text>
-                    </CardItem >
-                    <CardItem style = {commonStyles.patientInfoStyle}>
-                        <Text style={commonStyles.patientTextStyle}>
-                            Name: {this.state.patientLastName} {this.state.patientFirstName}
-                        </Text>
-                    </CardItem>
-                </View>
+                    <PatientInfoCard />                
                     <View style={styles.groupTight}>
                         <View style={styles.viewStyle}>
                             <Text style={commonStyles.text}>
