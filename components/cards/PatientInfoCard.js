@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { CardItem, Text } from 'native-base';
 import { commonStyles } from '../../styles/common';
-import { hydratePatientData } from '../../store/actions/PatientActions';
 
 const PatientInfoCard = ( { patient } ) => {
     if (!patient) {
@@ -21,12 +20,12 @@ const PatientInfoCard = ( { patient } ) => {
             <View>
                 <CardItem style = {commonStyles.patientInfoStyle}>
                     <Text style={commonStyles.patientTextStyle}>
-                        Patient ID:{patient}  DOB:{patient}
+                        Patient ID:{patient.id}  DOB:{patient.dateOfBirth}
                     </Text>
                 </CardItem >
                 <CardItem style = {commonStyles.patientInfoStyle}>
                     <Text style={commonStyles.patientTextStyle}>
-                        Name: {patient} {patient}
+                        Name: {patient.firstName} {patient.lastName}
                     </Text>
                 </CardItem>
             </View>
@@ -34,12 +33,9 @@ const PatientInfoCard = ( { patient } ) => {
 }
 
 const mapStateToProps = (state) => {
+    console.log("TEST PATIENTINFOCARD state.patient: " + state.patient);
     return {
-        //relatively sure these are incorrect
-        firstName: state.firstName,
-        lastName: state.lastName,
-        dob : state.dob,
-        id : state.id
+        patient : state.patient
     };
 };
 
