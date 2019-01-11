@@ -28,9 +28,6 @@ class MedicationCapturePage extends Component {
                 medicationName: this.state.medicationName,
                 lotNumber: this.state.lotNumber,
                 expDate: this.state.expDate,
-                patientFirstName: this.state.patientFirstName, 
-                patientLastName: this.state.patientLastName,
-                patientDOB: this.state.patientDOB,
                 //An Array of medications passed to confirmation Page
                 medicationArray : this.state.medicationArray
             }

@@ -9,8 +9,10 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Icon, Input } from 'native-base'
 import { connect } from 'react-redux'
 import { RNCamera } from 'react-native-camera'
+
 import { hydratePatientData } from '../store/actions/PatientActions'
 import { patientCapturePageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
+import PatientInfoCard from './cards/PatientInfoCard';
 
 class PatientCapturePage extends Component {
 
@@ -56,6 +58,7 @@ class PatientCapturePage extends Component {
                         //aspect={RNCamera.Constants.Aspect.fill}
                         >
                     </RNCamera>
+                    <PatientInfoCard />
                     <View style={styles.viewStyle}>
                         <View style={styles.patientIdView}>
                             <Text style={commonStyles.text}> Patient ID: </Text>
@@ -64,7 +67,7 @@ class PatientCapturePage extends Component {
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
-                        </View>
+                        </View>                        
                         <Button bordered style={commonStyles.button} onPress={this.continueHandler}
                             disabled={!patient.id}>
                             <Text>
