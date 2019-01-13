@@ -63,7 +63,7 @@ class ConfirmationPage extends Component {
             */} 
           <Card>  
             <CardItem style = {styles.patientInfoStyle}>
-              <Text style= { { color : 'white' } }>
+              <Text style= { { color : 'lavender' } }>
                 Patient ID:{this.props.patient.id}  DOB:{this.props.patientDOB}
               </Text>
               </CardItem >

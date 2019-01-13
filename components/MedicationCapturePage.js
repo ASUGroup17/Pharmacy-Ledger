@@ -11,6 +11,7 @@ import realm from '../db/allSchemas';
 
 class MedicationCapturePage extends Component {
 
+    
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.ConfirmationPage',
@@ -109,6 +110,8 @@ class MedicationCapturePage extends Component {
         var patt1, patt2, patt3, lotExp, expirationExp
         var lotStrings = []
         var expStrings = []
+        const keywords = ['batch', 'exp', 'lot', 'espiry'];
+
 
         patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
         patt2 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9]");
@@ -126,7 +129,6 @@ class MedicationCapturePage extends Component {
             var match = patt3.exec(detectedTexts)
         }
         if(match){
-            this.getMedName(match,null,null)
             this.props.onMedicationCapture([match])
         }
         if(lotExp.test(detectedTexts)){
