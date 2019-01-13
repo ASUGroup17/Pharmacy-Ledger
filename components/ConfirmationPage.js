@@ -58,6 +58,7 @@ class ConfirmationPage extends Component {
             */} 
           <Card>
             <PatientInfoCard />
+
               <CardItem header style={styles.cardHeaderStyle}>
                 <Text>
                   {this.props.medication.name}
