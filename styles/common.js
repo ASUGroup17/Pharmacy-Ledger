@@ -1,149 +1,118 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Link, View} from 'react-native';
+import React, { Component } from 'react'
+import { Platform, StyleSheet, Link, View } from 'react-native'
+// <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css"></link>
 
 export const confirmationPageStyles = StyleSheet.create({
-    viewStyle: {
-        flex: 0,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        justifyContent: 'flex-start',
-        flexDirection: 'row',
-        paddingLeft: 20,
-        backgroundColor: 'white',
-        paddingTop: 0,
-        paddingBottom: 0,
-        marginTop: 0,
-        marginBottom: 0
-    },
-    cardHeaderStyle: {
-        backgroundColor: 'lightgray'
-    },
-    cardBodyStyle: {
-        backgroundColor: 'gainsboro'
-    },
-    buttonRowStyle: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignContent: 'flex-end'
-    }
-});
+  viewStyle: {
+    flex: 0,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    paddingLeft: 20,
+    backgroundColor: 'lavender',
+    paddingTop: 0,
+    paddingBottom: 0,
+    marginTop: 0,
+    marginBottom: 0
+  },
+  cardHeaderStyle: {
+    backgroundColor: 'lightgray',
+    paddingTop:10,
+    paddingBottom:10
+  },
+  cardBodyStyle: {
+    backgroundColor: 'gainsboro',
+    paddingTop:5,
+    paddingBottom:0
+  },
+  buttonRowStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignContent: 'flex-end'
+  },
 
-export const loginPageStyles = StyleSheet.create({
+})
 
-});
+// export const loginPageStyles = StyleSheet.create({
+// })
 
 export const medicationCaptureStyles = StyleSheet.create({
-    viewStyle: {
-        flex: 0,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        flexDirection: 'row',
-        paddingLeft: 10,
-        paddingRight: 150,
-        backgroundColor: 'white',
-        paddingTop: 0,
-        paddingBottom: 0,
-        marginTop: 0,
-        marginBottom: 0,
-        marginLeft: 1,
-        marginRight: 1
-    },
-    groupTight: {
-        flex: 0,
-        alignSelf: 'stretch',
-        flexDirection: 'column',
-        justifyContent: 'center'
-    }
-});
+  viewStyle: {
+    flex: 0,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    paddingLeft: 10,
+    paddingRight: 150,
+    backgroundColor: 'lavender',
+    paddingTop: 0,
+    paddingBottom: 0,
+    marginTop: 0,
+    marginBottom: 0,
+    marginLeft: 1,
+    marginRight: 1
+  },
+  groupTight: {
+    flex: 0,
+    alignSelf: 'stretch',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  }
+})
 
 export const patientCapturePageStyles = StyleSheet.create({
-    patientIdView: {
-        flex: 1,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        paddingLeft: 5
-    },
-    viewStyle: {
-      flex: .1,
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-      paddingLeft: 30,
-      paddingRight: 50,
-      backgroundColor: 'white',
-      paddingTop: 0,
-      paddingBottom: 0,
-      marginTop: 0,
-      marginBottom: 0
+  patientIdView: {
+    flex: 1,
+    backgroundColor: 'lavender', // upper part, patientID area
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingLeft: 5
+  },
+  viewStyle: {
+    flex: 0.1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingLeft: 30,
+    paddingRight: 50,
+    backgroundColor: 'lavender', // lower part
+    paddingTop: 0,
+    paddingBottom: 0,
+    marginTop: 0,
+    marginBottom: 0
   }
-});
+})
 
 export const searchLedgerPageStyles = StyleSheet.create({
 
-});
+})
 
 export const searchResultsPageStyles = StyleSheet.create({
 
-});
-
+})
 
 export const commonStyles = StyleSheet.create({
 
-  // confirmationPageStyles
-  // medicationCaptureStyles
-  // patientCapturePageStyles
-  containerStyle: {
-      flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      flexGrow: 1
-  },
-
-  // loginPageStyles
-  // searchLedgerPageStyles
-  // searchResultsPageStyles
   container: {
     flex: 1,
-    justifyContent: 'space-around',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     alignContent: 'space-between',
+    backgroundColor: 'lavender',
+    flexGrow: 1
   },
 
-  // confirmationPageStyles
-  contentStyle: {
-    flex: 1,
-    flexGrow: 1,
-  },
-
-  // medicationCaptureStyles
-  // patientCapturePageStyles
-  contentStyle2: {
-    flex: 1,
-    flexGrow: 1,
-    justifyContent: 'space-around',
-  },
-
-  // searchLedgerPageStyles
-  // loginPageStyles
   content: {
-    alignContent: 'space-around',
-    justifyContent: 'space-around'
+    flex: 1,
+    flexGrow: 1,
+    backgroundColor: 'lavender'
+    // alignContent: 'space-around',
+    // justifyContent: 'space-around'
   },
 
-  // searchResultsPageStyles
-  content2: {
-    justifyContent: 'space-around',
-    alignContent: 'space-between',
-  },
-
-  // medicationCaptureStyles
-  // patientCapturePageStyles
-  buttonStyle: {
-    alignSelf: 'center'
-  },
-
-  // searchLedgerPageStyles
-  // searchResultsPageStyles
-  // loginPageStyles
+  /*
+    not used in confirmationPageStyles
+  */
   button: {
     alignSelf: 'center',
     justifyContent: 'space-around',
@@ -154,31 +123,28 @@ export const commonStyles = StyleSheet.create({
     marginTop: 20
   },
 
-  // loginPageStyles
-  // searchLedgerPageStyles
-  // searchResultsPageStyles
+  /*
+    Used in loginPageStyles, searchLedgerPageStyles, searchResultsPageStyles
+  */
   text: {
     alignSelf: 'center',
-    padding: 2
+    padding: 2,
+    color: '#0f2362'
   },
 
-  // medicationCaptureStyles
+  /*
+    Used in medicationCaptureStyles, patientCapturePageStyles
+  */
   preview: {
     flex: 1,
     flexGrow: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-
-  // patientCapturePageStyles
-  preview2: {
-    flex: 1,
-    justifyContent: 'flex-end',
     alignItems: 'center'
   },
 
-  // medicationCaptureStyles
-  // patientCapturePageStyles
+  /*
+    Used in medicationCaptureStyles, patientCapturePageStyles
+  */
   capture: {
     flex: 0,
     backgroundColor: '#fff',
@@ -189,13 +155,37 @@ export const commonStyles = StyleSheet.create({
     margin: 20
   },
 
-  // loginPageStyles
-  // searchLedgerPageStyles
-  // searchResultsPageStyles
+  /*
+    Used in loginPageStyles, searchLedgerPageStyles, searchResultsPageStyles
+  */
   link: {
     alignSelf: 'center',
     color: '#0000ff',
     padding: 2
-  }
+  },
 
-});
+  patientInfoStyle: {
+    // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
+    backgroundColor: '#000080', // A Navy Blue Color
+    paddingRight: 20,
+    paddingBottom: 0,
+    paddingTop: 0,
+    paddingLeft: 0
+  },
+
+  patientTextStyle: {
+    color: 'white'
+  }
+})
+
+export const navigatorStyle = {
+  navBarBackgroundColor: '#d40303',
+  navBarTextColor: 'white'
+}
+
+export const tabBarStyle = {
+  tabBarBackgroundColor: '#0f2362',
+  tabBarButtonColor: '#ffffff',
+  tabBarSelectedButtonColor: '#63d7cc',
+  forceTitlesDisplay: true
+}

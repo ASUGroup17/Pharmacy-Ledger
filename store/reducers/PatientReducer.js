@@ -1,6 +1,7 @@
-import { SOME_CASE } from '../actions/types'
+import { HYDRATE_PATIENT } from '../actions/types'
 
 const INITIAL_STATE = {
+    id: '',
     name: '',
     dateOfBirth: '',
     expirationDate: ''
@@ -11,7 +12,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case SOME_CASE: {
+        case HYDRATE_PATIENT: {
             return { ...state, ...action.payload }
         }
         default:

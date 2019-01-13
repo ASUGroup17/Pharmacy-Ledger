@@ -1,14 +1,16 @@
 /**
- * Purpose: This is the screen displayed after the Login Screen.  Here we use the camera of an mobile device to capture
- * the barcode of a Patient's Wristband.  Only one patient can be captured at any given time.  
+ * Purpose: This is the screen displayed after the Login Screen.
+ * Here we use the camera of an mobile device to capture
+ * the barcode of a Patient's Wristband.  Only one patient can be captured at any given time.
  */
 
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Icon, Input } from 'native-base'
+import { connect } from 'react-redux'
 import { RNCamera } from 'react-native-camera'
-import {patientCapturePageStyles as styles, commonStyles} from '../styles/common'
-    
+import { hydratePatientData } from '../store/actions/PatientActions'
+import { patientCapturePageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 
 class PatientCapturePage extends Component {
 
@@ -16,50 +18,34 @@ class PatientCapturePage extends Component {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.MedicationCapturePage',
             title: 'Add Medication',
-            //These props will be passed to the MedicatioCapturePage
-            passProps: { 
-            patientID: this.state.patientID, 
-            patientFirstName: "", 
-            patientLastName: "",
-            patientDOB: "",
-            medicationName: this.state.medicationName,
-            lotNumber: this.state.lotNumber,
-            expDate: this.state.expDate
-            }     
+            navigatorStyle: navigatorStyle,
+            // These props will be passed to the MedicatioCapturePage.
         })
     }
 
-    
     constructor(props) {
         super(props);
-        this.state = { 
-            patientID: this.props.patientID,
-            patientFirstName: "",
-            patientLastName: "",
-            patientDOB: "",
-            medicationName: this.props.medicationName,
-            lotNumber: this.props.lotNumber,
-            expDate: this.props.expDate
-            }
     }
 
-    //Sets the state of this object's patientID to e.data.  e is the barcode's info:
-    // data - textual representation of the barcode;  rawData - raw data encoded in the barcode; type - the type of barcode detected 
-    onBarCodeRead = (e) => this.setState({patientID: e.data});
-
-
+    /*
+      Sets the state of this object's patientID to e.data. e is the barcode's info:
+      data - textual representation of the barcode; rawData -
+      raw data encoded in the barcode; type - the type of barcode detected.
+    */
+    onBarCodeRead = (e) => this.props.onPatientCapture(e.data)
 
     render () {
+        // destructures patient from this.props object
+        const { patient } = this.props
         return (
-            <Container style={commonStyles.containerStyle}>
+            <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
-                <View style={commonStyles.contentStyle}>
-                    <Text style={{alignSelf: 'center'}}>
-                        Scan Patient's Wristband
+                <View style={commonStyles.content}>
+                    <Text style={commonStyles.text}> Scan Patient's Wristband
                     </Text>
 
                     <RNCamera
-                        style={commonStyles.preview2}
+                        style={commonStyles.preview}
                         type={RNCamera.Constants.Type.back}
                         //Turned flashMode to off; it was originally on
                         flashMode={RNCamera.Constants.FlashMode.off}
@@ -72,26 +58,25 @@ class PatientCapturePage extends Component {
                     </RNCamera>
                     <View style={styles.viewStyle}>
                         <View style={styles.patientIdView}>
-                            <Text>
-                                Patient ID:
-                            </Text>
-                            <Item success ={(this.state.patientID == "") ? false : true}>
-                                <Input placeholder="Patient ID" value={this.state.patientID}/>
+                            <Text style={commonStyles.text}> Patient ID: </Text>
+                            <Item success ={!patient.id ? false : true}>
+                                <Input placeholder="Patient ID" editable = {false} value={patient.id}
+                                  placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
                         </View>
-                    <Button bordered style={commonStyles.buttonStyle} onPress={this.continueHandler}
-                        disabled={!this.state.patientID}>
-                        <Text>
-                            Continue
-                        </Text>
-                    </Button>
+                        <Button bordered style={commonStyles.button} onPress={this.continueHandler}
+                            disabled={!patient.id}>
+                            <Text>
+                                Continue
+                            </Text>
+                        </Button>
                     </View>
                 </View>
                 </Content>
             </Container>
         );
-    }
+    } 
 
     takePicture = async function(camera) {
         const options = { quality: 0.5, base64: true };
@@ -99,6 +84,18 @@ class PatientCapturePage extends Component {
         //  eslint-disable-next-line
         console.log(data.uri);
       }
-};
+}
 
-export default PatientCapturePage;
+const mapStateToProps = ({ patient }) => {
+    return {
+        patient
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onPatientCapture: (data) => dispatch(hydratePatientData(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientCapturePage);
