@@ -41,6 +41,22 @@ class SearchLedgerPage extends Component {
                                 <Input placeholder = "Medication Name"
                                   placeholderTextColor={commonStyles.text.color} />
                             </Item>
+                            <Item last>
+                                <Input placeholder = "Lot Number"
+                                  placeholderTextColor={commonStyles.text.color} />
+                            </Item>
+                            <Item last>
+                                <Input placeholder = "Patient ID"
+                                  placeholderTextColor={commonStyles.text.color} />
+                            </Item>
+                            <Item last>
+                                <Input placeholder = "Start Date"
+                                  placeholderTextColor={commonStyles.text.color} />
+                            </Item>
+                            <Item last>
+                                <Input placeholder = "End Date"
+                                  placeholderTextColor={commonStyles.text.color} />
+                            </Item>
                         </Form>
                         <Button bordered style = {commonStyles.button} onPress={this.searchResultsHandler}>
                             <Text>

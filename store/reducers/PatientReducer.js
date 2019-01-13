@@ -1,10 +1,13 @@
 import { HYDRATE_PATIENT } from '../actions/types'
 
 const INITIAL_STATE = {
+    //Adding some dummy data to ensure I'm getting information from this Reducer
+    //THis should not be the inital state, all variables should just be ''
     id: '',
-    name: '',
-    dateOfBirth: '',
-    expirationDate: ''
+    firstName: 'TestFirst',
+    lastName: 'TestLast',
+    dateOfBirth: 'Test:1-1-2019'
+    // expirationDate: ''
     // other patient data
 }
 

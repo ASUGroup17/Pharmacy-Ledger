@@ -8,9 +8,11 @@ import axios from 'axios'
 import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
+import PatientInfoCard from './cards/PatientInfoCard';
 
 class MedicationCapturePage extends Component {
 
+    
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.ConfirmationPage',
@@ -27,9 +29,6 @@ class MedicationCapturePage extends Component {
                 medicationName: this.state.medicationName,
                 lotNumber: this.state.lotNumber,
                 expDate: this.state.expDate,
-                patientFirstName: this.state.patientFirstName, 
-                patientLastName: this.state.patientLastName,
-                patientDOB: this.state.patientDOB,
                 //An Array of medications passed to confirmation Page
                 medicationArray : this.state.medicationArray
             }
@@ -109,6 +108,8 @@ class MedicationCapturePage extends Component {
         var patt1, patt2, patt3, lotExp, expirationExp
         var lotStrings = []
         var expStrings = []
+        const keywords = ['batch', 'exp', 'lot', 'espiry'];
+
 
         patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
         patt2 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9]");
@@ -126,7 +127,6 @@ class MedicationCapturePage extends Component {
             var match = patt3.exec(detectedTexts)
         }
         if(match){
-            this.getMedName(match,null,null)
             this.props.onMedicationCapture([match])
         }
         if(lotExp.test(detectedTexts)){
@@ -305,20 +305,10 @@ class MedicationCapturePage extends Component {
                         >
                     </RNCamera>
                 {/*
-                This view contains the Patient Info displayed just below the Camera screen.
+                PatientInfoCard contains the Patient Info displayed just below the Camera screen.
+                Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN
                 */}
-                <View>
-                    <CardItem style = {commonStyles.patientInfoStyle}>
-                        <Text style={commonStyles.patientTextStyle}>
-                            Patient ID:{this.state.patientID}  DOB:{this.state.patientDOB}
-                        </Text>
-                    </CardItem >
-                    <CardItem style = {commonStyles.patientInfoStyle}>
-                        <Text style={commonStyles.patientTextStyle}>
-                            Name: {this.state.patientLastName} {this.state.patientFirstName}
-                        </Text>
-                    </CardItem>
-                </View>
+                    <PatientInfoCard />                
                     <View style={styles.groupTight}>
                         <View style={styles.viewStyle}>
                             <Text style={commonStyles.text}>
