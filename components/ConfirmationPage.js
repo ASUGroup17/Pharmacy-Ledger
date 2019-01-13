@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Container, Content, Card, Body, Button, Text, Form, Item, Input, Right, CardItem } from 'native-base'
 import { connect } from 'react-redux'
+
 import { confirmationPageStyles as styles, commonStyles } from '../styles/common'
+import  PatientInfoCard  from './cards/PatientInfoCard';
 
 class ConfirmationPage extends Component {
   /*
@@ -39,14 +41,7 @@ class ConfirmationPage extends Component {
             { ndc : 7777799, medicationName: "FakeLongMed3                 -------------   -------", lotNumber : 741, expDate : '1/2019' },
             { ndc : 1234567, medicationName: "FakeMed4", lotNumber : 1289, expDate : '5/2020' },
             { ndc : 7654321, medicationName: "FakeMed5", lotNumber : 8672, expDate : '12/2021' },
-          ],
-
-
-            //From PatientCapturePage
-            patientID: this.props.patient.id,
-            patientFirstName: this.props.patientFirstName, 
-            patientLastName: this.props.patientLastName,
-            patientDOB: this.props.patientDOB
+          ]
         }
     }
   
@@ -61,17 +56,9 @@ class ConfirmationPage extends Component {
             -Specific Text Color styling wasn't working through CSS file common.js, so in-line
             styling was used; not ideal, perhaps this can be fixed
             */} 
-          <Card>  
-            <CardItem style = {styles.patientInfoStyle}>
-              <Text style= { { color : 'lavender' } }>
-                Patient ID:{this.props.patient.id}  DOB:{this.props.patientDOB}
-              </Text>
-              </CardItem >
-              <CardItem style={commonStyles.patientInfoStyle}>
-                <Text style={commonStyles.patientTextStyle}>
-                  Name: {this.props.patientLastName} {this.props.patientFirstName}
-                </Text>
-              </CardItem>
+          <Card>
+            <PatientInfoCard />
+
               <CardItem header style={styles.cardHeaderStyle}>
                 <Text>
                   {this.props.medication.name}
