@@ -7,7 +7,7 @@
 
 class imageTestData extends Component {
 
-    function testVial ()
+    //function testVial () 
 
 
 
