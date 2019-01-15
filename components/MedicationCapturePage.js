@@ -90,6 +90,24 @@ class MedicationCapturePage extends Component {
 
     }
 
+    parseTextBlock = (textBlocks) => {
+        textBlocks.forEach(function(element){
+            if(element.type == 'element'){
+                console.log("TERIN TEST2!")
+                console.log("WORD: " + element.value)
+                console.log("WORD:Size.width: " + element.bounds.size.width)
+                console.log("WORD:Size.height: " + element.bounds.size.hight)
+                console.log("WORD:point.x: " + element.bounds.origin.x)
+                console.log("WORD:point.y: " + element.bounds.origin.y)
+            }
+            else{
+                console.log("TERIN TEST3!" + element.type)
+                if(element.components.length > 0)
+                    this.parseTextBlock(element.components);
+            }
+        }, this);
+    }
+
     onBarCodeRead = (e) => {
         this.createNdcStrings(e.data)
         this.setState({ barCodeRead: true })
@@ -118,6 +136,8 @@ class MedicationCapturePage extends Component {
         expirationExp = new RegExp('exp', 'i');
 
         detectedTexts = textBlocks.map(b => b.value)
+        this.parseTextBlock(textBlocks)
+
         console.log("TEXTBLOCK: " + detectedTexts)
         var match = patt1.exec(detectedTexts)
         if(!match){
@@ -185,6 +205,8 @@ class MedicationCapturePage extends Component {
     }
 
 }
+
+
 
     //     // alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
     //     this.getMedName(ndc442,ndc532,ndc541)
@@ -364,6 +386,7 @@ class MedicationCapturePage extends Component {
         // eslint-disable-next-line
         console.log(data.uri);
       }
+
 
       
 }
