@@ -282,6 +282,9 @@ class MedicationCapturePage extends Component {
         };
 
     render () {
+        // This medication variable will represent props, and will be updated accordingly whenever mapStateToProps is called
+        //The Different attributes used for the medication object are defined in the MedsReducer.js file
+        const { medication } = this.props;
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
@@ -314,7 +317,7 @@ class MedicationCapturePage extends Component {
                             <Text style={commonStyles.text}>
                                 Medication:
                             </Text>
-                            <Item success ={(this.state.medicationName == null) ? false : true}>
+                            <Item success ={(!medication.name) ? false : true}>
                                 <Input placeholder="Medication Name" editable = {false} value={this.props.medication.name}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
@@ -325,7 +328,7 @@ class MedicationCapturePage extends Component {
                             <Text style={commonStyles.text}>
                                 Lot#:
                             </Text>
-                            <Item success ={(this.state.lotNumber == null) ? false : true}>
+                            <Item success ={(!medication.lotNumber) ? false : true}>
                                 <Input placeholder="Lot#" editable = {false} value ={this.state.lotNumber}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
@@ -335,7 +338,7 @@ class MedicationCapturePage extends Component {
                             <Text style={commonStyles.text}>
                                 Expiration Date:
                             </Text>
-                            <Item success ={(this.state.expDate == null) ? false : true}>
+                            <Item success ={(!medication.expirationDate) ? false : true}>
                                 <Input placeholder="Expiration Date" editable = {false} value={this.state.expDate}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
