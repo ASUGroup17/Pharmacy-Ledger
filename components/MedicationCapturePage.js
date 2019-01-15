@@ -96,7 +96,7 @@ class MedicationCapturePage extends Component {
                 console.log("TERIN TEST2!")
                 console.log("WORD: " + element.value)
                 console.log("WORD:Size.width: " + element.bounds.size.width)
-                console.log("WORD:Size.height: " + element.bounds.size.hight)
+                console.log("WORD:Size.height: " + element.bounds.size.height)
                 console.log("WORD:point.x: " + element.bounds.origin.x)
                 console.log("WORD:point.y: " + element.bounds.origin.y)
             }
