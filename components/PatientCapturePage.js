@@ -12,6 +12,9 @@ import { RNCamera } from 'react-native-camera'
 import { hydratePatientData } from '../store/actions/PatientActions'
 import { patientCapturePageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 
+var SoundPlayer = require('react-native-sound'); //import native sound
+var sound = null; // declare auido cue variable
+
 class PatientCapturePage extends Component {
 
     continueHandler = () => {
@@ -33,6 +36,25 @@ class PatientCapturePage extends Component {
       raw data encoded in the barcode; type - the type of barcode detected.
     */
     onBarCodeRead = (e) => this.props.onPatientCapture(e.data)
+
+
+    /*only added for audio sound cues */
+    /*Only added for audio cues*/ 
+    componentWillMount(){
+        song = new SoundPlayer('Ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
+            if(error)
+                console.log('Error when initializing', error);
+        });
+    }
+
+    onPressButtonPlay(){
+        if(song != null){
+            song.play((success) => {
+                if(!success)
+                console.log('Error when playing', error);
+            });
+        }
+    }
 
     render () {
         // destructures patient from this.props object
@@ -69,6 +91,11 @@ class PatientCapturePage extends Component {
                             disabled={!patient.id}>
                             <Text>
                                 Continue
+                            </Text>
+                        </Button>
+                        <Button bordered style={commonStyles.button} onPress={this.onPressButtonPlay.bind(this)}>
+                            <Text>
+                                Play
                             </Text>
                         </Button>
                     </View>

@@ -9,6 +9,9 @@ import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from 
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 
+var SoundPlayer = require('react-native-sound'); //import native sound
+var sound = null; // declare auido cue variable
+
 class MedicationCapturePage extends Component {
 
     continueHandler = () => {
@@ -281,6 +284,23 @@ class MedicationCapturePage extends Component {
               */                   
         };
 
+        /*Only added for audio cues*/ 
+        componentWillMount(){
+            song = new SoundPlayer('Ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
+                if(error)
+                    console.log('Error when initializing', error);
+            });
+        }
+
+        onPressButtonPlay(){
+            if(song != null){
+                song.play((success) => {
+                    if(!success)
+                    console.log('Error when playing', error);
+                });
+            }
+        }
+
     render () {
         return (
             <Container style={commonStyles.container}>
@@ -355,6 +375,11 @@ class MedicationCapturePage extends Component {
                     <Button bordered style={commonStyles.button} onPress={this.continueHandler}>
                         <Text>
                             Continue
+                        </Text>
+                    </Button>
+                    <Button bordered style={commonStyles.button} onPress={this.onPressButtonPlay.bind(this)}>
+                        <Text>
+                            Play
                         </Text>
                     </Button>
                 </View>
