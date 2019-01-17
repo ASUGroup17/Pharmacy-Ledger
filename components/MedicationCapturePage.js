@@ -93,7 +93,7 @@ class MedicationCapturePage extends Component {
 
     }
 
-    parseTextBlock = (textBlocks) => {
+    parseTextBlock = (textBlocks) => { 
         //These two arrays will have the textBlocks added to them 
         let capturedArray = [];    
         textBlocks.forEach(function(element){
@@ -113,10 +113,11 @@ class MedicationCapturePage extends Component {
             }
         }, this);
         
+        const { medication } = this.props;
         //This for statement will continually loop through captured textBlocks, initially it will check for Lot Number, then Expiration Date
         for (var index = 0; index < capturedArray.length; index++){
             //Testing to see if 'lot' was captured AND if the next value in the line was captured, it will throw error otherwise
-            if (/*!medication.lotNumber*/true) {
+            if (!medication.lotNumber) {
                 //Logic to determine if captured word is in a "proper" format; there is room for improvement on this logic
                 if ((capturedArray[index].word.toLowerCase() === "lot" || capturedArray[index].word.toLowerCase() === "batch")
                         && (capturedArray.length > 1/*[index+1].word*/ && capturedArray[index+1].word.length > 6)){                    
