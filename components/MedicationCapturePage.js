@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import { getMedication } from '../store/actions/MedicationActions'
-import { getLotNumber } from '../store/actions/LotNumberActions'
+//import { getLotNumber } from '../store/actions/LotNumberActions'
 import axios from 'axios'
 import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
