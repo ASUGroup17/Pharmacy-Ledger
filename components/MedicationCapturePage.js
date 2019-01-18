@@ -10,6 +10,7 @@ import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from 
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 import PatientInfoCard from './cards/PatientInfoCard';
+import { capturedLot } from './LotNumberCapture';
 
 class MedicationCapturePage extends Component {
 
@@ -113,36 +114,19 @@ class MedicationCapturePage extends Component {
             }
         }, this);
         
-        const { medication } = this.props;
-        //This for statement will continually loop through captured textBlocks, initially it will check for Lot Number, then Expiration Date
-        for (var index = 0; index < capturedArray.length; index++){
-            //Testing to see if 'lot' was captured AND if the next value in the line was captured, it will throw error otherwise
-            if (!medication.lotNumber) {
-                //Logic to determine if captured word is in a "proper" format; there is room for improvement on this logic
-                if ((capturedArray[index].word.toLowerCase() === "lot" || capturedArray[index].word.toLowerCase() === "batch")
-                        && (capturedArray.length > 1/*[index+1].word*/ && capturedArray[index+1].word.length > 6)){                    
-                    //This is what calls the LotNumberAction Item, with onLotNumberCapture
-                    this.props.onLotNumberCapture(capturedArray[index+1].word);                
-                    
-                    //From keyword(lot, batch) to data captured
-                    //The verticle distance is sometimes 'infinity', I think this may be due to when we are dividing by zero or a tiny decimal,
-                        // we may need some error handling with this
-                    let vertical_Difference = relative_Vertical_Distance(capturedArray[index].height, capturedArray[index+1].height,
-                        capturedArray[index].yCoord, capturedArray[index+1].yCoord );
-                    let horizontal_Difference = relative_Horizontal_Distance (capturedArray[index].width, capturedArray[index+1].width, 
-                        capturedArray[index].xCoord, capturedArray[index+1].xCoord);
-                    console.log("Kevin: Test vert: " + vertical_Difference  + "    horiz: " + horizontal_Difference);
-                }
-            }}    
-            relative_Vertical_Distance = (keyword_Height, data_Height, keyword_yCoord, data_yCoord) => {
-                return (keyword_Height + data_Height + (data_yCoord - keyword_yCoord)) / (data_yCoord - keyword_yCoord);
+        const { medication } = this.props;        
+        if (!medication.lotNumber) {
+            let result = capturedLot(capturedArray);
+           // console.log("Kevin: RESULT: " + result);
+           // console.log("Kevin: Result LotNumber: " + medication.lotNumber + "---typeOf: " + typeof result);
+            if (result != undefined){
+                this.props.onLotNumberCapture(result);
             }
-        
-            relative_Horizontal_Distance = (keyword_Width, data_Width, keyword_xCoord, data_xCoord) => {
-                return (keyword_Width + data_Width + (data_xCoord - keyword_xCoord)) / (data_xCoord - keyword_xCoord);
-            }
-          }
-     
+        }
+        //capturedLot(capturedArray);
+        //() => this.capturedLot(capturedArray);
+        //const { medication } = this.props;
+    }
 
     
 

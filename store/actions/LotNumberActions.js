@@ -5,8 +5,8 @@ import {
 export const getLotNumber = (lotNumber) => {
     const medication = {};
     return (dispatch) => {
-        console.log("Kevin: TEST THIS IS THE Action LOTNUMBER PASSED: " + lotNumber);
-        medication.lotNumber = lotNumber
+     //   console.log("Kevin: TEST THIS IS THE Action LOTNUMBER PASSED: " + lotNumber);
+        medication.lotNumber = lotNumber;
 
     dispatch({
         type : HYDRATE_MEDICATION,
