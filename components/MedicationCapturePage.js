@@ -36,6 +36,15 @@ class MedicationCapturePage extends Component {
         })
     }
 
+    changePatientHandler = () => {
+        this.props.navigator.push({
+            screen: 'pharmacy-ledger.PatientCapturePage',
+            title: 'Patient Care',
+            navigatorStyle: navigatorStyle,
+            // These props will be passed to the MedicatioCapturePage.
+        })
+    }
+
     state = {
       visiblePopup: false,
       setState: false
@@ -382,9 +391,7 @@ class MedicationCapturePage extends Component {
                           style={{
                             backgroundColor: '#e0f2dc',
                           }}
-                          onPress={() => {
-                            this.setState({ visiblePopup: false });
-                          }}
+                          onPress={this.changePatientHandler}
                           key="button-2"
                         />,
                         <DialogButton
