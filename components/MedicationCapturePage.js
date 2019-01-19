@@ -11,6 +11,7 @@ import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 import PatientInfoCard from './cards/PatientInfoCard';
 import { capturedLot } from './LotNumberCapture';
+import { capturedExpiration } from './ExpirationDateCapture';
 
 class MedicationCapturePage extends Component {
 
@@ -121,6 +122,13 @@ class MedicationCapturePage extends Component {
            // console.log("Kevin: Result LotNumber: " + medication.lotNumber + "---typeOf: " + typeof result);
             if (result != undefined){
                 this.props.onLotNumberCapture(result);
+            }
+        }
+
+        if (!medication.expirationDate) {
+            let expResult = capturedExpiration(capturedArray);
+            if (expResult != undefined) {
+                this.props.onExpirationCapture(expResult);
             }
         }
         //capturedLot(capturedArray);
@@ -382,7 +390,7 @@ class MedicationCapturePage extends Component {
                                 Expiration Date:
                             </Text>
                             <Item success ={(!medication.expirationDate) ? false : true}>
-                                <Input placeholder="Expiration Date" editable = {false} value={this.state.expDate}
+                                <Input placeholder="Expiration Date" editable = {false} value={medication.expirationDate}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
@@ -424,7 +432,8 @@ const mapStateToProps = ({ medication, patient }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onMedicationCapture: (ndcNumbers) => dispatch(getMedication(ndcNumbers)),
-        onLotNumberCapture: (lotNumber) => dispatch (getLotNumber(lotNumber))
+        onLotNumberCapture: (lotNumber) => dispatch (getLotNumber(lotNumber)),
+        onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate))
     }
 }
 
