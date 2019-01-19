@@ -8,7 +8,7 @@ export const capturedExpiration = (capturedArray) => {
         
 
         //let expPat1 = new RegExp("[0-1][0-9](-| |/)[2][0][0-9][0-9]");  //ex: 03/2020    03-2020  03 2020 
-        let expPat1 = new RegExp(/\b(0[123456789]|[10]|[11]|[12])\b([-]|[\s]|[/])\b([2][0][0-9][0-9])\b/);  //ex: 03/2020    03-2020  03 2020 
+        let expPat1 = new RegExp(/^(0[123456789]|[10]|[11]|[12])([-]|[\s]|[/])\b([2][0][0-9][0-9])\b/);  //ex: 03/2020    03-2020  03 2020 
         
         let expPat2 = new RegExp(/\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)([-]|[\s]|[/])[2][0][0-9][0-9]/);
         //ex:  feb/2021    mar 2022   march 2019   nov-2021
