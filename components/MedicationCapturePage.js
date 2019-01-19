@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
+import Svg, { Rect } from 'react-native-svg';
 import { connect } from 'react-redux'
 import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
@@ -9,6 +10,9 @@ import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from 
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 import PatientInfoCard from './cards/PatientInfoCard';
+
+
+const { width, height } = Dimensions.get('window');
 
 class MedicationCapturePage extends Component {
 
@@ -311,6 +315,8 @@ class MedicationCapturePage extends Component {
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
                 <View style={commonStyles.content}>
+
+
                     <Text style={{alignSelf: 'center'}}>
                         Scan Medication
                     </Text>
@@ -328,6 +334,17 @@ class MedicationCapturePage extends Component {
                         onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
+                    <Svg height={height * .4} width={width} viewBox={"0 0 " + width + " " + (height / 3)}>
+                    <Rect
+                        x="50"
+                        y="20"
+                        width="30"
+                        height="50"
+                        stroke="red"
+                        strokeWidth="1"
+                        fill="blue"
+                    />
+                </Svg>
                     </RNCamera>
                 {/*
                 PatientInfoCard contains the Patient Info displayed just below the Camera screen.
@@ -372,6 +389,7 @@ class MedicationCapturePage extends Component {
                             Continue
                         </Text>
                     </Button>
+
                 </View>
                 </Content>
             </Container>
