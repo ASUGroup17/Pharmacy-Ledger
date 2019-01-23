@@ -69,14 +69,14 @@ class MedicationCapturePage extends Component {
                     expDate : null,
                     //Include an NDC #? concentration? other information?                    
                 } ],
-            capturedArray: [
-                {
-                    word: null,
-                    xCoord: null, 
-                    yCoord: null, 
-                    height: null, 
-                    width: null,
-                } ]
+            capturedArray: null
+            //     {
+            //         word: null,
+            //         xCoord: null, 
+            //         yCoord: null, 
+            //         height: null, 
+            //         width: null,
+            //     } ]
 
                  
         }
@@ -108,7 +108,7 @@ class MedicationCapturePage extends Component {
 
     parseTextBlock = (textBlocks) => {
         //These two arrays will have the textBlocks added to them 
-        let capturedArray = [];    
+        let tempArray = [];    
         textBlocks.forEach(function(element){
             if(element.type == 'element'){
                 console.log("TERIN TEST2!")
@@ -117,15 +117,16 @@ class MedicationCapturePage extends Component {
                 console.log("WORD:Size.height: " + element.bounds.size.height)
                 console.log("WORD:point.x: " + element.bounds.origin.x)
                 console.log("WORD:point.y: " + element.bounds.origin.y)
-                capturedArray.push( { word : element.value, xCoord : element.bounds.origin.x, yCoord : element.bounds.origin.y, height : element.bounds.size.height, width : element.bounds.size.width } );
+                tempArray.push( { word : element.value, xCoord : element.bounds.origin.x, yCoord : element.bounds.origin.y, height : element.bounds.size.height, width : element.bounds.size.width } );
             }
             else{
-                console.log("TERIN TEST3!" + element.type)
+                console.log("TERIN TEST5!" + element.type)
                 if(element.components.length > 0)
                     this.parseTextBlock(element.components);
             }
-            this.setState( {capturedArray: capturedArray})
-        }, this);
+        }, this);            
+        this.setState( {capturedArray: tempArray})
+        console.log("CAPTUREDARRAY.length:" + this.state.capturedArray.length)
         
         
     //     for (var index = 0; index < capturedArray.length; index++){
@@ -381,8 +382,8 @@ class MedicationCapturePage extends Component {
                     <Svg height={height * .4} width={width} viewBox={"0 0 " + width + " " + (height / 3)}>
                     
                     {
-                        this.state.capturedArray.map((y) => {
-                            return (
+                      this.state.capturedArray.map((y) => {
+                              return (
                                 <Rect
                                     x= {y.xCoord}
                                     y= {y.yCoord}
