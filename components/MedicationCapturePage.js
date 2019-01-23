@@ -36,7 +36,8 @@ class MedicationCapturePage extends Component {
                 lotNumber: this.state.lotNumber,
                 expDate: this.state.expDate,
                 //An Array of medications passed to confirmation Page
-                medicationArray : this.state.medicationArray
+                medicationArray : this.state.medicationArray,
+                capturedArray : this.state.capturedArray
             }
         })
     }
@@ -67,7 +68,16 @@ class MedicationCapturePage extends Component {
                     lotNumber : null,
                     expDate : null,
                     //Include an NDC #? concentration? other information?                    
+                } ],
+            capturedArray: [
+                {
+                    word: null,
+                    xCoord: null, 
+                    yCoord: null, 
+                    height: null, 
+                    width: null,
                 } ]
+
                  
         }
         
@@ -368,6 +378,10 @@ class MedicationCapturePage extends Component {
                         ref={cam => this.camera = cam}
                         >
                     <Svg height={height * .4} width={width} viewBox={"0 0 " + width + " " + (height / 3)}>
+                    
+                    {
+                        this.state.capturedArray
+                    }
                     <Rect
                         x="50"
                         y="20"
