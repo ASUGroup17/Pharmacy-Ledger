@@ -124,6 +124,7 @@ class MedicationCapturePage extends Component {
                 if(element.components.length > 0)
                     this.parseTextBlock(element.components);
             }
+            this.setState( {capturedArray: capturedArray})
         }, this);
         
         
@@ -380,17 +381,19 @@ class MedicationCapturePage extends Component {
                     <Svg height={height * .4} width={width} viewBox={"0 0 " + width + " " + (height / 3)}>
                     
                     {
-                        this.state.capturedArray
+                        this.state.capturedArray.map((y) => {
+                            return (
+                                <Rect
+                                    x= {y.xCoord}
+                                    y= {y.yCoord}
+                                    width= {y.width}
+                                    height= {y.height}
+                                    stroke="red"
+                                    strokeWidth="1"
+                                />);
+                        })
                     }
-                    <Rect
-                        x="50"
-                        y="20"
-                        width="30"
-                        height="50"
-                        stroke="red"
-                        strokeWidth="1"
-                        fill="blue"
-                    />
+                    
                 </Svg>
                     </RNCamera>
                 {/*
