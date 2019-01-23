@@ -6,7 +6,7 @@ Realm database Schemas to track word distance from keyword.
 */
 
 
-import Realm from 'realm';
+import  Realm  from 'realm';
 import { all } from 'rsvp';
 
 
@@ -73,9 +73,12 @@ export const deleteMatch = matchListId => new Promise((resolve, reject) => {
 export const deleteAllMatches = () => new Promise((resolve, reject) => {
   Realm.open(databaseOptions).then(realm => {
     realm.write(() => {
-      let allMatches = realm.opjects(MATCH_SCHEMA)
+      let allMatches = realm.objects(MATCH_SCHEMA)
       realm.delete(allMatches)
       resolve()
+      .then(function(allMatches) {
+        return theMatch = realm.objects("MATCH_SCHEMA")
+      })
     })
   }).catch((error) => reject(error))
 })
@@ -86,6 +89,15 @@ export const queryAllMatches = () => new Promise((resolve, reject) => {
     resolve(allMatches)
   }).catch((error) => reject(error))
 })
+
+export const queryMatch = matchListId => new Promise((resolve, reject) => {
+  Realm.open(databaseOptions).then(realm => {
+      let someMatches = realm.objects(MATCH_SCHEMA).filtered(matchListId)
+      //const match = presult.objects("MATCH_SCHEMA").filtered("id == 0");
+      resolve(someMatches)
+    }).catch((error) => reject(error))
+  })
+
 
 
 export const queryNdcMatches = (ndc) => new Promise((resolve, reject) => {
