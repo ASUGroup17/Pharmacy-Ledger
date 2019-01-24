@@ -170,24 +170,29 @@ class MedicationCapturePage extends Component {
             console.log("STRINGS:point.y: " + printText)
         }
 
-    // this.props.onMedicationCapture([ndc442, ndc532, ndc541])
-    //Creates a match when passed the ndc number, the keyword, the field we are searching for
-    // and the two word elements involved in the match.
-    createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
-        match = {
-            ndc: ndc,
-            keyword: keyword,
-            width: keywordElement.map(b => b.bounds.size.width),
-            height: keywordElement.map(b => b.bounds.size.height),
-            x: keywordElement.map(b => b.bounds.origin.x),
-            y: keywordElement.map(b => b.bounds.origin.y),
-            findX: findFieldElement.map(b => b.bounds.origin.x),
-            findY: findFieldElement.map(b => b.bounds.origin.y),
-            findField: findField
-        }
-    }
 
-}
+        // this.props.onMedicationCapture([ndc442, ndc532, ndc541])
+        //Creates a match when passed the ndc number, the keyword, the field we are searching for
+        // and the two word elements involved in the match.
+        createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
+            match = {
+                ndc: ndc,
+                keyword: keyword,
+                width: keywordElement.map(b => b.bounds.size.width),
+                height: keywordElement.map(b => b.bounds.size.height),
+                x: keywordElement.map(b => b.bounds.origin.x),
+                y: keywordElement.map(b => b.bounds.origin.y),
+                findX: findFieldElement.map(b => b.bounds.origin.x),
+                findY: findFieldElement.map(b => b.bounds.origin.y),
+                findField: findField
+            }
+        }
+
+        if(this.state.medicationName && this.state.lotNumber && this.state.expDate != null){
+            onPressButtonPlay();
+        }
+
+    }
 
     //     // alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
     //     this.getMedName(ndc442,ndc532,ndc541)
