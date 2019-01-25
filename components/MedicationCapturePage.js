@@ -3,14 +3,18 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
-import { getMedication } from '../store/actions/MedicationActions'
-//import { getLotNumber } from '../store/actions/LotNumberActions'
+import { getMedication } from '../store/actions/MedicationActions';
+import { getLotNumber } from '../store/actions/LotNumberActions';
+import { getExpirationDate } from '../store/actions/ExpirationDateActions';
 import axios from 'axios'
 import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 import PatientInfoCard from './cards/PatientInfoCard';
 import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
+import { capturedLot } from './LotNumberCapture';
+import { capturedExpiration } from './ExpirationDateCapture';
+
 
 class MedicationCapturePage extends Component {
 
@@ -84,6 +88,7 @@ class MedicationCapturePage extends Component {
 
     }
 
+
     //Creates a match when passed the ndc number, the keyword, the field we are searching for
     // and the two word elements involved in the match and adds to DB.
     createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
@@ -107,7 +112,7 @@ class MedicationCapturePage extends Component {
 
     }
 
-    parseTextBlock = (textBlocks) => {
+    parseTextBlock = (textBlocks) => { 
         //These two arrays will have the textBlocks added to them 
         let capturedArray = [];    
         textBlocks.forEach(function(element){
@@ -127,33 +132,26 @@ class MedicationCapturePage extends Component {
             }
         }, this);
         
-        
-    //     for (var index = 0; index < capturedArray.length; index++){
-    //         //Testing to see if 'lot' was captured AND if the next value in the line was captured, it will throw error otherwise
-    //         if ((capturedArray[index].word.toLowerCase() === "lot" || capturedArray[index].word.toLowerCase() === "batch")
-    //                  && (capturedArray.length > 1/*[index+1].word*/ && capturedArray[index+1].word.length > 6)){
-    //             console.log("Kevin: IT EQUALS LOT");
-    //             this.props.onLotNumberCapture(capturedArray[index+1].word);                
-    //             //From keyword(lot, batch) to data captured
-    //             let vertical_Difference = relative_Vertical_Distance(capturedArray[index].height, capturedArray[index+1].height,
-    //                 capturedArray[index].yCoord, capturedArray[index+1].yCoord );
-    //             let horizontal_Difference = relative_Horizontal_Distance (capturedArray[index].width, capturedArray[index+1].width, 
-    //                 capturedArray[index].xCoord, capturedArray[index+1].xCoord);
-    //             console.log("Kevin: Test vert: " + vertical_Difference  + "    horiz: " + horizontal_Difference);
-    //         }/*
-    //         else if (capturedArray[index].word.toLowerCase() === "exp") {
+        const { medication } = this.props;        
+        if (!medication.lotNumber) {
+            let result = capturedLot(capturedArray);
+           // console.log("Kevin: RESULT: " + result);
+           // console.log("Kevin: Result LotNumber: " + medication.lotNumber + "---typeOf: " + typeof result);
+            if (result != undefined){
+                this.props.onLotNumberCapture(result);
+            }
+        }
 
-    //         }
-    //     */}
-
-    //     relative_Vertical_Distance = (keyword_Height, data_Height, keyword_yCoord, data_yCoord) => {
-    //         return (keyword_Height + data_Height + (data_yCoord - keyword_yCoord)) / (data_yCoord - keyword_yCoord);
-    //     }
-    
-    //     relative_Horizontal_Distance = (keyword_Width, data_Width, keyword_xCoord, data_xCoord) => {
-    //         return (keyword_Width + data_Width + (data_xCoord - keyword_xCoord)) / (data_xCoord - keyword_xCoord);
-    //     }
-     }
+        if (!medication.expirationDate) {
+            let expResult = capturedExpiration(capturedArray);
+            if (expResult != undefined) {
+                this.props.onExpirationCapture(expResult);
+            }
+        }
+        //capturedLot(capturedArray);
+        //() => this.capturedLot(capturedArray);
+        //const { medication } = this.props;
+    }
 
     
 
@@ -409,7 +407,7 @@ class MedicationCapturePage extends Component {
                                 Expiration Date:
                             </Text>
                             <Item success ={(!medication.expirationDate) ? false : true}>
-                                <Input placeholder="Expiration Date" editable = {false} value={this.state.expDate}
+                                <Input placeholder="Expiration Date" editable = {false} value={medication.expirationDate}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
@@ -500,7 +498,8 @@ const mapStateToProps = ({ medication, patient }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onMedicationCapture: (ndcNumbers) => dispatch(getMedication(ndcNumbers)),
-    //    onLotNumberCapture: (lotNumber) => dispatch (getLotNumber(lotNumber))
+        onLotNumberCapture: (lotNumber) => dispatch (getLotNumber(lotNumber)),
+        onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate))
     }
 }
 
