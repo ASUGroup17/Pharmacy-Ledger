@@ -37,7 +37,6 @@ class MedicationCapturePage extends Component {
                 expDate: this.state.expDate,
                 //An Array of medications passed to confirmation Page
                 medicationArray : this.state.medicationArray,
-                capturedArray : this.state.capturedArray
             }
         })
     }
@@ -69,14 +68,14 @@ class MedicationCapturePage extends Component {
                     expDate : null,
                     //Include an NDC #? concentration? other information?                    
                 } ],
-            capturedArray: null
-            //     {
-            //         word: null,
-            //         xCoord: null, 
-            //         yCoord: null, 
-            //         height: null, 
-            //         width: null,
-            //     } ]
+            capturedArray: [
+                {
+                    word: null,
+                    xCoord: null, 
+                    yCoord: null, 
+                    height: null, 
+                    width: null,
+                } ]
 
                  
         }
@@ -106,27 +105,35 @@ class MedicationCapturePage extends Component {
 
     }
 
-    parseTextBlock = (textBlocks) => {
+    parseTextBlock(textBlocks) {
         //These two arrays will have the textBlocks added to them 
         let tempArray = [];    
-        textBlocks.forEach(function(element){
-            if(element.type == 'element'){
+
+        for(i = 0; i < textBlocks.length; i++){
+            if(textBlocks[i].type == 'element'){
                 console.log("TERIN TEST2!")
-                console.log("WORD: " + element.value)
-                console.log("WORD:Size.width: " + element.bounds.size.width)
-                console.log("WORD:Size.height: " + element.bounds.size.height)
-                console.log("WORD:point.x: " + element.bounds.origin.x)
-                console.log("WORD:point.y: " + element.bounds.origin.y)
-                tempArray.push( { word : element.value, xCoord : element.bounds.origin.x, yCoord : element.bounds.origin.y, height : element.bounds.size.height, width : element.bounds.size.width } );
+                console.log("WORD: " + textBlocks[i].value)
+                console.log("WORD:Size.width: " + textBlocks[i].bounds.size.width)
+                console.log("WORD:Size.height: " + textBlocks[i].bounds.size.height)
+                console.log("WORD:point.x: " + textBlocks[i].bounds.origin.x)
+                console.log("WORD:point.y: " + textBlocks[i].bounds.origin.y)
+                tempArray.push( { word : textBlocks[i].value, xCoord : textBlocks[i].bounds.origin.x, yCoord : textBlocks[i].bounds.origin.y, height : textBlocks[i].bounds.size.height, width : textBlocks[i].bounds.size.width } );
             }
             else{
-                console.log("TERIN TEST5!" + element.type)
-                if(element.components.length > 0)
-                    this.parseTextBlock(element.components);
+                console.log("TERIN TEST7!" + textBlocks[i].type)
+                if(textBlocks[i].components.length > 0)
+                    this.parseTextBlock(textBlocks[i].components);
             }
-        }, this);            
-        this.setState( {capturedArray: tempArray})
-        console.log("CAPTUREDARRAY.length:" + this.state.capturedArray.length)
+            if(tempArray.length > 0){
+                console.log("TEMPARRAY1: " + tempArray[0].word + " " + tempArray.length)
+            }
+        }
+        this.setState({capturedArray: tempArray})
+        if(this.state.capturedArray[0]){
+            console.log("CAPTUREDARRAY:" + this.state.capturedArray[0].word + " " + this.state.capturedArray[0].xCoord)
+        }
+    }       
+
         
         
     //     for (var index = 0; index < capturedArray.length; index++){
@@ -154,7 +161,7 @@ class MedicationCapturePage extends Component {
     //     relative_Horizontal_Distance = (keyword_Width, data_Width, keyword_xCoord, data_xCoord) => {
     //         return (keyword_Width + data_Width + (data_xCoord - keyword_xCoord)) / (data_xCoord - keyword_xCoord);
     //     }
-     }
+    // }
 
     
 
@@ -395,7 +402,7 @@ class MedicationCapturePage extends Component {
                         })
                     }
                     
-                </Svg>
+                    </Svg>
                     </RNCamera>
                 {/*
                 PatientInfoCard contains the Patient Info displayed just below the Camera screen.
@@ -454,7 +461,7 @@ class MedicationCapturePage extends Component {
         const data = await camera.takePictureAsync(options);
         // eslint-disable-next-line
         console.log(data.uri);
-      }
+    }
 
 
       
