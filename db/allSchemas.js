@@ -50,11 +50,18 @@ export const insertNewMatch = newMatch => new Promise((resolve, reject) => {
     })
   }).catch((error) => reject(error))
 })
-export const updateMatch = matchList => new Promise((resolve, reject) => {
+// Can we pass 2 variables here?  I don't know how we're supposed to know which database entry is needing to be changed while also
+// passing only one variable
+//-----------------------------This has a variable (newList)  to this for testing, and may not want to be kept this way
+export const updateMatch = (matchList, newList) => new Promise((resolve, reject) => {
   Realm.open(databaseOptions).then(realm => {
     realm.write(() => {
-      let updatingMatchList = realm.objectForPrimaryKey(MATCH_SCHEMA, matchList.id)
-      updatingMatchList.keyword = matchList.keyword
+      //let updatingMatchList = realm.objectForPrimaryKey(MATCH_SCHEMA, matchList.id);
+      let updatingMatchList = realm.objects(MATCH_SCHEMA).filtered("id = $0", matchList.id);
+      console.log("~~~~~~ id: " + matchList.id);
+      console.log("~~~~~~ newList id: " + newList.id);
+      console.log("~~~~~~ idUpdating: " + updatingMatchList[0].ndc);
+      updatingMatchList[0].keyword = newList.keyword
       resolve()
     })
   }).catch((error) => reject(error))
@@ -76,9 +83,6 @@ export const deleteAllMatches = () => new Promise((resolve, reject) => {
       let allMatches = realm.objects(MATCH_SCHEMA)
       realm.delete(allMatches)
       resolve()
-      .then(function(allMatches) {
-        return theMatch = realm.objects("MATCH_SCHEMA")
-      })
     })
   }).catch((error) => reject(error))
 })
@@ -90,10 +94,9 @@ export const queryAllMatches = () => new Promise((resolve, reject) => {
   }).catch((error) => reject(error))
 })
 
-export const queryMatch = matchListId => new Promise((resolve, reject) => {
+export const queryMatch = (matchListId) => new Promise((resolve, reject) => {
   Realm.open(databaseOptions).then(realm => {
-      let someMatches = realm.objects(MATCH_SCHEMA).filtered(matchListId)
-      //const match = presult.objects("MATCH_SCHEMA").filtered("id == 0");
+      let someMatches = realm.objects(MATCH_SCHEMA).filtered("id = $0",matchListId)
       resolve(someMatches)
     }).catch((error) => reject(error))
   })
