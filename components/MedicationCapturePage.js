@@ -3,8 +3,9 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
-import { getMedication } from '../store/actions/MedicationActions'
-//import { getLotNumber } from '../store/actions/LotNumberActions'
+import { getMedication } from '../store/actions/MedicationActions';
+import { getLotNumber } from '../store/actions/LotNumberActions';
+import { getExpirationDate } from '../store/actions/ExpirationDateActions';
 import axios from 'axios'
 import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
