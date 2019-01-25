@@ -14,6 +14,9 @@ import PatientInfoCard from './cards/PatientInfoCard';
 import { capturedLot } from './LotNumberCapture';
 import { capturedExpiration } from './ExpirationDateCapture';
 
+var SoundPlayer = require('react-native-sound');
+var sound = null;
+
 class MedicationCapturePage extends Component {
 
     
@@ -217,24 +220,28 @@ class MedicationCapturePage extends Component {
             console.log("STRINGS:point.y: " + printText)
         }
 
-    // this.props.onMedicationCapture([ndc442, ndc532, ndc541])
-    //Creates a match when passed the ndc number, the keyword, the field we are searching for
-    // and the two word elements involved in the match.
-    createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
-        match = {
-            ndc: ndc,
-            keyword: keyword,
-            width: keywordElement.map(b => b.bounds.size.width),
-            height: keywordElement.map(b => b.bounds.size.height),
-            x: keywordElement.map(b => b.bounds.origin.x),
-            y: keywordElement.map(b => b.bounds.origin.y),
-            findX: findFieldElement.map(b => b.bounds.origin.x),
-            findY: findFieldElement.map(b => b.bounds.origin.y),
-            findField: findField
+        // this.props.onMedicationCapture([ndc442, ndc532, ndc541])
+        //Creates a match when passed the ndc number, the keyword, the field we are searching for
+        // and the two word elements involved in the match.
+        createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
+            match = {
+                ndc: ndc,
+                keyword: keyword,
+                width: keywordElement.map(b => b.bounds.size.width),
+                height: keywordElement.map(b => b.bounds.size.height),
+                x: keywordElement.map(b => b.bounds.origin.x),
+                y: keywordElement.map(b => b.bounds.origin.y),
+                findX: findFieldElement.map(b => b.bounds.origin.x),
+                findY: findFieldElement.map(b => b.bounds.origin.y),
+                findField: findField
+            }
         }
-    }
 
-}
+        if(this.state.medicationName && this.state.lotNumber && this.state.expDate != null){
+            onPressButtonPlay();
+        }
+
+    }
 
 
 
@@ -333,6 +340,26 @@ class MedicationCapturePage extends Component {
               */                   
         };
 
+
+        //------------------------------------------------------------
+        componentWillMount(){
+            song = new SoundPlayer('ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
+                if(error)
+                    console.log('Error when iniliazing', error);
+            });
+            
+        }
+
+        onPressButtonPlay(){
+            if(song != null){
+                song.play((success) => {
+                    if(!success)
+                    console.log('Error when playing', error);
+                });
+            }
+        }
+        //------------------------------------------------------------
+
     render () {
         // This medication variable will represent props, and will be updated accordingly whenever mapStateToProps is called
         //The Different attributes used for the medication object are defined in the MedsReducer.js file
@@ -402,6 +429,11 @@ class MedicationCapturePage extends Component {
                             Continue
                         </Text>
                     </Button>
+                    <Button bordered style={commonStyles.button} onPress={this.onPressButtonPlay.bind(this)}>
+                        <Text>
+                            Play
+                        </Text>
+                    </Button> 
                 </View>
                 </Content>
             </Container>
