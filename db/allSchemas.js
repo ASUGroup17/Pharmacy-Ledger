@@ -53,24 +53,44 @@ export const insertNewMatch = newMatch => new Promise((resolve, reject) => {
 // Can we pass 2 variables here?  I don't know how we're supposed to know which database entry is needing to be changed while also
 // passing only one variable
 //-----------------------------This has a variable (newList)  to this for testing, and may not want to be kept this way
+/*Terin's Original
+export const updateMatch = (matchList) => new Promise((resolve, reject) => {
+  Realm.open(databaseOptions).then(realm => {
+    realm.write(() => {
+      let updatingMatchList = realm.objectForPrimaryKey(MATCH_SCHEMA, matchList.id);      
+      updatingMatchList.keyword = match List.keyword
+      resolve()
+    })
+  }).catch((error) => reject(error))
+})*/
+
 export const updateMatch = (matchList, newList) => new Promise((resolve, reject) => {
   Realm.open(databaseOptions).then(realm => {
     realm.write(() => {
       //let updatingMatchList = realm.objectForPrimaryKey(MATCH_SCHEMA, matchList.id);
       let updatingMatchList = realm.objects(MATCH_SCHEMA).filtered("id = $0", matchList.id);
-      console.log("~~~~~~ id: " + matchList.id);
-      console.log("~~~~~~ newList id: " + newList.id);
-      console.log("~~~~~~ idUpdating: " + updatingMatchList[0].ndc);
       updatingMatchList[0].keyword = newList.keyword
       resolve()
     })
   }).catch((error) => reject(error))
 })
 
+
+/*  Terin's original 
 export const deleteMatch = matchListId => new Promise((resolve, reject) => {
   Realm.open(databaseOptions).then(realm => {
     realm.write(() => {
       let deletingMatch = realm.objectForPrimaryKey(MATCH_SCHEMA, matchListId)
+      realm.delete(deletingMatch)
+      resolve()
+    })
+  }).catch((error) => reject(error))
+})*/
+
+export const deleteMatch = itemToDelete => new Promise((resolve, reject) => {
+  Realm.open(databaseOptions).then(realm => {
+    realm.write(() => {
+      let deletingMatch = realm.objects(MATCH_SCHEMA).filtered("id = $0", itemToDelete.id);
       realm.delete(deletingMatch)
       resolve()
     })
@@ -94,9 +114,10 @@ export const queryAllMatches = () => new Promise((resolve, reject) => {
   }).catch((error) => reject(error))
 })
 
-export const queryMatch = (matchListId) => new Promise((resolve, reject) => {
+//Should we be passing an object, a Primary Key (id) or something else.  Here it's whole object
+export const queryMatch = (matchEntry) => new Promise((resolve, reject) => {
   Realm.open(databaseOptions).then(realm => {
-      let someMatches = realm.objects(MATCH_SCHEMA).filtered("id = $0",matchListId)
+      let someMatches = realm.objects(MATCH_SCHEMA).filtered("id = $0",matchEntry.id)
       resolve(someMatches)
     }).catch((error) => reject(error))
   })

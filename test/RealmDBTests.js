@@ -30,26 +30,43 @@ let medicationList = [
         id : 2,
         ndc : "Test id = 2",
         keyword : "Test NDC 2",
-        findField : "222222"
+        width : 222,
+        height : 222, 
+        x : 202,
+        y : 202,
+        findX : 2,
+        findY : 2,
+        findField : "000222"
     },
     {
-        id : 3,
-        ndc : "Test id = 3",
-        keyword : "Test NDC 3",
-        findField : "333333"
+        id : 4,
+        ndc : "Test id = 4",
+        keyword : "Test NDC 4",
+        width : 444,
+        height : 444, 
+        x : 404,
+        y : 404,
+        findX : 4,
+        findY : 4,
+        findField : "444444"
     }
 ]
 
 describe("#CRUD Functions of the Realm Database", function () {
+    beforeEach(function() {
+        dcFunctions.deleteAllMatches();
+        dcFunctions.insertNewMatch(medicationList[0]);
+    })
+    /*
     //Just testing if the assert works as intended, testing a local variable
     it("Testing Local Medication List id", function () {
         assert.equal(medicationList[0].id, 0);
-    });
+    });*/
 
     //Inserts medList[0] and compared entries to ensure accuracy
     it("Testing insertNewMatch() of medlist[0] in the DB", function (done) {
-        dcFunctions.deleteAllMatches();
-        dcFunctions.insertNewMatch(medicationList[0]);
+        //dcFunctions.deleteAllMatches();
+        //dcFunctions.insertNewMatch(medicationList[0]);
         
         dcFunctions.queryAllMatches("matchSchema").then
         (function (allMatches) {
@@ -72,15 +89,19 @@ describe("#CRUD Functions of the Realm Database", function () {
         })
     });
 
-    //Testing the Removal of an Entry into the DB
-    it("Testing one entry removal with deleteAllMatches()", function (done) {
-        dcFunctions.deleteAllMatches();
-        dcFunctions.insertNewMatch(medicationList[0]);
+    //Testing the Removal of all entries into the DB
+    it("Testing all entries removal with deleteAllMatches()", function (done) {
+        //dcFunctions.deleteAllMatches();
+        //dcFunctions.insertNewMatch(medicationList[0]);
+        dcFunctions.insertNewMatch(medicationList[1]);
+        dcFunctions.insertNewMatch(medicationList[2]);
         dcFunctions.deleteAllMatches();
         dcFunctions.queryAllMatches().then
         (function (aMatch) {
             try {
                 assert.notExists(aMatch[0]);
+                assert.notExists(aMatch[1]);
+                assert.notExists(aMatch[2]);
                 done();
             }//end try
             catch (error) {
@@ -89,16 +110,31 @@ describe("#CRUD Functions of the Realm Database", function () {
         })
     });//end it
 
+    //Testing the removal of a specific entry in the DB
+    it("Testing a single entrie's removal with deleteMatch()", function(done) {
+        //dcFunctions.deleteAllMatches();
+        //dcFunctions.insertNewMatch(medicationList[0]);
+        dcFunctions.deleteMatch(medicationList[0]);
+        dcFunctions.queryMatch(medicationList[0]).then
+        (function (allMatches) {
+            try {
+                assert.notExists(allMatches[0]);
+                done ();
+            }
+            catch (error) {
+                done(error);
+            }
+        });
+    });
+
     //Testing updateMatch ()
     it ("Testing updateMatch() an entry already in the DB", function (done) {
-        dcFunctions.deleteAllMatches ();
-        dcFunctions.insertNewMatch(medicationList[0]);
+        //dcFunctions.deleteAllMatches ();
+        //dcFunctions.insertNewMatch(medicationList[0]);
         dcFunctions.updateMatch(medicationList[0], medicationList[1]);
-                
         dcFunctions.queryAllMatches().then
         (function (allMatches) {
             try { 
-                //console.log("~~~~~~~~~~~~ " +  allMatches)
                 assert.equal(allMatches[0].keyword, "Test NDC 1", "Keyword was updated Properly");
                 done ();
             }
