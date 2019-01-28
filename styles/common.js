@@ -30,7 +30,7 @@ export const confirmationPageStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignContent: 'flex-end'
-  },
+  }
 
 })
 
