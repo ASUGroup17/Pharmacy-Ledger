@@ -170,7 +170,10 @@ export const commonStyles = StyleSheet.create({
     paddingRight: 20,
     paddingBottom: 0,
     paddingTop: 0,
-    paddingLeft: 0
+    paddingLeft: 0,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignContent: 'space-between'
   },
 
   patientTextStyle: {

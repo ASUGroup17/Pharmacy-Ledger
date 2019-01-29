@@ -4,20 +4,21 @@ import { connect } from 'react-redux';
 import { CardItem, Text } from 'native-base';
 import { commonStyles } from '../../styles/common';
 
-// const SearchResultsCard = ( { searchResult } ) => {
+//const SearchResultsCard = ( { searchResult } ) => {
 const SearchResultsCard = (  ) => {
 
         return (
             <View>
                 <CardItem style = {commonStyles.patientInfoStyle}>
                     <Text style={commonStyles.patientTextStyle}>
+                        Physician Name: {"    "}
+                        Medication Name: {"    "}
+                        Lot Number: {"    "}
+                        Patient ID: {"    "}
+                        Start Date: {"    "}
+                        End Date: {"    "}
                     </Text>
                 </CardItem >
-                <CardItem style = {commonStyles.patientInfoStyle}>
-                    <Text style={commonStyles.patientTextStyle}>
-                        Name:
-                    </Text>
-                </CardItem>
             </View>
         );
 }
