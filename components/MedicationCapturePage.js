@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
@@ -21,25 +21,36 @@ class MedicationCapturePage extends Component {
 
 
     continueHandler = () => {
-        this.props.navigator.push({
-            screen: 'pharmacy-ledger.ConfirmationPage',
-            title: 'Confirm Transaction',
-            navigatorStyle: navigatorStyle,
 
-            /*
-              Passing these props to the next Screen (ConfirmationPage)
-              that will be pushed to the Navigator Stack.
-            */
-            passProps: {
-                //These first 4 are from the MedicationCapturePage
-                ndc: this.state.ndc,
-                medicationName: this.state.medicationName,
-                lotNumber: this.state.lotNumber,
-                expDate: this.state.expDate,
-                //An Array of medications passed to confirmation Page
-                medicationArray : this.state.medicationArray
-            }
-        })
+        Alert.alert(
+            'Add another medication?',
+            '',
+            [
+                {text: 'Confirm Transaction', onPress: () => console.log('TESTING: Confirm Pressed')},
+                {text: 'Add Another Medication', onPress: () => console.log('TESTING: Add Another Pressed')},
+                {text: 'Cancel Transaction', onPress: () => console.log('TESTING: Cancel Pressed'), style: 'cancel'},
+            ],
+            {cancelable: false},
+        );
+        // this.props.navigator.push({
+        //     screen: 'pharmacy-ledger.ConfirmationPage',
+        //     title: 'Confirm Transaction',
+        //     navigatorStyle: navigatorStyle,
+
+        //     /*
+        //       Passing these props to the next Screen (ConfirmationPage)
+        //       that will be pushed to the Navigator Stack.
+        //     */
+        //     passProps: {
+        //         //These first 4 are from the MedicationCapturePage
+        //         ndc: this.state.ndc,
+        //         medicationName: this.state.medicationName,
+        //         lotNumber: this.state.lotNumber,
+        //         expDate: this.state.expDate,
+        //         //An Array of medications passed to confirmation Page
+        //         medicationArray : this.state.medicationArray
+        //     }
+        // })
     }
 
     changePatientHandler = () => {
