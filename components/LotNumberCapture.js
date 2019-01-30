@@ -17,7 +17,7 @@ export function capturedLot (capturedArray)  {
                     capturedArray[index].yCoord, capturedArray[index+1].yCoord );
                 let horizontal_Difference = relative_Horizontal_Distance (capturedArray[index].width, capturedArray[index+1].width, 
                     capturedArray[index].xCoord, capturedArray[index+1].xCoord);
-                console.log("Kevin: Test vert: " + vertical_Difference  + "    horiz: " + horizontal_Difference);
+                //console.log("Kevin: Test vert: " + vertical_Difference  + "    horiz: " + horizontal_Difference);
 
   //              console.log("Kevin: " + capturedArray[index+1].word);
                 return capturedArray[index+1].word;                

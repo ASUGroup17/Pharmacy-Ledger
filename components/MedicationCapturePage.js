@@ -13,7 +13,7 @@ import realm from '../db/allSchemas';
 import PatientInfoCard from './cards/PatientInfoCard';
 import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
 import { capturedLot } from './LotNumberCapture';
-import { capturedExpiration } from './ExpirationDateCapture';
+import { capturedExpiration, capturedTextBlocksExpiration } from './ExpirationDateCapture';
 
 
 class MedicationCapturePage extends Component {
@@ -115,14 +115,19 @@ class MedicationCapturePage extends Component {
     parseTextBlock = (textBlocks) => { 
         //These two arrays will have the textBlocks added to them 
         let capturedArray = [];    
+        console.log("Kevin: TXT " + textBlocks.getValue);
+        
+        //if (element.type == 'TextBlock') {console.log("Kevin: TXT " + element.value);}
         textBlocks.forEach(function(element){
+            if (element.type == 'line') {console.log("Kevin: line " + element.value);}
+            
             if(element.type == 'element'){
-                console.log("TERIN TEST2!")
+                /*console.log("TERIN TEST2!")
                 console.log("WORD: " + element.value)
                 console.log("WORD:Size.width: " + element.bounds.size.width)
                 console.log("WORD:Size.height: " + element.bounds.size.height)
                 console.log("WORD:point.x: " + element.bounds.origin.x)
-                console.log("WORD:point.y: " + element.bounds.origin.y)
+                console.log("WORD:point.y: " + element.bounds.origin.y)*/
                 capturedArray.push( { word : element.value, xCoord : element.bounds.origin.x, yCoord : element.bounds.origin.y, height : element.bounds.size.height, width : element.bounds.size.width } );
             }
             else{
@@ -143,7 +148,8 @@ class MedicationCapturePage extends Component {
         }
 
         if (!medication.expirationDate) {
-            let expResult = capturedExpiration(capturedArray);
+            //let expResult = capturedExpiration(capturedArray);
+            let expResult = capturedTextBlocksExpiration(textBlocks);
             if (expResult != undefined) {
                 this.props.onExpirationCapture(expResult);
             }
@@ -173,6 +179,8 @@ class MedicationCapturePage extends Component {
         var lotStrings = []
         var expStrings = []
         const keywords = ['batch', 'exp', 'lot', 'espiry'];
+
+        console.log("KEVIN: " + textBlocks.value);
 
 
         patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
