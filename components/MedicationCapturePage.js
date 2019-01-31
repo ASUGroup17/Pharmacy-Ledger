@@ -12,7 +12,7 @@ import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 import PatientInfoCard from './cards/PatientInfoCard';
 import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
-import { capturedLot } from './LotNumberCapture';
+import { capturedLot, capturedTextBlocksLot } from './LotNumberCapture';
 import { capturedExpiration, capturedTextBlocksExpiration } from './ExpirationDateCapture';
 
 
@@ -115,19 +115,17 @@ class MedicationCapturePage extends Component {
     parseTextBlock = (textBlocks) => { 
         //These two arrays will have the textBlocks added to them 
         let capturedArray = [];    
-        console.log("Kevin: TXT " + textBlocks.getValue);
-        
-        //if (element.type == 'TextBlock') {console.log("Kevin: TXT " + element.value);}
+
         textBlocks.forEach(function(element){
             if (element.type == 'line') {console.log("Kevin: line " + element.value);}
             
             if(element.type == 'element'){
-                /*console.log("TERIN TEST2!")
+                console.log("TERIN TEST2!")
                 console.log("WORD: " + element.value)
                 console.log("WORD:Size.width: " + element.bounds.size.width)
                 console.log("WORD:Size.height: " + element.bounds.size.height)
                 console.log("WORD:point.x: " + element.bounds.origin.x)
-                console.log("WORD:point.y: " + element.bounds.origin.y)*/
+                console.log("WORD:point.y: " + element.bounds.origin.y)
                 capturedArray.push( { word : element.value, xCoord : element.bounds.origin.x, yCoord : element.bounds.origin.y, height : element.bounds.size.height, width : element.bounds.size.width } );
             }
             else{
@@ -138,15 +136,21 @@ class MedicationCapturePage extends Component {
         }, this);
         
         const { medication } = this.props;        
+
+        //Once lotNumber is captured this will not run. 
+        //Sends textBlocks over to LotNumberCapture.js to be parsed for checking if a lot number is found. returns that value.
+        //Then that value is sent to the Redux store
         if (!medication.lotNumber) {
-            let result = capturedLot(capturedArray);
-           // console.log("Kevin: RESULT: " + result);
-           // console.log("Kevin: Result LotNumber: " + medication.lotNumber + "---typeOf: " + typeof result);
+          //  let result = capturedLot(capturedArray);
+            let result = capturedTextBlocksLot(textBlocks);
             if (result != undefined){
                 this.props.onLotNumberCapture(result);
             }
         }
 
+        //Once ExpirationDate is captured this will not run. 
+        //Sends textBlocks over to ExpirationDateCapture.js to be parsed for checking if a expirationdate is found. returns that value.
+        //Then that value is sent to the Redux store
         if (!medication.expirationDate) {
             //let expResult = capturedExpiration(capturedArray);
             let expResult = capturedTextBlocksExpiration(textBlocks);
@@ -154,9 +158,6 @@ class MedicationCapturePage extends Component {
                 this.props.onExpirationCapture(expResult);
             }
         }
-        //capturedLot(capturedArray);
-        //() => this.capturedLot(capturedArray);
-        //const { medication } = this.props;
     }
 
     
