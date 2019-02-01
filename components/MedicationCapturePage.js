@@ -22,35 +22,29 @@ class MedicationCapturePage extends Component {
 
     continueHandler = () => {
 
-        Alert.alert(
-            'Add another medication?',
-            '',
-            [
-                {text: 'Confirm Transaction', onPress: () => console.log('TESTING: Confirm Pressed')},
-                {text: 'Add Another Medication', onPress: () => console.log('TESTING: Add Another Pressed')},
-                {text: 'Cancel Transaction', onPress: () => console.log('TESTING: Cancel Pressed'), style: 'cancel'},
-            ],
-            {cancelable: false},
-        );
-        // this.props.navigator.push({
-        //     screen: 'pharmacy-ledger.ConfirmationPage',
-        //     title: 'Confirm Transaction',
-        //     navigatorStyle: navigatorStyle,
+        this.props.navigator.push({
+            screen: 'pharmacy-ledger.ConfirmationPage',
+            title: 'Confirm Transaction',
+            navigatorStyle: navigatorStyle,
 
-        //     /*
-        //       Passing these props to the next Screen (ConfirmationPage)
-        //       that will be pushed to the Navigator Stack.
-        //     */
-        //     passProps: {
-        //         //These first 4 are from the MedicationCapturePage
-        //         ndc: this.state.ndc,
-        //         medicationName: this.state.medicationName,
-        //         lotNumber: this.state.lotNumber,
-        //         expDate: this.state.expDate,
-        //         //An Array of medications passed to confirmation Page
-        //         medicationArray : this.state.medicationArray
-        //     }
-        // })
+            /*
+              Passing these props to the next Screen (ConfirmationPage)
+              that will be pushed to the Navigator Stack.
+            */
+            passProps: {
+                //These first 4 are from the MedicationCapturePage
+                ndc: this.state.ndc,
+                medicationName: this.state.medicationName,
+                lotNumber: this.state.lotNumber,
+                expDate: this.state.expDate,
+                //An Array of medications passed to confirmation Page
+                medicationArray : this.state.medicationArray
+            }
+        })
+    }
+
+    addAnotherMedHandler = () => {
+        //Increment number of medications and clear current medication details from textfields.
     }
 
     changePatientHandler = () => {
@@ -338,6 +332,11 @@ class MedicationCapturePage extends Component {
                             </Item>
                         </View>
                     </View>
+                    <Button bordered style={commonStyles.button} onPress={this.addAnotherMedHandler}>
+                        <Text>
+                            Add Another Medication
+                        </Text>
+                    </Button>
                     <Button bordered style={commonStyles.button} onPress={this.continueHandler}>
                         <Text>
                             Continue
