@@ -38,7 +38,8 @@ class MedicationCapturePage extends Component {
                 lotNumber: this.state.lotNumber,
                 expDate: this.state.expDate,
                 //An Array of medications passed to confirmation Page
-                medicationArray : this.state.medicationArray
+                medicationArray : this.state.medicationArray,
+                medicationCount : this.state.medicationCount
             }
         })
     }
@@ -86,7 +87,8 @@ class MedicationCapturePage extends Component {
                     lotNumber : null,
                     expDate : null,
                     //Include an NDC #? concentration? other information?
-                } ]
+                } ],
+            medicationCount: 0
 
         }
 
@@ -137,7 +139,7 @@ class MedicationCapturePage extends Component {
         }, this);
         
         const { medication } = this.props;        
-        if (!medication.lotNumber) {
+        if (!medication[medicationCount].lotNumber) {
             let result = capturedLot(capturedArray);
            // console.log("Kevin: RESULT: " + result);
            // console.log("Kevin: Result LotNumber: " + medication.lotNumber + "---typeOf: " + typeof result);
@@ -146,7 +148,7 @@ class MedicationCapturePage extends Component {
             }
         }
 
-        if (!medication.expirationDate) {
+        if (!medication[medicationCount].expirationDate) {
             let expResult = capturedExpiration(capturedArray);
             if (expResult != undefined) {
                 this.props.onExpirationCapture(expResult);
@@ -305,8 +307,8 @@ class MedicationCapturePage extends Component {
                             <Text style={commonStyles.text}>
                                 Medication:
                             </Text>
-                            <Item success ={(!medication.name) ? false : true}>
-                                <Input placeholder="Medication Name" editable = {false} value={medication.name}
+                            <Item success ={(!medication[medicationCount].name) ? false : true}>
+                                <Input placeholder="Medication Name" editable = {false} value={medication[medicationCount].name}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
@@ -315,8 +317,8 @@ class MedicationCapturePage extends Component {
                             <Text style={commonStyles.text}>
                                 Lot#:
                             </Text>
-                            <Item success ={(!medication.lotNumber) ? false : true}>
-                                <Input placeholder="Lot#" editable = {false} value ={medication.lotNumber}
+                            <Item success ={(!medication[medicationCount].lotNumber) ? false : true}>
+                                <Input placeholder="Lot#" editable = {false} value ={medication[medicationCount].lotNumber}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
@@ -325,8 +327,8 @@ class MedicationCapturePage extends Component {
                             <Text style={commonStyles.text}>
                                 Expiration Date:
                             </Text>
-                            <Item success ={(!medication.expirationDate) ? false : true}>
-                                <Input placeholder="Expiration Date" editable = {false} value={medication.expirationDate}
+                            <Item success ={(!medication[medicationCount].expirationDate) ? false : true}>
+                                <Input placeholder="Expiration Date" editable = {false} value={medication[medicationCount].expirationDate}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
