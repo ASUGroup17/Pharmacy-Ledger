@@ -30,7 +30,8 @@ class SearchLedgerPage extends Component {
                 lotNumber: this.state.lotNumber,
                 patientID: this.state.patientID,
                 startDate: this.state.startDate,
-                endDate: this.state.endDate
+                endDate: this.state.endDate,
+                searchResultsArray : this.state.searchResultsArray
             }
         })
     }
@@ -48,11 +49,19 @@ class SearchLedgerPage extends Component {
           lotNumber: null,
           patientID: null,
           startDate: null,
-          endDate: null
+          endDate: null,
+          searchResultsArray: [
+              {
+                physicianName: null,
+                medicationName: null,
+                lotNumber: null,
+                patientID: null,
+                startDate: null,
+                endDate: null
+              } ]
         }
 
     }
-
 
     render () {
         return (

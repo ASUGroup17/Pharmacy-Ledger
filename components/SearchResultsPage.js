@@ -26,12 +26,26 @@ class SearchResultsPage extends Component {
         })
     }
 
+    constructor (props) {
+      super(props)
+      this.state = {
+            //Fake array used to display an array
+            searchResults : [
+              { physicianName: "Bobby Bug", medicationName: "FakeMed1", lotNumber: 123, patientID: '1234', startDate: '07/2018', endDate: '08/2018' },
+              { physicianName: "Jane Fluff", medicationName: "FakeMed2", lotNumber: 123, patientID: '5678', startDate: '09/2018', endDate: '10/2018' },
+              { physicianName: "Frankie Joe", medicationName: "FakeMed3", lotNumber: 123, patientID: '9876', startDate: '11/2018', endDate: '12/2018' }
+            ]
+          }
+      }
+
      render () {
          return (
              <Container style={commonStyles.container}>
                 <Content>
                     <View style={commonStyles.container}>
-                      <SearchResultsCard />
+                      {this.state.searchResults.map((searchResult) =>
+                        <SearchResultsCard searchResult={searchResult} />
+                      )}
                         <Button bordered style = {commonStyles.button} onPress={this.newSearchHandler} >
                             <Text>
                                 New Search

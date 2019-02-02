@@ -5,18 +5,18 @@ import { CardItem, Text } from 'native-base';
 import { commonStyles } from '../../styles/common';
 
 //const SearchResultsCard = ( { searchResult } ) => {
-const SearchResultsCard = (  ) => {
+const SearchResultsCard = ( props ) => {
 
         return (
             <View>
                 <CardItem style = {commonStyles.patientInfoStyle}>
                     <Text style={commonStyles.patientTextStyle}>
-                        Physician Name: {"    "}
-                        Medication Name: {"    "}
-                        Lot Number: {"    "}
-                        Patient ID: {"    "}
-                        Start Date: {"    "}
-                        End Date: {"    "}
+                        Physician Name: {props.searchResult.physicianName}{"\n"}
+                        Medication Name: {props.searchResult.medicationName}{"\n"}
+                        Lot Number: {props.searchResult.lotNumber}{"\n"}
+                        Patient ID: {props.searchResult.patientID}{"\n"}
+                        Start Date: {props.searchResult.startDate}{"\n"}
+                        End Date: {props.searchResult.endDate}{"\n"}
                     </Text>
                 </CardItem >
             </View>
