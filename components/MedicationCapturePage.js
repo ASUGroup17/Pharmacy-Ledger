@@ -14,6 +14,7 @@ import PatientInfoCard from './cards/PatientInfoCard';
 import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
 import { capturedLot } from './LotNumberCapture';
 import { capturedExpiration } from './ExpirationDateCapture';
+import MedicationNameDisplayCard from './cards/MedicationNameDisplayCard';
 
 
 class MedicationCapturePage extends Component {
@@ -382,7 +383,7 @@ class MedicationCapturePage extends Component {
                     <PatientInfoCard />
                     <View style={styles.groupTight}>
                         <View style={styles.viewStyle}>
-                            <Text style={commonStyles.text}>
+                        {/*    <Text style={commonStyles.text}>
                                 Medication:
                             </Text>
                             <Item success ={(!medication.name) ? false : true}>
@@ -391,7 +392,10 @@ class MedicationCapturePage extends Component {
                                 <Icon name='checkmark-circle' />
 
                             </Item>
+                            */}
+                            <MedicationNameDisplayCard/>    
                         </View>
+                        
                         <View style={styles.viewStyle}>
                             <Text style={commonStyles.text}>
                                 Lot#:

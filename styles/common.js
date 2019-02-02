@@ -58,6 +58,25 @@ export const medicationCaptureStyles = StyleSheet.create({
     alignSelf: 'stretch',
     flexDirection: 'column',
     justifyContent: 'center'
+  },
+  medicationNameCardStyle : {
+    backgroundColor : 'lavender',
+    flex : 1,
+    flexDirection : 'row',
+    //alignSelf: 'stretch',
+    //alignItems : 'stretch',
+    justifyContent : 'space-between'
+  },
+  medicationNameTextStyle : {
+    //flex : 1,
+    //flexDirection : 'row',
+    //alignSelf: 'stretch',
+    color: '#0f2362',
+    backgroundColor : 'lavender',
+    //justifyContent : 'space-between',
+    //overflowWrap : 'normal',
+    alignItems : 'stretch',
+    flexWrap: 'wrap'
   }
 })
 
