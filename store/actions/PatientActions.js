@@ -9,24 +9,19 @@ export const hydratePatientData = (data) => {
     
     
     return (dispatch) => {
-
-        for (let i = 0; i < dummy_Patient_Data.length; i++){
-            console.log("Kevin dummy: data " + data + "  jsonID " + dummy_Patient_Data[i].patient_Id); 
-            if (dummy_Patient_Data[i].patient_Id == data) {
-                patientData.id = dummy_Patient_Data[i].patient_Id;
-                patientData.firstName = dummy_Patient_Data[i].name.first;
-                patientData.lastName = dummy_Patient_Data[i].name.last;
-                patientData.email = dummy_Patient_Data[i].email;
-                patientData.phone = dummy_Patient_Data[i].phone;
-                patientData.address = dummy_Patient_Data[i].address;
-                patientData.birthMonth = dummy_Patient_Data[i].birth_Date.month;
-                patientData.birthDay = dummy_Patient_Data[i].birth_Date.day;
-                patientData.birthYear = dummy_Patient_Data[i].birth_Date.year;
-                patientData.index = dummy_Patient_Data[i].index;
-            break;
-            }
-            //console.log("Kevin dummy: " + dummy_Patient_Data[i].index);
-        }
+        const selectedPatient = dummy_Patient_Data.find(patientData => patientData.patient_Id == data)
+        console.log("Kevin dummy: data " + data + "  jsonID " + selectedPatient.patient_Id); 
+        patientData.id = selectedPatient.patient_Id
+        patientData.firstName = selectedPatient.name.first
+        patientData.lastName = selectedPatient.name.last
+        patientData.email = selectedPatient.email
+        patientData.phone = selectedPatient.phone
+        patientData.address = selectedPatient.address
+        patientData.birthMonth = selectedPatient.birth_Date.month
+        patientData.birthDay = selectedPatient.birth_Date.day
+        patientData.birthYear = selectedPatient.birth_Date.year
+        patientData.index = selectedPatient.index
+        
 
 
         dispatch({
