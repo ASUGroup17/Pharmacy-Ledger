@@ -1,45 +1,25 @@
 import React from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { CardItem, Card, Text, Item, Input, Icon } from 'native-base';
-import { medicationCaptureStyles as styles, commonStyles } from '../../styles/common';
+import { Item, Icon } from 'native-base';
 
-//This is a reuseable component that will display the medication name, the checkmark and eventually the camera icon
+import { medicationDataDisplayStyles  as medNameStyles } from '../../styles/common';
+import MedicationNameLine from './MedicationNameLine';
+
+//This is a reuseable component that will display the medication name, the checkmark and eventually the camera icon.
+//The CSS styling for this is defined in styles/common.js under medicationNameStyles
 const MedicationNameDisplayCard = ({ medication }) => {
-    if (!medication.name) {
-        return(
-            <Card transparent> 
-            <CardItem style={styles.medicationNameCardStyle}>
-                <Item success ={(!medication.name) ? false : true}>                   
-                    <Text style={styles.medicationNameTextStyle}>
-                       Medication:
-                    </Text>                   
-                    <Icon name='checkmark-circle' />
-                </Item>   
-            </CardItem>
-            </Card>
-        );
-    }
-
-        return (
-           <Card transparent>
-                {/*<Text style={commonStyles.text}>
-                    
-        </Text>*/}
-         <CardItem style={styles.medicationNameCardStyle}>
-         <View>
-             <Text style={styles.medicationNameTextStyle}>
-                Medication: {medication.name}
-            </Text>
-            </View>
-            <View>
-            <Item success ={(!medication.name) ? false : true}>
-                                            
-                    <Icon name='checkmark-circle' />
-                </Item>            
+        return(            
+            <View style={medNameStyles.medicationNameContainer}>
+              
+                <MedicationNameLine/>
+              
+                <View style={medNameStyles.medicationNameCheckmarkStyle}>
+                    <Item success ={(!medication.name) ? false : true}>
+                        <Icon name='checkmark-circle' />
+                    </Item>
                 </View>
-        </CardItem>
-            </Card>
+            </View>
         );
 }//end MedicationNameDisplayCard
 
