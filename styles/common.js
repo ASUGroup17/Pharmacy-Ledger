@@ -165,6 +165,12 @@ export const commonStyles = StyleSheet.create({
     padding: 2
   },
 
+  linkRed: {
+    alignSelf: 'flex-start',
+    color: '#ff001d',
+    padding: 2
+  },
+
   patientInfoStyle: {
     // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
     backgroundColor: '#000080', // A Navy Blue Color

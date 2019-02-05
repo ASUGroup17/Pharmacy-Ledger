@@ -112,9 +112,9 @@ class MedicationCapturePage extends Component {
 
     }
 
-    parseTextBlock = (textBlocks) => { 
-        //These two arrays will have the textBlocks added to them 
-        let capturedArray = [];    
+    parseTextBlock = (textBlocks) => {
+        //These two arrays will have the textBlocks added to them
+        let capturedArray = [];
         textBlocks.forEach(function(element){
             if(element.type == 'element'){
                 console.log("TERIN TEST2!")
@@ -131,8 +131,8 @@ class MedicationCapturePage extends Component {
                     this.parseTextBlock(element.components);
             }
         }, this);
-        
-        const { medication } = this.props;        
+
+        const { medication } = this.props;
         if (!medication.lotNumber) {
             let result = capturedLot(capturedArray);
            // console.log("Kevin: RESULT: " + result);
@@ -153,7 +153,7 @@ class MedicationCapturePage extends Component {
         //const { medication } = this.props;
     }
 
-    
+
 
     onBarCodeRead = (e) => {
         this.createNdcStrings(e.data)
@@ -418,7 +418,7 @@ class MedicationCapturePage extends Component {
                             Continue
                         </Text>
                     </Button>
-                    <Text style={commonStyles.link}
+                    <Text style={commonStyles.linkRed}
                       onPress={() => {
                         this.setState({ visiblePopup: true });
                       }}
