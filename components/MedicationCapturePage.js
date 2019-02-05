@@ -3,17 +3,22 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
-import { getMedication } from '../store/actions/MedicationActions'
-//import { getLotNumber } from '../store/actions/LotNumberActions'
+import { getMedication } from '../store/actions/MedicationActions';
+import { getLotNumber } from '../store/actions/LotNumberActions';
+import { getExpirationDate } from '../store/actions/ExpirationDateActions';
 import axios from 'axios'
 import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 import PatientInfoCard from './cards/PatientInfoCard';
+import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
+import { capturedLot } from './LotNumberCapture';
+import { capturedExpiration } from './ExpirationDateCapture';
+
 
 class MedicationCapturePage extends Component {
 
-    
+
 
     continueHandler = () => {
         this.props.navigator.push({
@@ -37,6 +42,20 @@ class MedicationCapturePage extends Component {
         })
     }
 
+    changePatientHandler = () => {
+        this.props.navigator.push({
+            screen: 'pharmacy-ledger.PatientCapturePage',
+            title: 'Patient Care',
+            navigatorStyle: navigatorStyle,
+            // These props will be passed to the MedicatioCapturePage.
+        })
+    }
+
+    state = {
+      visiblePopup: false,
+      setState: false
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -57,17 +76,18 @@ class MedicationCapturePage extends Component {
                 patientFirstName: "#FirstName",
                 patientLastName: "#LastName",
                 patientDOB: "#DOB",
-            medicationArray: [ 
-                { 
+            medicationArray: [
+                {
                     medicationName: null,
                     lotNumber : null,
                     expDate : null,
-                    //Include an NDC #? concentration? other information?                    
+                    //Include an NDC #? concentration? other information?
                 } ]
-                 
+
         }
-        
+
     }
+
 
     //Creates a match when passed the ndc number, the keyword, the field we are searching for
     // and the two word elements involved in the match and adds to DB.
@@ -92,7 +112,7 @@ class MedicationCapturePage extends Component {
 
     }
 
-    parseTextBlock = (textBlocks) => {
+    parseTextBlock = (textBlocks) => { 
         //These two arrays will have the textBlocks added to them 
         let capturedArray = [];    
         textBlocks.forEach(function(element){
@@ -112,33 +132,26 @@ class MedicationCapturePage extends Component {
             }
         }, this);
         
-        
-    //     for (var index = 0; index < capturedArray.length; index++){
-    //         //Testing to see if 'lot' was captured AND if the next value in the line was captured, it will throw error otherwise
-    //         if ((capturedArray[index].word.toLowerCase() === "lot" || capturedArray[index].word.toLowerCase() === "batch")
-    //                  && (capturedArray.length > 1/*[index+1].word*/ && capturedArray[index+1].word.length > 6)){
-    //             console.log("Kevin: IT EQUALS LOT");
-    //             this.props.onLotNumberCapture(capturedArray[index+1].word);                
-    //             //From keyword(lot, batch) to data captured
-    //             let vertical_Difference = relative_Vertical_Distance(capturedArray[index].height, capturedArray[index+1].height,
-    //                 capturedArray[index].yCoord, capturedArray[index+1].yCoord );
-    //             let horizontal_Difference = relative_Horizontal_Distance (capturedArray[index].width, capturedArray[index+1].width, 
-    //                 capturedArray[index].xCoord, capturedArray[index+1].xCoord);
-    //             console.log("Kevin: Test vert: " + vertical_Difference  + "    horiz: " + horizontal_Difference);
-    //         }/*
-    //         else if (capturedArray[index].word.toLowerCase() === "exp") {
+        const { medication } = this.props;        
+        if (!medication.lotNumber) {
+            let result = capturedLot(capturedArray);
+           // console.log("Kevin: RESULT: " + result);
+           // console.log("Kevin: Result LotNumber: " + medication.lotNumber + "---typeOf: " + typeof result);
+            if (result != undefined){
+                this.props.onLotNumberCapture(result);
+            }
+        }
 
-    //         }
-    //     */}
-
-    //     relative_Vertical_Distance = (keyword_Height, data_Height, keyword_yCoord, data_yCoord) => {
-    //         return (keyword_Height + data_Height + (data_yCoord - keyword_yCoord)) / (data_yCoord - keyword_yCoord);
-    //     }
-    
-    //     relative_Horizontal_Distance = (keyword_Width, data_Width, keyword_xCoord, data_xCoord) => {
-    //         return (keyword_Width + data_Width + (data_xCoord - keyword_xCoord)) / (data_xCoord - keyword_xCoord);
-    //     }
-     }
+        if (!medication.expirationDate) {
+            let expResult = capturedExpiration(capturedArray);
+            if (expResult != undefined) {
+                this.props.onExpirationCapture(expResult);
+            }
+        }
+        //capturedLot(capturedArray);
+        //() => this.capturedLot(capturedArray);
+        //const { medication } = this.props;
+    }
 
     
 
@@ -278,7 +291,7 @@ class MedicationCapturePage extends Component {
     //             this.setState({medicationName: names[0]})
     //         }
     //     });
-        
+
     // };
 
     //checkCaptured =();
@@ -289,16 +302,16 @@ class MedicationCapturePage extends Component {
         checkCaptured = (getMedName) => {
             //console.log("TEST: Inside CheckCaptured function");
               //if (medicationNameCaptured == true && lotNumberCaptured == true && expDateCaptured == true) {
-            if ( this.state.medicationName !== null /*&& this.state.lotNumber !== null && this.state.expDate !== null */) {  
+            if ( this.state.medicationName !== null /*&& this.state.lotNumber !== null && this.state.expDate !== null */) {
                 console.log('TEST: Inside If medName statement.');
                 console.log("TEST: medName: " + this.state.medicationName);
                 this.globalArray.push(this.state.medicationName);
-              /*  
+              /*
                 this.setState(prevState => ({
                     medicationArray: [...prevState.medicationArray, { 'medicationName' : this.state.medicationName, 'lotNumber' : this.state.lotNumber, 'expDate' : this.state.expDate }]
                   }))
                 */
-                /*this.setState(state => {                    
+                /*this.setState(state => {
                     const medicationArray = state.medicationArray.concat( { medicationName : state.medicationName, lotNumber : state.lotNumber, expDate : state.expDate } );
 
                     return {
@@ -308,8 +321,8 @@ class MedicationCapturePage extends Component {
                        //expDate: null
                     };
               });*/
-                
-              }//end if statement   
+
+              }//end if statement
             for (i in this.globalArray) {
                 console.log('TEST: ' + this.globalArray[i].medicationName);
             }
@@ -318,7 +331,7 @@ class MedicationCapturePage extends Component {
                     console.log("TEST: ARRAY IS EMPTY");
                 }
                 */
-                
+
                 //console.log("TEST: this.state.array[0]medName: " + this.state.medicationArray[0].medicationName);
 //                console.log("TEST: this.state.array[1]medName: " + this.state.medicationArray[1].medicationName);
 
@@ -327,13 +340,13 @@ class MedicationCapturePage extends Component {
                     console.log('TEST Array Med Name: ' + this.state.medicationArray[i].medicationName);
                     console.log('TEST LOT Number: ' + this.state.medicationArray[i].lotNumber);
                 }*/
-                
-                
+
+
               /*still inside the if; should I se the values to null again so that a new bottle can be scanned?
               this.state.medicationName = null;
               this.state.lotNumber = null;
               this.state.expDate = null;
-              */                   
+              */
         };
 
     render () {
@@ -354,7 +367,7 @@ class MedicationCapturePage extends Component {
                         flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
                         permissionDialogMessage={'We need your permission to use your camera phone'}
-                        
+
                         // onBarCodeRead= {(this.props.medication.medicationName == "") ? this.onBarCodeRead : null}
 
                         onBarCodeRead= {!this.state.barCodeRead ? this.onBarCodeRead : null}
@@ -366,7 +379,7 @@ class MedicationCapturePage extends Component {
                 PatientInfoCard contains the Patient Info displayed just below the Camera screen.
                 Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN
                 */}
-                    <PatientInfoCard />                
+                    <PatientInfoCard />
                     <View style={styles.groupTight}>
                         <View style={styles.viewStyle}>
                             <Text style={commonStyles.text}>
@@ -376,7 +389,7 @@ class MedicationCapturePage extends Component {
                                 <Input placeholder="Medication Name" editable = {false} value={medication.name}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
-                                
+
                             </Item>
                         </View>
                         <View style={styles.viewStyle}>
@@ -394,7 +407,7 @@ class MedicationCapturePage extends Component {
                                 Expiration Date:
                             </Text>
                             <Item success ={(!medication.expirationDate) ? false : true}>
-                                <Input placeholder="Expiration Date" editable = {false} value={this.state.expDate}
+                                <Input placeholder="Expiration Date" editable = {false} value={medication.expirationDate}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
@@ -405,12 +418,61 @@ class MedicationCapturePage extends Component {
                             Continue
                         </Text>
                     </Button>
-                </View>
+                    <Text style={commonStyles.link}
+                      onPress={() => {
+                        this.setState({ visiblePopup: true });
+                      }}
+                    > Change Patient</Text>
+                    <Dialog
+                      visible={this.state.visiblePopup}
+                      onTouchOutside={() => {
+                        this.setState({ visiblePopup: false });
+                      }}
+                      dialogTitle={
+                        <DialogTitle
+                          title="Change Patient"
+                          style={{
+                            backgroundColor: '#e0f2dc',
+                          }}
+                          hasTitleBar={false}
+                          align="left"
+                        />
+                      }
+                      actions={[
+                        <DialogButton
+                          text="OK"
+                          style={{
+                            backgroundColor: '#e0f2dc',
+                          }}
+                          onPress={this.changePatientHandler}
+                          key="button-2"
+                        />,
+                        <DialogButton
+                          text="Cancel"
+                          style={{
+                            backgroundColor: '#e0f2dc',
+                          }}
+                          onPress={() => {
+                            this.setState({ visiblePopup: false });
+                          }}
+                          key="button-3"
+                        />
+                      ]}
+                    >
+                      <DialogContent
+                        style={{
+                          backgroundColor: '#e0f2dc',
+                        }}
+                      >
+                        <Text>You are requesting to go back to the Add Patient page. Any medications currently scanned will not be saved. Select OK to continue to Add Patient page.</Text>
+                      </DialogContent>
+                    </Dialog>
+                  </View>
                 </Content>
             </Container>
         );
-        
-        
+
+
     }
 
     takePicture = async function(camera) {
@@ -421,7 +483,7 @@ class MedicationCapturePage extends Component {
       }
 
 
-      
+
 }
 
 
@@ -436,7 +498,8 @@ const mapStateToProps = ({ medication, patient }) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onMedicationCapture: (ndcNumbers) => dispatch(getMedication(ndcNumbers)),
-    //    onLotNumberCapture: (lotNumber) => dispatch (getLotNumber(lotNumber))
+        onLotNumberCapture: (lotNumber) => dispatch (getLotNumber(lotNumber)),
+        onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate))
     }
 }
 

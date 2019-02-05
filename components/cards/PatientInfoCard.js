@@ -2,8 +2,11 @@ import React from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { CardItem, Text } from 'native-base';
-import { commonStyles } from '../../styles/common';
 
+import { commonStyles, patientInfoCardStyles } from '../../styles/common';
+
+//If the patient value that's passed is invalid, and error will show on screen.  This should occur if the user isn't in the system,
+// but this isn't tested.
 const PatientInfoCard = ( { patient } ) => {
     if (!patient) {
         return( 
@@ -16,13 +19,27 @@ const PatientInfoCard = ( { patient } ) => {
             </View>
         );
     }
+
+    //This function determines if The Date of Birth will display or not; there were some formatting issues that required this check
+    function DOBRenders (patient) {
+        if (!patient.birthDay || !patient.birthMonth || !patient.birthYear) {
+            return (<Text style={patientInfoCardStyles.patient_DOBStyle}>DOB:</Text>);
+        }
+        else {
+            return (<Text style={patientInfoCardStyles.patient_DOBStyle}>DOB: {patient.birthMonth}/{patient.birthDay}/{patient.birthYear}
+            </Text>);
+        }
+    }
+
+
         return ( 
             <View>
-                <CardItem style = {commonStyles.patientInfoStyle}>
-                    <Text style={commonStyles.patientTextStyle}>
-                        Patient ID:{patient.id}  DOB:{patient.dateOfBirth}
-                    </Text>
-                </CardItem >
+                <CardItem style = {patientInfoCardStyles.patient_ID_DOB_Style}>
+                    <Text  style={patientInfoCardStyles.patient_IDStyle}s>
+                        Patient ID: {patient.id}
+                    </Text>  
+                    {DOBRenders(patient)}
+                </CardItem>  
                 <CardItem style = {commonStyles.patientInfoStyle}>
                     <Text style={commonStyles.patientTextStyle}>
                         Name: {patient.firstName} {patient.lastName}
@@ -33,7 +50,6 @@ const PatientInfoCard = ( { patient } ) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log("TEST PATIENTINFOCARD state.patient: " + state.patient);
     return {
         patient : state.patient
     };
