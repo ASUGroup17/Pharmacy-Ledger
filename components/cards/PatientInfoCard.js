@@ -8,12 +8,12 @@ import { commonStyles, patientInfoCardStyles } from '../../styles/common';
 //If the patient value that's passed is invalid, and error will show on screen.  This should occur if the user isn't in the system,
 // but this isn't tested.
 const PatientInfoCard = ( { patient } ) => {
-    if (!patient) {
+    if (patient.id === undefined) {
         return( 
             <View>
                 <CardItem style = {commonStyles.patientInfoStyle}>
                     <Text style={commonStyles.patientTextStyle}>
-                        Error: Patient is Null
+                        Error: Patient ID is not in the system
                     </Text>
                 </CardItem >
             </View>
