@@ -410,13 +410,10 @@ class MedicationCapturePage extends Component {
                             <Text style={commonStyles.text}>
                                 Lot#:
                             </Text>
-                            <Item success ={(!medication.lotNumber) ? false : true}>
+                            <Item success ={(!medication.lotNumber) ? false : true} onChange={this.onPressButtonPlay}>
                                 <Input placeholder="Lot#" editable = {false} value ={medication.lotNumber}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
-                            </Item>
-                            <Item success ={(!medication.lotNumber) ? false : true}>
-                                {this.onPressButtonPlay(this)}
                             </Item>
                         </View>
                         <View style={styles.viewStyle}>
