@@ -410,7 +410,7 @@ class MedicationCapturePage extends Component {
                             <Text style={commonStyles.text}>
                                 Lot#:
                             </Text>
-                            <Item success ={(!medication.lotNumber) ? false : true} onChange={this.onPressButtonPlay}>
+                            <Item success ={(!medication.lotNumber) ? false : true}>
                                 <Input placeholder="Lot#" editable = {false} value ={medication.lotNumber}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
@@ -424,6 +424,9 @@ class MedicationCapturePage extends Component {
                                 <Input placeholder="Expiration Date" editable = {false} value={medication.expirationDate}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
+                            </Item>
+                            <Item success ={(!medication.expDate && !medication.name && !medication.lotNumber) ? false : true}>
+                                {this.onPressButtonPlay(this)}
                             </Item>
                         </View>
                     </View>
