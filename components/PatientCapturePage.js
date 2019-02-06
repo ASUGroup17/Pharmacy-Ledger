@@ -16,6 +16,19 @@ import PatientInfoCard from './cards/PatientInfoCard';
 
 class PatientCapturePage extends Component {
 
+    
+    componentDidMount() {
+        const { navigation } = this.props;
+        navigation.addListener('willFocus', () =>
+          this.setState({ focusedScreen: true })
+        );
+        navigation.addListener('willBlur', () =>
+          this.setState({ focusedScreen: false })
+        );
+      }
+
+      
+
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.MedicationCapturePage',
@@ -38,7 +51,20 @@ class PatientCapturePage extends Component {
 
     render () {
         // destructures patient from this.props object
+        const { hasCameraPermission, focusedScreen } = this.state;        
         const { patient } = this.props
+    
+        if (hasCameraPermission === null) {
+            return (<View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
+              <Text>Error</Text>
+            </View>);
+          } else if (hasCameraPermission === false) {
+            return (<View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
+            <ActivityIndicator size="large" style={{color:'blue', fontSize:30}} />
+              <Text>No Access to camera</Text>
+            </View>);
+          }
+        else if (focusedScreen) {
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
@@ -83,6 +109,10 @@ class PatientCapturePage extends Component {
                 </Content>
             </Container>
         );
+        }
+        else {
+            return (<Text>Camera Error</Text>);
+          }
     } 
 
     takePicture = async function(camera) {
