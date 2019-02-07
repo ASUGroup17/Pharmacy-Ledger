@@ -413,7 +413,7 @@ class MedicationCapturePage extends Component {
                             </Item>
                         </View>
                     </View>
-                    <Button bordered style={commonStyles.button} onPress={this.continueHandler}>
+                    <Button bordered style={commonStyles.buttonRight} onPress={this.continueHandler}>
                         <Text>
                             Continue
                         </Text>

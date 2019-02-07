@@ -124,6 +124,14 @@ export const commonStyles = StyleSheet.create({
     marginTop: 20
   },
 
+  buttonRight: {
+    alignSelf: 'flex-end',
+    color: '#7E0AF9',
+    backgroundColor: '#C5ECF4',
+    marginTop: 20,
+    marginRight: 10
+  },
+
   /*
     Used in loginPageStyles, searchLedgerPageStyles, searchResultsPageStyles
   */
