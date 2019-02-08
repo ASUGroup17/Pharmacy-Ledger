@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Platform, StyleSheet, Link, View } from 'react-native'
+import { Row } from 'native-base';
 // <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css"></link>
 
 export const confirmationPageStyles = StyleSheet.create({
@@ -195,13 +196,46 @@ export const commonStyles = StyleSheet.create({
     paddingRight: 20,
     paddingBottom: 0,
     paddingTop: 0,
-    paddingLeft: 0
+    paddingLeft: 0,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignContent: 'space-between'
   },
 
   patientTextStyle: {
     color: 'white'
   }
 })
+
+export const patientInfoCardStyles = StyleSheet.create({
+  patient_ID_DOB_Style: {
+    backgroundColor: '#000080', // A Navy Blue Color
+    paddingRight: 20,
+    paddingBottom: 0,
+    paddingTop: 0,
+    paddingLeft: 0,
+    //flexDirection : 'row',
+    //justifyContent: 'center'
+  },
+  patient_IDStyle: {
+    backgroundColor: '#000080', // A Navy Blue Color
+    paddingRight: 0,
+    paddingBottom: 0,
+    paddingTop: 0,
+    paddingLeft: 0,
+    color: 'white',
+    width: '65%'
+  },
+  patient_DOBStyle: {
+    backgroundColor: '#000080', // A Navy Blue Color
+    paddingRight: 0,
+    paddingBottom: 0,
+    paddingTop: 0,
+    paddingLeft: 0,
+    color: 'white',
+    width: '35%'
+  }
+});
 
 export const navigatorStyle = {
   navBarBackgroundColor: '#d40303',
