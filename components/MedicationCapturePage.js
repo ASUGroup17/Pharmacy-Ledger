@@ -15,10 +15,7 @@ import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-p
 import { capturedLot } from './LotNumberCapture';
 import { capturedExpiration } from './ExpirationDateCapture';
 
-
 class MedicationCapturePage extends Component {
-
-
 
     continueHandler = () => {
         this.props.navigator.push({
@@ -380,6 +377,7 @@ class MedicationCapturePage extends Component {
                 Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN
                 */}
                     <PatientInfoCard />
+                    <Icon style={commonStyles.medIcon} name='medkit'/>
                     <View style={styles.groupTight}>
                         <View style={styles.viewStyle}>
                             <Text style={commonStyles.text}>
