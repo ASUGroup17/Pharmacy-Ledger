@@ -18,13 +18,49 @@ class SearchLedgerPage extends Component {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.SearchResultsPage',
             title: 'Search Results',
-            navigatorStyle: navigatorStyle
+            navigatorStyle: navigatorStyle,
+
+            /*
+              Passing these props to the next Screen (SearchResultsPage)
+              that will be pushed to the Navigator Stack.
+            */
+            passProps: {
+                physicianName: this.state.physicianName,
+                medicationName: this.state.medicationName,
+                lotNumber: this.state.lotNumber,
+                patientID: this.state.patientID,
+                startDate: this.state.startDate,
+                endDate: this.state.endDate,
+                searchResultsArray : this.state.searchResultsArray
+            }
         })
     }
 
     // Creating handler to cancel the current search and navigate to the previous screen.
     cancelHandler = () => {
         this.props.navigator.pop()
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          physicianName: null,
+          medicationName: null,
+          lotNumber: null,
+          patientID: null,
+          startDate: null,
+          endDate: null,
+          searchResultsArray: [
+              {
+                physicianName: null,
+                medicationName: null,
+                lotNumber: null,
+                patientID: null,
+                startDate: null,
+                endDate: null
+              } ]
+        }
+
     }
 
     render () {
@@ -34,27 +70,27 @@ class SearchLedgerPage extends Component {
                     <View style={commonStyles.content}>
                         <Form>
                             <Item>
-                                <Input placeholder = "Physician Name"
+                                <Input placeholder = "Physician Name" editable = {true} value={this.state.physicianName}
                                   placeholderTextColor={commonStyles.text.color} />
                             </Item>
                             <Item last>
-                                <Input placeholder = "Medication Name"
+                                <Input placeholder = "Medication Name" editable = {true} value={this.state.medicationName}
                                   placeholderTextColor={commonStyles.text.color} />
                             </Item>
                             <Item last>
-                                <Input placeholder = "Lot Number"
+                                <Input placeholder = "Lot Number" editable = {true} value={this.state.lotNumber}
                                   placeholderTextColor={commonStyles.text.color} />
                             </Item>
                             <Item last>
-                                <Input placeholder = "Patient ID"
+                                <Input placeholder = "Patient ID" editable = {true} value={this.state.patientID}
                                   placeholderTextColor={commonStyles.text.color} />
                             </Item>
                             <Item last>
-                                <Input placeholder = "Start Date"
+                                <Input placeholder = "Start Date" editable = {true} value={this.state.startDate}
                                   placeholderTextColor={commonStyles.text.color} />
                             </Item>
                             <Item last>
-                                <Input placeholder = "End Date"
+                                <Input placeholder = "End Date" editable = {false} value={this.state.endDate}
                                   placeholderTextColor={commonStyles.text.color} />
                             </Item>
                         </Form>
@@ -74,4 +110,5 @@ class SearchLedgerPage extends Component {
         );
     }
 }
+
 export default SearchLedgerPage;
