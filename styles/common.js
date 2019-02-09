@@ -124,6 +124,12 @@ export const commonStyles = StyleSheet.create({
     marginTop: 20
   },
 
+  logo: {
+    alignSelf: 'center',
+    justifyContent: 'space-around',
+    alignContent: 'space-around'
+  },
+
   /*
     Used in loginPageStyles, searchLedgerPageStyles, searchResultsPageStyles
   */
