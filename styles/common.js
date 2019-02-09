@@ -139,6 +139,13 @@ export const commonStyles = StyleSheet.create({
     color: '#0f2362'
   },
 
+  title: {
+    alignSelf: 'center',
+    color: 'red',
+    fontSize: 30,
+    fontWeight: 'bold'
+  },
+
   /*
     Used in medicationCaptureStyles, patientCapturePageStyles
   */

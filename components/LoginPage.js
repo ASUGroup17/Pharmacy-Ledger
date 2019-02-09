@@ -31,6 +31,7 @@ class LoginPage extends Component {
         <Content>
         <View style={commonStyles.content}>
           <Image source={require('../icons/PCHlogo.png')} style={commonStyles.logo}/>
+          <Text style={commonStyles.title}>Pharmacy Ledger Login</Text>
           <Form>
             <Item>
               <Input placeholder="Username"
