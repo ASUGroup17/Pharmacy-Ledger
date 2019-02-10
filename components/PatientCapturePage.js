@@ -87,9 +87,13 @@ class PatientCapturePage extends Component {
                         <View style={styles.patientIdView}>
                             <Text style={commonStyles.text}> Patient ID: </Text>
                             <Item success ={!patient.id ? false : true}>
-                                <Input placeholder="Patient ID" editable = {false} value={patient.id}
-                                  placeholderTextColor={commonStyles.text.color} />
-                                <Icon name='checkmark-circle' />
+                               <Input placeholder="Patient ID" editable = {false}
+                                placeholderTextColor={commonStyles.text.color}> 
+                                    <Text style={commonStyles.text} placeholder="Patient ID">
+                                        {patient.id}
+                                    </Text>
+                               </Input>
+                                <Icon name='checkmark-circle' />  
                             </Item>
                             <Item  success={!patient.id ? false : true}>
                                 {this.onPressButtonPlay(this)}

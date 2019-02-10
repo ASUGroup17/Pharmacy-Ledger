@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Link, View} from 'react-native';
 import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base';
 import { searchResultsPageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
+import SearchResultsCard from './cards/SearchResultsCard';
 
 class SearchResultsPage extends Component {
 
@@ -25,37 +26,26 @@ class SearchResultsPage extends Component {
         })
     }
 
+    constructor (props) {
+      super(props)
+      this.state = {
+            //Fake array used to display an array
+            searchResults : [
+              { physicianName: "Bobby Bug", medicationName: "FakeMed1", lotNumber: 123, patientID: '1234', startDate: '07/2018', endDate: '08/2018' },
+              { physicianName: "Jane Fluff", medicationName: "FakeMed2", lotNumber: 123, patientID: '5678', startDate: '09/2018', endDate: '10/2018' },
+              { physicianName: "Frankie Joe", medicationName: "FakeMed3", lotNumber: 123, patientID: '9876', startDate: '11/2018', endDate: '12/2018' }
+            ]
+          }
+      }
+
      render () {
          return (
              <Container style={commonStyles.container}>
                 <Content>
                     <View style={commonStyles.container}>
-                        <Form>
-                            <Item>
-                                <Input placeholder = "Administering Physician"
-                                  placeholderTextColor={commonStyles.text.color} />
-                            </Item>
-                            <Item>
-                                <Input placeholder = "Date Administered"
-                                  placeholderTextColor={commonStyles.text.color} />
-                            </Item>
-                            <Item>
-                                <Input placeholder = "Medication Name"
-                                  placeholderTextColor={commonStyles.text.color} />
-                            </Item>
-                            <Item>
-                                <Input placeholder = "Lot #"
-                                  placeholderTextColor={commonStyles.text.color} />
-                            </Item>
-                            <Item>
-                                <Input placeholder = "Concentration"
-                                  placeholderTextColor={commonStyles.text.color} />
-                            </Item>
-                            <Item last>
-                                <Input placeholder = "Expiration Date"
-                                  placeholderTextColor={commonStyles.text.color} />
-                            </Item>
-                        </Form>
+                      {this.state.searchResults.map((searchResult) =>
+                        <SearchResultsCard searchResult={searchResult} />
+                      )}
                         <Button bordered style = {commonStyles.button} onPress={this.newSearchHandler} >
                             <Text>
                                 New Search
@@ -67,4 +57,41 @@ class SearchResultsPage extends Component {
          );
      }
  }
- export default SearchResultsPage;
+
+
+   /**<Form>
+       <Item>
+           <Input placeholder = "Administering Physician"
+             placeholderTextColor={commonStyles.text.color} />
+       </Item>
+       <Item>
+           <Input placeholder = "Date Administered"
+             placeholderTextColor={commonStyles.text.color} />
+       </Item>
+       <Item>
+           <Input placeholder = "Medication Name"
+             placeholderTextColor={commonStyles.text.color} />
+       </Item>
+       <Item>
+           <Input placeholder = "Lot #"
+             placeholderTextColor={commonStyles.text.color} />
+       </Item>
+       <Item>
+           <Input placeholder = "Concentration"
+             placeholderTextColor={commonStyles.text.color} />
+       </Item>
+       <Item last>
+           <Input placeholder = "Expiration Date"
+             placeholderTextColor={commonStyles.text.color} />
+       </Item>
+   </Form>*/
+
+ // const mapStateToProps = ({ searchResult }) => {
+ //     return {
+ //         searchResult
+ //     }
+ // }
+ //
+ // export default connect (mapStateToProps) (SearchResultsPage);
+
+export default SearchResultsPage;
