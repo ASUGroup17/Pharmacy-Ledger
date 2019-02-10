@@ -15,6 +15,9 @@ import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-p
 import { capturedLot } from './LotNumberCapture';
 import { capturedExpiration } from './ExpirationDateCapture';
 
+var SoundPlayer = require('react-native-sound');
+var sound = null;
+
 
 class MedicationCapturePage extends Component {
 
@@ -240,24 +243,31 @@ class MedicationCapturePage extends Component {
             console.log("STRINGS:point.y: " + printText)
         }
 
-    // this.props.onMedicationCapture([ndc442, ndc532, ndc541])
-    //Creates a match when passed the ndc number, the keyword, the field we are searching for
-    // and the two word elements involved in the match.
-    createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
-        match = {
-            ndc: ndc,
-            keyword: keyword,
-            width: keywordElement.map(b => b.bounds.size.width),
-            height: keywordElement.map(b => b.bounds.size.height),
-            x: keywordElement.map(b => b.bounds.origin.x),
-            y: keywordElement.map(b => b.bounds.origin.y),
-            findX: findFieldElement.map(b => b.bounds.origin.x),
-            findY: findFieldElement.map(b => b.bounds.origin.y),
-            findField: findField
+        // this.props.onMedicationCapture([ndc442, ndc532, ndc541])
+        //Creates a match when passed the ndc number, the keyword, the field we are searching for
+        // and the two word elements involved in the match.
+        createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
+            match = {
+                ndc: ndc,
+                keyword: keyword,
+                width: keywordElement.map(b => b.bounds.size.width),
+                height: keywordElement.map(b => b.bounds.size.height),
+                x: keywordElement.map(b => b.bounds.origin.x),
+                y: keywordElement.map(b => b.bounds.origin.y),
+                findX: findFieldElement.map(b => b.bounds.origin.x),
+                findY: findFieldElement.map(b => b.bounds.origin.y),
+                findField: findField
+            }
         }
-    }
 
-}
+        /*
+        if(this.state.medicationName && this.state.lotNumber && this.state.expDate){
+            onPressButtonPlay();
+        }
+        */
+
+
+    }
 
     //Method to check if this.state.prop has changed, once certain props have changed
         //and been read in (MedicationName, LotNumber and expDate) then the medicationArray will be updated
@@ -274,6 +284,26 @@ class MedicationCapturePage extends Component {
                 console.log('TEST: ' + this.globalArray[i].medicationName);
             }
         };
+
+
+        //------------------------------------------------------------
+        componentWillMount(){
+            song = new SoundPlayer('ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
+                if(error)
+                    console.log('Error when iniliazing', error);
+            });
+            
+        }
+
+        onPressButtonPlay(){
+            if(song != null){
+                song.play((success) => {
+                    if(!success)
+                    console.log('Error when playing');
+                });
+            }
+        }
+        //------------------------------------------------------------
 
     render () {
         // This medication variable will represent props, and will be updated accordingly whenever mapStateToProps is called
@@ -333,6 +363,9 @@ class MedicationCapturePage extends Component {
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
+                            <Item success ={(!medication.expDate && !medication.name && !medication.lotNumber) ? false : true}>
+                                {this.onPressButtonPlay(this)}
+                            </Item>
                         </View>
                     </View>
                     <Button bordered style={commonStyles.button} onPress={this.addAnotherMedHandler}>
@@ -345,6 +378,12 @@ class MedicationCapturePage extends Component {
                             Continue
                         </Text>
                     </Button>
+{/*<Button bordered style={commonStyles.button} onPress={this.onPressButtonPlay.bind(this)}>
+                        <Text>
+                            Play
+                        </Text>
+                    </Button> */}
+                </View>
                     <Text style={commonStyles.link}
                       onPress={() => {
                         this.setState({ visiblePopup: true });
@@ -394,7 +433,6 @@ class MedicationCapturePage extends Component {
                         <Text>You are requesting to go back to the Add Patient page. Any medications currently scanned will not be saved. Select OK to continue to Add Patient page.</Text>
                       </DialogContent>
                     </Dialog>
-                  </View>
                 </Content>
             </Container>
         );
