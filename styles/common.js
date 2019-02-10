@@ -124,6 +124,12 @@ export const commonStyles = StyleSheet.create({
     marginTop: 20
   },
 
+  logo: {
+    alignSelf: 'center',
+    justifyContent: 'space-around',
+    alignContent: 'space-around'
+  },
+
   /*
     Used in loginPageStyles, searchLedgerPageStyles, searchResultsPageStyles
   */
@@ -131,6 +137,13 @@ export const commonStyles = StyleSheet.create({
     alignSelf: 'center',
     padding: 2,
     color: '#0f2362'
+  },
+
+  title: {
+    alignSelf: 'center',
+    color: 'red',
+    fontSize: 30,
+    fontWeight: 'bold'
   },
 
   /*
