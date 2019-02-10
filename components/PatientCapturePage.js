@@ -14,6 +14,10 @@ import { hydratePatientData } from '../store/actions/PatientActions'
 import { patientCapturePageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import PatientInfoCard from './cards/PatientInfoCard';
 
+// For sounds
+var SoundPlayer = require('react-native-sound');
+var sound = null;
+
 class PatientCapturePage extends Component {
 
     continueHandler = () => {
@@ -28,6 +32,26 @@ class PatientCapturePage extends Component {
     constructor(props) {
         super(props);
     }
+
+    // For audible sounds
+    //------------------------------------------------------------
+    componentWillMount(){
+        song = new SoundPlayer('ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
+            if(error)
+                console.log('Error when iniliazing', error);
+        });
+        
+    }
+
+    onPressButtonPlay(event){
+        if(song != null){
+            song.play((success) => {
+                if(!success)
+                console.log('Error when playing');
+            });
+        }
+    }
+    //------------------------------------------------------------
 
     /*
       Sets the state of this object's patientID to e.data. e is the barcode's info:
@@ -70,6 +94,9 @@ class PatientCapturePage extends Component {
                                     </Text>
                                </Input>
                                 <Icon name='checkmark-circle' />  
+                            </Item>
+                            <Item  success={!patient.id ? false : true}>
+                                {this.onPressButtonPlay(this)}
                             </Item>
                         </View>                        
                         <Button bordered style={commonStyles.button} onPress={this.continueHandler}
