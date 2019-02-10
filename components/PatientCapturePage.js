@@ -9,15 +9,17 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Icon, Input } from 'native-base'
 import { connect } from 'react-redux'
 import { RNCamera } from 'react-native-camera'
+import { withNavigation } from 'react-navigation';
+
 
 import { hydratePatientData } from '../store/actions/PatientActions'
 import { patientCapturePageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import PatientInfoCard from './cards/PatientInfoCard';
+import RNCameraComponent from './RNCameraComponent';
 
 class PatientCapturePage extends Component {
 
-    
-    componentDidMount() {
+   /* componentDidMount() {
         const { navigation } = this.props;
         navigation.addListener('willFocus', () =>
           this.setState({ focusedScreen: true })
@@ -26,8 +28,7 @@ class PatientCapturePage extends Component {
           this.setState({ focusedScreen: false })
         );
       }
-
-      
+*/
 
     continueHandler = () => {
         this.props.navigator.push({
@@ -51,39 +52,16 @@ class PatientCapturePage extends Component {
 
     render () {
         // destructures patient from this.props object
-        const { hasCameraPermission, focusedScreen } = this.state;        
         const { patient } = this.props
     
-        if (hasCameraPermission === null) {
-            return (<View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
-              <Text>Error</Text>
-            </View>);
-          } else if (hasCameraPermission === false) {
-            return (<View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
-            <ActivityIndicator size="large" style={{color:'blue', fontSize:30}} />
-              <Text>No Access to camera</Text>
-            </View>);
-          }
-        else if (focusedScreen) {
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
                 <View style={commonStyles.content}>
                     <Text style={commonStyles.text}> Scan Patient's Wristband
                     </Text>
-
-                    <RNCamera
-                        style={commonStyles.preview}
-                        type={RNCamera.Constants.Type.back}
-                        //Turned flashMode to off; it was originally on
-                        flashMode={RNCamera.Constants.FlashMode.off}
-                        permissionDialogTitle={'Permission to use camera'}
-                        permissionDialogMessage={'We need your permission to use your camera phone'}
-                        onBarCodeRead={this.onBarCodeRead}
-                        ref={cam => this.camera = cam}
-                        //aspect={RNCamera.Constants.Aspect.fill}
-                        >
-                    </RNCamera>
+                    <RNCameraComponent onRef={(elem) => this.camera = elem} />
+        {/*<MyBackButton onRef={(elem) => this.backButton = elem} />*/}
                     <PatientInfoCard />
                     <View style={styles.viewStyle}>
                         <View style={styles.patientIdView}>
@@ -109,10 +87,6 @@ class PatientCapturePage extends Component {
                 </Content>
             </Container>
         );
-        }
-        else {
-            return (<Text>Camera Error</Text>);
-          }
     } 
 
     takePicture = async function(camera) {
