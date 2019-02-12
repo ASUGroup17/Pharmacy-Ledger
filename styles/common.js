@@ -138,6 +138,7 @@ export const commonStyles = StyleSheet.create({
     backgroundColor: 'lavender',
     marginTop: 20,
     marginLeft: 10
+  },
 
   logo: {
     alignSelf: 'center',

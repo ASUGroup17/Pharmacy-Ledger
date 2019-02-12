@@ -326,11 +326,6 @@ class MedicationCapturePage extends Component {
                         ref={cam => this.camera = cam}
                         >
                     </RNCamera>
-                {/*
-                PatientInfoCard contains the Patient Info displayed just below the Camera screen.
-                Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN
-                */}
-                    <PatientInfoCard />
                     {/*
                     Popup dialog for medication list.
                     */}
@@ -381,6 +376,9 @@ class MedicationCapturePage extends Component {
                         )}
                       </DialogContent>
                     </Dialog>
+                    {/* PatientInfoCard contains the Patient Info displayed just below the Camera screen.
+                      Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN */}
+                    <PatientInfoCard />
                     <View style={styles.groupTight}>
                         <View style={styles.viewStyle}>
                             <Text style={commonStyles.text}>
@@ -494,9 +492,6 @@ class MedicationCapturePage extends Component {
         // eslint-disable-next-line
         console.log(data.uri);
       }
-
-
-
 }
 
 
