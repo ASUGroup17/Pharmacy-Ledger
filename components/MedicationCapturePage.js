@@ -378,9 +378,9 @@ class MedicationCapturePage extends Component {
                 Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN
                 */}
                     <PatientInfoCard />
-                    /*
+                    {/*
                     Popup dialog for medication list.
-                    */
+                    */}
                     <Icon style={commonStyles.medIcon} name='medkit'
                     onPress={() => {
                       this.setState({ visiblePopup1: true });
