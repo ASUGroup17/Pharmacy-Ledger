@@ -50,6 +50,7 @@ class MedicationCapturePage extends Component {
 
     state = {
       visiblePopup: false,
+      visiblePopup1: false,
       setState: false
     };
 
@@ -377,7 +378,50 @@ class MedicationCapturePage extends Component {
                 Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN
                 */}
                     <PatientInfoCard />
-                    <Icon style={commonStyles.medIcon} name='medkit'/>
+                    /*
+                    Popup dialog for medication list.
+                    */
+                    <Icon style={commonStyles.medIcon} name='medkit'
+                    onPress={() => {
+                      this.setState({ visiblePopup1: true });
+                    }}
+                    />
+                    <Dialog
+                      visible={this.state.visiblePopup1}
+                      onTouchOutside={() => {
+                        this.setState({ visiblePopup1: false });
+                      }}
+                      dialogTitle={
+                        <DialogTitle
+                          title="Medication List"
+                          style={{
+                            backgroundColor: '#e0f2dc',
+                          }}
+                          hasTitleBar={false}
+                          align="left"
+                        />
+                      }
+                      actions={[
+                        <DialogButton
+                          text="OK"
+                          style={{
+                            backgroundColor: '#e0f2dc',
+                          }}
+                          onPress={() => {
+                            this.setState({ visiblePopup1: false });
+                          }}
+                          key="button-4"
+                        />
+                      ]}
+                    >
+                      <DialogContent
+                        style={{
+                          backgroundColor: '#e0f2dc',
+                        }}
+                      >
+                        <Text> Array of Medications here. </Text>
+                      </DialogContent>
+                    </Dialog>
                     <View style={styles.groupTight}>
                         <View style={styles.viewStyle}>
                             <Text style={commonStyles.text}>
