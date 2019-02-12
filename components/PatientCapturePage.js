@@ -9,26 +9,36 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Text, Form, Item, Icon, Input } from 'native-base'
 import { connect } from 'react-redux'
 import { RNCamera } from 'react-native-camera'
-import { withNavigation } from 'react-navigation';
+import { Navigation } from 'react-native-navigation'
 
 
 import { hydratePatientData } from '../store/actions/PatientActions'
 import { patientCapturePageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import PatientInfoCard from './cards/PatientInfoCard';
-import RNCameraComponent from './RNCameraComponent';
 
 class PatientCapturePage extends Component {
+    /*static options(passProps) {
+        return {
+            topBar : {
 
-   /* componentDidMount() {
-        const { navigation } = this.props;
-        navigation.addListener('willFocus', () =>
-          this.setState({ focusedScreen: true })
-        );
-        navigation.addListener('willBlur', () =>
-          this.setState({ focusedScreen: false })
+            }
+        }
+    }*/
+
+    /*componentDidMount() {
+        this.props.fetchData();
+        this.willFocusSubscription = this.props.navigation.addListener(
+          'willFocus',
+          () => {
+            this.props.fetchData();
+          }
         );
       }
-*/
+    
+      componentWillUnmount() {
+        this.willFocusSubscription.remove();
+      }*/
+
 
     continueHandler = () => {
         this.props.navigator.push({
@@ -41,7 +51,17 @@ class PatientCapturePage extends Component {
 
     constructor(props) {
         super(props);
-    }
+        this.props.navigation.addListener(
+            'didFocus',
+            payload => {
+              this.setState({is_updated:true});
+            }
+      );
+       // Navigation.events().bindComponent(this);
+        }
+    
+
+    
 
     /*
       Sets the state of this object's patientID to e.data. e is the barcode's info:
@@ -60,8 +80,18 @@ class PatientCapturePage extends Component {
                 <View style={commonStyles.content}>
                     <Text style={commonStyles.text}> Scan Patient's Wristband
                     </Text>
-                    <RNCameraComponent onRef={(elem) => this.camera = elem} />
-        {/*<MyBackButton onRef={(elem) => this.backButton = elem} />*/}
+                    <RNCamera
+                        style={commonStyles.preview}
+                        type={RNCamera.Constants.Type.back}
+                        //Turned flashMode to off; it was originally on
+                        flashMode={RNCamera.Constants.FlashMode.on}
+                        permissionDialogTitle={'Permission to use camera'}
+                        permissionDialogMessage={'We need your permission to use your camera phone'}
+                        onBarCodeRead={this.onBarCodeRead}
+                        ref={cam => this.camera = cam}
+                        //aspect={RNCamera.Constants.Aspect.fill}
+                        >
+                    </RNCamera>
                     <PatientInfoCard />
                     <View style={styles.viewStyle}>
                         <View style={styles.patientIdView}>
