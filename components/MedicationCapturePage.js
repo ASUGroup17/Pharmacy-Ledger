@@ -18,10 +18,7 @@ import { capturedExpiration } from './ExpirationDateCapture';
 var SoundPlayer = require('react-native-sound');
 var sound = null;
 
-
 class MedicationCapturePage extends Component {
-
-
 
     continueHandler = () => {
 
@@ -63,6 +60,7 @@ class MedicationCapturePage extends Component {
 
     state = {
       visiblePopup: false,
+      visiblePopup1: false,
       setState: false
     };
 
@@ -122,9 +120,9 @@ class MedicationCapturePage extends Component {
 
     }
 
-    parseTextBlock = (textBlocks) => { 
-        //These two arrays will have the textBlocks added to them 
-        let capturedArray = [];    
+    parseTextBlock = (textBlocks) => {
+        //These two arrays will have the textBlocks added to them
+        let capturedArray = [];
         textBlocks.forEach(function(element){
             if(element.type == 'element'){
                 console.log("TERIN TEST2!")
@@ -141,8 +139,8 @@ class MedicationCapturePage extends Component {
                     this.parseTextBlock(element.components);
             }
         }, this);
-        
-        const { medication } = this.props;        
+
+        const { medication } = this.props;
         if (!medication.lotNumber) {
             let result = capturedLot(capturedArray);
            // console.log("Kevin: RESULT: " + result);
@@ -163,7 +161,7 @@ class MedicationCapturePage extends Component {
         //const { medication } = this.props;
     }
 
-    
+
 
     onBarCodeRead = (e) => {
         this.createNdcStrings(e.data)
@@ -328,10 +326,58 @@ class MedicationCapturePage extends Component {
                         ref={cam => this.camera = cam}
                         >
                     </RNCamera>
-                {/*
-                PatientInfoCard contains the Patient Info displayed just below the Camera screen.
-                Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN
-                */}
+                    {/*
+                    Popup dialog for medication list.
+                    */}
+                    <Icon style={commonStyles.medIcon} name='medkit'
+                    onPress={() => {
+                      this.setState({ visiblePopup1: true });
+                    }}
+                    />
+                    <Dialog
+                      visible={this.state.visiblePopup1}
+                      onTouchOutside={() => {
+                        this.setState({ visiblePopup1: false });
+                      }}
+                      dialogTitle={
+                        <DialogTitle
+                          title="Scanned Medications"
+                          style={{
+                            backgroundColor: '#e0f2dc',
+                          }}
+                          hasTitleBar={false}
+                          align="left"
+                        />
+                      }
+                      actions={[
+                        <DialogButton
+                          text="OK"
+                          style={{
+                            backgroundColor: '#e0f2dc',
+                          }}
+                          onPress={() => {
+                            this.setState({ visiblePopup1: false });
+                          }}
+                          key="button-4"
+                        />
+                      ]}
+                    >
+                      <DialogContent
+                        style={{
+                          backgroundColor: '#e0f2dc',
+                        }}
+                      >
+                        {this.state.medicationArray.map((medication) =>
+                          <Text>
+                            Medication Name: {medication.medicationName}{"\n"}
+                            Lot Number: {medication.lotNumber}{"\n"}
+                            Exp Date: {medication.expDate}
+                          </Text>
+                        )}
+                      </DialogContent>
+                    </Dialog>
+                    {/* PatientInfoCard contains the Patient Info displayed just below the Camera screen.
+                      Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN */}
                     <PatientInfoCard />
                     <View style={styles.groupTight}>
                         <View style={styles.viewStyle}>
@@ -446,9 +492,6 @@ class MedicationCapturePage extends Component {
         // eslint-disable-next-line
         console.log(data.uri);
       }
-
-
-
 }
 
 
