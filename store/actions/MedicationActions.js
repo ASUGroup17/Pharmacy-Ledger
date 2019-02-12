@@ -17,6 +17,7 @@ export const getMedication = (ndcNumbers) => { // expects an array as argument
                 if (response.data.ndcStatus.status == "ACTIVE") {   
                     console.log(response)
                     medication.name = response.data.ndcStatus.conceptName
+                    medication.ndc = ndcNum
                     console.log(medication)
                 }
                 dispatch({

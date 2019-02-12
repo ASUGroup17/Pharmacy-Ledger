@@ -138,6 +138,12 @@ export const commonStyles = StyleSheet.create({
     backgroundColor: 'lavender',
     marginTop: 20,
     marginLeft: 10
+
+  logo: {
+    alignSelf: 'center',
+    justifyContent: 'space-around',
+    alignContent: 'space-around'
+
   },
 
   /*
@@ -147,6 +153,13 @@ export const commonStyles = StyleSheet.create({
     alignSelf: 'center',
     padding: 2,
     color: '#0f2362'
+  },
+
+  title: {
+    alignSelf: 'center',
+    color: 'red',
+    fontSize: 30,
+    fontWeight: 'bold'
   },
 
   /*

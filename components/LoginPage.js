@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Link, View} from 'react-native';
+import {Platform, StyleSheet, Link, View, Image} from 'react-native';
 import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base'
 import startMainTabs from './startMainTabs';
 import {loginPageStyles as styles, commonStyles} from '../styles/common'
@@ -30,6 +30,8 @@ class LoginPage extends Component {
       <Container style={commonStyles.container}>
         <Content>
         <View style={commonStyles.content}>
+          <Image source={require('../icons/PCHlogo.png')} style={commonStyles.logo}/>
+          <Text style={commonStyles.title}>Pharmacy Ledger Login</Text>
           <Form>
             <Item>
               <Input placeholder="Username"
