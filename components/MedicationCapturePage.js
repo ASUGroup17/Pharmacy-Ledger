@@ -393,7 +393,7 @@ class MedicationCapturePage extends Component {
                       }}
                       dialogTitle={
                         <DialogTitle
-                          title="Medication List"
+                          title="Scanned Medications"
                           style={{
                             backgroundColor: '#e0f2dc',
                           }}
@@ -419,7 +419,13 @@ class MedicationCapturePage extends Component {
                           backgroundColor: '#e0f2dc',
                         }}
                       >
-                        <Text> Array of Medications here. </Text>
+                        {this.state.medicationArray.map((medication) =>
+                          <Text>
+                            Medication Name: {medication.medicationName}{"\n"}
+                            Lot Number: {medication.lotNumber}{"\n"}
+                            Exp Date: {medication.expDate}
+                          </Text>
+                        )}
                       </DialogContent>
                     </Dialog>
                     <View style={styles.groupTight}>
