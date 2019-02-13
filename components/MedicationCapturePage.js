@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
@@ -15,12 +15,13 @@ import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-p
 import { capturedLot, capturedTextBlocksLot } from './LotNumberCapture';
 import { capturedExpiration, capturedTextBlocksExpiration } from './ExpirationDateCapture';
 
+var SoundPlayer = require('react-native-sound');
+var sound = null;
 
 class MedicationCapturePage extends Component {
 
-
-
     continueHandler = () => {
+
         this.props.navigator.push({
             screen: 'pharmacy-ledger.ConfirmationPage',
             title: 'Confirm Transaction',
@@ -37,9 +38,15 @@ class MedicationCapturePage extends Component {
                 lotNumber: this.state.lotNumber,
                 expDate: this.state.expDate,
                 //An Array of medications passed to confirmation Page
-                medicationArray : this.state.medicationArray
+                medicationArray : this.state.medicationArray,
+                medicationCount : this.state.medicationCount
             }
         })
+    }
+
+    addAnotherMedHandler = () => {
+        this.setState({ medicationCount: this.state.medicationCount + 1 })
+        console.log("MEDICATION COUNT " + this.state.medicationCount)
     }
 
     changePatientHandler = () => {
@@ -53,6 +60,7 @@ class MedicationCapturePage extends Component {
 
     state = {
       visiblePopup: false,
+      visiblePopup1: false,
       setState: false
     };
 
@@ -72,17 +80,17 @@ class MedicationCapturePage extends Component {
             lotNumber: null,
             expDate: null,
             patientID: this.props.patientID ,
-            //patientID: "#PATIENTID",//this.state.patientID,
-                patientFirstName: "#FirstName",
-                patientLastName: "#LastName",
-                patientDOB: "#DOB",
+            patientFirstName: "#FirstName",
+            patientLastName: "#LastName",
+            patientDOB: "#DOB",
             medicationArray: [
                 {
                     medicationName: null,
                     lotNumber : null,
                     expDate : null,
                     //Include an NDC #? concentration? other information?
-                } ]
+                } ],
+            medicationCount: 0
 
         }
 
@@ -112,6 +120,7 @@ class MedicationCapturePage extends Component {
 
     }
 
+
     parseTextBlock = (textBlocks) => { 
         //These two arrays will have the textBlocks added to them 
         let capturedArray = [];    
@@ -134,12 +143,17 @@ class MedicationCapturePage extends Component {
                     this.parseTextBlock(element.components);
             }
         }, this);
+
         
         const { medication } = this.props;        
 
         //Once lotNumber is captured this will not run. 
         //Sends textBlocks over to LotNumberCapture.js to be parsed for checking if a lot number is found. returns that value.
         //Then that value is sent to the Redux store
+
+
+        const { medication } = this.props;
+
         if (!medication.lotNumber) {
           //  let result = capturedLot(capturedArray);
             let result = capturedTextBlocksLot(textBlocks);
@@ -160,7 +174,7 @@ class MedicationCapturePage extends Component {
         }
     }
 
-    
+
 
     onBarCodeRead = (e) => {
         this.createNdcStrings(e.data)
@@ -242,68 +256,31 @@ class MedicationCapturePage extends Component {
             console.log("STRINGS:point.y: " + printText)
         }
 
-    // this.props.onMedicationCapture([ndc442, ndc532, ndc541])
-    //Creates a match when passed the ndc number, the keyword, the field we are searching for
-    // and the two word elements involved in the match.
-    createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
-        match = {
-            ndc: ndc,
-            keyword: keyword,
-            width: keywordElement.map(b => b.bounds.size.width),
-            height: keywordElement.map(b => b.bounds.size.height),
-            x: keywordElement.map(b => b.bounds.origin.x),
-            y: keywordElement.map(b => b.bounds.origin.y),
-            findX: findFieldElement.map(b => b.bounds.origin.x),
-            findY: findFieldElement.map(b => b.bounds.origin.y),
-            findField: findField
+        // this.props.onMedicationCapture([ndc442, ndc532, ndc541])
+        //Creates a match when passed the ndc number, the keyword, the field we are searching for
+        // and the two word elements involved in the match.
+        createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
+            match = {
+                ndc: ndc,
+                keyword: keyword,
+                width: keywordElement.map(b => b.bounds.size.width),
+                height: keywordElement.map(b => b.bounds.size.height),
+                x: keywordElement.map(b => b.bounds.origin.x),
+                y: keywordElement.map(b => b.bounds.origin.y),
+                findX: findFieldElement.map(b => b.bounds.origin.x),
+                findY: findFieldElement.map(b => b.bounds.origin.y),
+                findField: findField
+            }
         }
+
+        /*
+        if(this.state.medicationName && this.state.lotNumber && this.state.expDate){
+            onPressButtonPlay();
+        }
+        */
+
+
     }
-
-}
-
-
-
-    //     // alert(ndc442 + "\n" + ndc532 + "\n" + ndc541)
-    //     this.getMedName(ndc442,ndc532,ndc541)
-    // };
-
-    // getMedName = (ndc442,ndc532,ndc541) => {
-
-    //     var names = [];
-
-    //     axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc442)
-    //     .then(response => {
-
-    //         if(response.data.ndcStatus.status == "ACTIVE"){
-    //             // alert("**TERIN1**" + response.data.ndcStatus.status)
-    //             names.push(response.data.ndcStatus.conceptName)
-    //             this.setState({medicationName: names[0]})
-    //         }
-    //     });
-
-    //     axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc532)
-    //     .then(response => {
-
-    //         if(response.data.ndcStatus.status == "ACTIVE"){
-    //             //alert("**TERIN2**" + response.data.ndcStatus.status)
-    //             names.push(response.data.ndcStatus.conceptName)
-    //             this.setState({medicationName: names[0]})
-    //         }
-    //     });
-
-    //     axios.get('https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc=' + ndc541)
-    //     .then(response => {
-
-    //         if(response.data.ndcStatus.status == "ACTIVE"){
-    //             // alert("**TERIN3**" + response.data.ndcStatus.status)
-    //             names.push(response.data.ndcStatus.conceptName)
-    //             this.setState({medicationName: names[0]})
-    //         }
-    //     });
-
-    // };
-
-    //checkCaptured =();
 
     //Method to check if this.state.prop has changed, once certain props have changed
         //and been read in (MedicationName, LotNumber and expDate) then the medicationArray will be updated
@@ -315,48 +292,31 @@ class MedicationCapturePage extends Component {
                 console.log('TEST: Inside If medName statement.');
                 console.log("TEST: medName: " + this.state.medicationName);
                 this.globalArray.push(this.state.medicationName);
-              /*
-                this.setState(prevState => ({
-                    medicationArray: [...prevState.medicationArray, { 'medicationName' : this.state.medicationName, 'lotNumber' : this.state.lotNumber, 'expDate' : this.state.expDate }]
-                  }))
-                */
-                /*this.setState(state => {
-                    const medicationArray = state.medicationArray.concat( { medicationName : state.medicationName, lotNumber : state.lotNumber, expDate : state.expDate } );
-
-                    return {
-                       medicationArray,
-                       //medicationName: null,
-                       //lotNumber: null,
-                       //expDate: null
-                    };
-              });*/
-
               }//end if statement
             for (i in this.globalArray) {
                 console.log('TEST: ' + this.globalArray[i].medicationName);
             }
-              /*
-              if (this.state.medicationArray.length == 0){
-                    console.log("TEST: ARRAY IS EMPTY");
-                }
-                */
-
-                //console.log("TEST: this.state.array[0]medName: " + this.state.medicationArray[0].medicationName);
-//                console.log("TEST: this.state.array[1]medName: " + this.state.medicationArray[1].medicationName);
-
-                /*
-                for (i in this.state.medicationArray) {
-                    console.log('TEST Array Med Name: ' + this.state.medicationArray[i].medicationName);
-                    console.log('TEST LOT Number: ' + this.state.medicationArray[i].lotNumber);
-                }*/
-
-
-              /*still inside the if; should I se the values to null again so that a new bottle can be scanned?
-              this.state.medicationName = null;
-              this.state.lotNumber = null;
-              this.state.expDate = null;
-              */
         };
+
+
+        //------------------------------------------------------------
+        componentWillMount(){
+            song = new SoundPlayer('ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
+                if(error)
+                    console.log('Error when iniliazing', error);
+            });
+            
+        }
+
+        onPressButtonPlay(){
+            if(song != null){
+                song.play((success) => {
+                    if(!success)
+                    console.log('Error when playing');
+                });
+            }
+        }
+        //------------------------------------------------------------
 
     render () {
         // This medication variable will represent props, and will be updated accordingly whenever mapStateToProps is called
@@ -376,18 +336,63 @@ class MedicationCapturePage extends Component {
                         flashMode={RNCamera.Constants.FlashMode.off}
                         permissionDialogTitle={'Permission to use camera'}
                         permissionDialogMessage={'We need your permission to use your camera phone'}
-
-                        // onBarCodeRead= {(this.props.medication.medicationName == "") ? this.onBarCodeRead : null}
-
                         onBarCodeRead= {!this.state.barCodeRead ? this.onBarCodeRead : null}
                         onTextRecognized={this.onTextRecognized}
                         ref={cam => this.camera = cam}
                         >
                     </RNCamera>
-                {/*
-                PatientInfoCard contains the Patient Info displayed just below the Camera screen.
-                Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN
-                */}
+                    {/*
+                    Popup dialog for medication list.
+                    */}
+                    <Icon style={commonStyles.medIcon} name='medkit'
+                    onPress={() => {
+                      this.setState({ visiblePopup1: true });
+                    }}
+                    />
+                    <Dialog
+                      visible={this.state.visiblePopup1}
+                      onTouchOutside={() => {
+                        this.setState({ visiblePopup1: false });
+                      }}
+                      dialogTitle={
+                        <DialogTitle
+                          title="Scanned Medications"
+                          style={{
+                            backgroundColor: '#e0f2dc',
+                          }}
+                          hasTitleBar={false}
+                          align="left"
+                        />
+                      }
+                      actions={[
+                        <DialogButton
+                          text="OK"
+                          style={{
+                            backgroundColor: '#e0f2dc',
+                          }}
+                          onPress={() => {
+                            this.setState({ visiblePopup1: false });
+                          }}
+                          key="button-4"
+                        />
+                      ]}
+                    >
+                      <DialogContent
+                        style={{
+                          backgroundColor: '#e0f2dc',
+                        }}
+                      >
+                        {this.state.medicationArray.map((medication) =>
+                          <Text>
+                            Medication Name: {medication.medicationName}{"\n"}
+                            Lot Number: {medication.lotNumber}{"\n"}
+                            Exp Date: {medication.expDate}
+                          </Text>
+                        )}
+                      </DialogContent>
+                    </Dialog>
+                    {/* PatientInfoCard contains the Patient Info displayed just below the Camera screen.
+                      Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN */}
                     <PatientInfoCard />
                     <View style={styles.groupTight}>
                         <View style={styles.viewStyle}>
@@ -398,7 +403,6 @@ class MedicationCapturePage extends Component {
                                 <Input placeholder="Medication Name" editable = {false} value={medication.name}
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
-
                             </Item>
                         </View>
                         <View style={styles.viewStyle}>
@@ -420,13 +424,27 @@ class MedicationCapturePage extends Component {
                                   placeholderTextColor={commonStyles.text.color} />
                                 <Icon name='checkmark-circle' />
                             </Item>
+                            <Item success ={(!medication.expDate && !medication.name && !medication.lotNumber) ? false : true}>
+                                {this.onPressButtonPlay(this)}
+                            </Item>
                         </View>
                     </View>
+                    <Button bordered style={commonStyles.button} onPress={this.addAnotherMedHandler}>
+                        <Text>
+                            Add Another Medication
+                        </Text>
+                    </Button>
                     <Button bordered style={commonStyles.button} onPress={this.continueHandler}>
                         <Text>
                             Continue
                         </Text>
                     </Button>
+{/*<Button bordered style={commonStyles.button} onPress={this.onPressButtonPlay.bind(this)}>
+                        <Text>
+                            Play
+                        </Text>
+                    </Button> */}
+                </View>
                     <Text style={commonStyles.link}
                       onPress={() => {
                         this.setState({ visiblePopup: true });
@@ -476,7 +494,6 @@ class MedicationCapturePage extends Component {
                         <Text>You are requesting to go back to the Add Patient page. Any medications currently scanned will not be saved. Select OK to continue to Add Patient page.</Text>
                       </DialogContent>
                     </Dialog>
-                  </View>
                 </Content>
             </Container>
         );
@@ -490,9 +507,6 @@ class MedicationCapturePage extends Component {
         // eslint-disable-next-line
         console.log(data.uri);
       }
-
-
-
 }
 
 
