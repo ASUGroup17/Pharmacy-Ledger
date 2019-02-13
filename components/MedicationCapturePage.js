@@ -14,6 +14,9 @@ import PatientInfoCard from './cards/PatientInfoCard';
 import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
 import { capturedLot } from './LotNumberCapture';
 import { capturedExpiration } from './ExpirationDateCapture';
+import MedicationNameDisplayCard from './cards/MedicationNameDisplayCard';
+import LotNumberDisplayCard from './cards/LotNumberDisplayCard';
+import ExpirationDateDisplayCard from './cards/ExpirationDateDisplayCard';
 
 var SoundPlayer = require('react-native-sound');
 var sound = null;
@@ -380,39 +383,12 @@ class MedicationCapturePage extends Component {
                       Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN */}
                     <PatientInfoCard />
                     <View style={styles.groupTight}>
-                        <View style={styles.viewStyle}>
-                            <Text style={commonStyles.text}>
-                                Medication:
-                            </Text>
-                            <Item success ={(!medication.name) ? false : true}>
-                                <Input placeholder="Medication Name" editable = {false} value={medication.name}
-                                  placeholderTextColor={commonStyles.text.color} />
-                                <Icon name='checkmark-circle' />
-                            </Item>
-                        </View>
-                        <View style={styles.viewStyle}>
-                            <Text style={commonStyles.text}>
-                                Lot#:
-                            </Text>
-                            <Item success ={(!medication.lotNumber) ? false : true}>
-                                <Input placeholder="Lot#" editable = {false} value ={medication.lotNumber}
-                                  placeholderTextColor={commonStyles.text.color} />
-                                <Icon name='checkmark-circle' />
-                            </Item>
-                        </View>
-                        <View style={styles.viewStyle}>
-                            <Text style={commonStyles.text}>
-                                Expiration Date:
-                            </Text>
-                            <Item success ={(!medication.expirationDate) ? false : true}>
-                                <Input placeholder="Expiration Date" editable = {false} value={medication.expirationDate}
-                                  placeholderTextColor={commonStyles.text.color} />
-                                <Icon name='checkmark-circle' />
-                            </Item>
-                            <Item success ={(!medication.expDate && !medication.name && !medication.lotNumber) ? false : true}>
-                                {this.onPressButtonPlay(this)}
-                            </Item>
-                        </View>
+
+                        
+                        <MedicationNameDisplayCard/>  
+                        <LotNumberDisplayCard/>  
+                        <ExpirationDateDisplayCard/>
+
                     </View>
                     <Button bordered style={commonStyles.button} onPress={this.addAnotherMedHandler}>
                         <Text>
