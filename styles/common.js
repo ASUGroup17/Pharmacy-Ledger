@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Platform, StyleSheet, Link, View } from 'react-native'
-import { Row } from 'native-base';
+import { Row, Icon } from 'native-base'
 // <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css"></link>
 
 export const confirmationPageStyles = StyleSheet.create({
@@ -149,6 +149,29 @@ export const commonStyles = StyleSheet.create({
     marginTop: 20
   },
 
+  buttonRight: {
+    alignSelf: 'flex-end',
+    color: '#7E0AF9',
+    backgroundColor: '#C5ECF4',
+    marginTop: 20,
+    marginRight: 10
+  },
+
+  medIcon: {
+    alignSelf: 'flex-start',
+    color: '#03ba43',
+    backgroundColor: 'lavender',
+    marginTop: 20,
+    marginLeft: 10
+  },
+
+  logo: {
+    alignSelf: 'center',
+    justifyContent: 'space-around',
+    alignContent: 'space-around'
+
+  },
+
   /*
     Used in loginPageStyles, searchLedgerPageStyles, searchResultsPageStyles
   */
@@ -156,6 +179,13 @@ export const commonStyles = StyleSheet.create({
     alignSelf: 'center',
     padding: 2,
     color: '#0f2362'
+  },
+
+  title: {
+    alignSelf: 'center',
+    color: 'red',
+    fontSize: 30,
+    fontWeight: 'bold'
   },
 
   /*
@@ -187,6 +217,12 @@ export const commonStyles = StyleSheet.create({
   link: {
     alignSelf: 'center',
     color: '#0000ff',
+    padding: 2
+  },
+
+  linkRed: {
+    alignSelf: 'flex-start',
+    color: '#ff001d',
     padding: 2
   },
 
@@ -235,16 +271,16 @@ export const patientInfoCardStyles = StyleSheet.create({
     color: 'white',
     width: '35%'
   }
-});
+})
 
 export const navigatorStyle = {
-  navBarBackgroundColor: '#d40303',
+  navBarBackgroundColor: '#d40303', // A red color
   navBarTextColor: 'white'
 }
 
 export const tabBarStyle = {
-  tabBarBackgroundColor: '#0f2362',
-  tabBarButtonColor: '#ffffff',
-  tabBarSelectedButtonColor: '#63d7cc',
+  tabBarBackgroundColor: '#0f2362', // A dark blue color
+  tabBarButtonColor: '#ffffff', // A white color
+  tabBarSelectedButtonColor: '#63d7cc', // A teal color
   forceTitlesDisplay: true
 }

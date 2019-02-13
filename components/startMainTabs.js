@@ -7,9 +7,9 @@ const startMainTabs = () => {
   //added for 114
   Promise.all([
     //Icon.getImageSource("../icons/if_icon-person-add_211872.png"),
-    //Icon.getImageSource("../icons/if_11_Search_106236.png") 
-    Icon.getImageSource("person-add", 30), 
-    Icon.getImageSource("md-map", 30) 
+    //Icon.getImageSource("../icons/if_11_Search_106236.png")
+    Icon.getImageSource("person-add", 30),
+    Icon.getImageSource("md-map", 30)
   ]).then(sources => {
     Navigation.startTabBasedApp({
       tabs: [
@@ -51,6 +51,5 @@ const startMainTabs = () => {
     ],
     appStyle: tabBarStyle
   })
-  
 }
 export default startMainTabs
