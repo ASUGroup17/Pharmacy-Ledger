@@ -12,6 +12,8 @@ const ExpirationDateDisplayCard  = ({ medication }) => {
             <ExpirationDateLine/>
             <View style={medNameStyles.medicationNameCheckmarkStyle}>
                     <Item success ={(!medication.expirationDate) ? false : true}>
+                    <Input placeholder="Exp#" editable = {true} value ={medication.expirationDate}
+                                  placeholderTextColor={commonStyles.text.color} />
                         <Icon name='checkmark-circle' />
                     </Item>
             </View>
