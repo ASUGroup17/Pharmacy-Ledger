@@ -59,8 +59,33 @@ export const medicationCaptureStyles = StyleSheet.create({
     alignSelf: 'stretch',
     flexDirection: 'column',
     justifyContent: 'center'
-  }
+  },
+  
 })
+
+export const medicationDataDisplayStyles = StyleSheet.create({
+ 
+  //The container for the whole display of medication Name, checkMark and Camera Icons
+  medicationNameContainer : {  
+    backgroundColor : 'lavender',
+    flex : 1,
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    justifyContent : 'space-between',
+    paddingLeft: 5,
+    paddingRight: 5
+  },
+  //The Portions of the Container that has the Text  
+  medicationNameTextStyle : {
+    flex : 1,
+    color: '#0f2362',
+    flexWrap: 'wrap'
+  },
+  //The portion of the Container that has the checkmark Icon
+  medicationNameCheckmarkStyle: {
+    alignItems: "flex-end"
+  }
+});
 
 export const patientCapturePageStyles = StyleSheet.create({
   patientIdView: {
