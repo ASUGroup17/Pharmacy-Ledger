@@ -6,6 +6,7 @@ import { RNCamera } from 'react-native-camera'
 import { getMedication } from '../store/actions/MedicationActions';
 import { getLotNumber } from '../store/actions/LotNumberActions';
 import { getExpirationDate } from '../store/actions/ExpirationDateActions';
+import { getMedicationArray } from '../store/actions/MedicationArrayActions';
 import axios from 'axios'
 import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
@@ -48,8 +49,21 @@ class MedicationCapturePage extends Component {
     }
 
     addAnotherMedHandler = () => {
+      const { medication, medicationsArray } = this.props;
         this.setState({ medicationCount: this.state.medicationCount + 1 })
         console.log("MEDICATION COUNT " + this.state.medicationCount)
+        this.props.onVialConfirmation(medication);
+        
+        //console.log("kevin theArray.length: " + medicationsArray.theArray.length);
+        
+        //console.log("kevin array array.name: " + medicationsArray.name);
+        //console.log("kevin array length: " + medicationsArray.length);
+        /*console.log("Kevin array medicationOBJ: " + medication.name);
+        
+          console.log("kevin array name: " + medicationsArray.name);
+          console.log("kevin array lot: " + medicationsArray.lotNumber);
+          console.log("kevin array exp: " + medicationsArray.expirationDate);
+        */
     }
 
     changePatientHandler = () => {
@@ -146,8 +160,6 @@ class MedicationCapturePage extends Component {
         const { medication } = this.props;
         if (!medication.lotNumber) {
             let result = capturedLot(capturedArray);
-           // console.log("Kevin: RESULT: " + result);
-           // console.log("Kevin: Result LotNumber: " + medication.lotNumber + "---typeOf: " + typeof result);
             if (result != undefined){
                 this.props.onLotNumberCapture(result);
             }
@@ -159,9 +171,7 @@ class MedicationCapturePage extends Component {
                 this.props.onExpirationCapture(expResult);
             }
         }
-        //capturedLot(capturedArray);
-        //() => this.capturedLot(capturedArray);
-        //const { medication } = this.props;
+        
     }
 
 
@@ -309,7 +319,7 @@ class MedicationCapturePage extends Component {
     render () {
         // This medication variable will represent props, and will be updated accordingly whenever mapStateToProps is called
         //The Different attributes used for the medication object are defined in the MedsReducer.js file
-        const { medication } = this.props;
+        const { medication, medicationsArray } = this.props;
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
@@ -370,11 +380,11 @@ class MedicationCapturePage extends Component {
                           backgroundColor: '#e0f2dc',
                         }}
                       >
-                        {this.state.medicationArray.map((medication) =>
+                        {medicationsArray.map((medication) =>
                           <Text>
-                            Medication Name: {medication.medicationName}{"\n"}
+                            Medication Name: {medication.name}{"\n"}
                             Lot Number: {medication.lotNumber}{"\n"}
-                            Exp Date: {medication.expDate}
+                            Exp Date: {medication.expirationDate}
                           </Text>
                         )}
                       </DialogContent>
@@ -471,10 +481,11 @@ class MedicationCapturePage extends Component {
 }
 
 
-const mapStateToProps = ({ medication, patient }) => {
+const mapStateToProps = ({ medication, patient, medicationsArray }) => {
     return {
         medication,
-        patient
+        patient,
+        medicationsArray
     }
 }
 
@@ -483,7 +494,14 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onMedicationCapture: (ndcNumbers) => dispatch(getMedication(ndcNumbers)),
         onLotNumberCapture: (lotNumber) => dispatch (getLotNumber(lotNumber)),
-        onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate))
+        onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate)),
+        onVialConfirmation: (medication) => dispatch(getMedicationArray(medication))
+        /* Once a Vial Scan is confirmed by user: 
+          'medication' is the medication object that was just scanned and confirmed by user. it has lot#, name & expirationDate.
+          medication will be passed to the medicationArray Action to add it to the existing array.
+          onVialConfirmation: (medication) => dispatch(getMedicationArray(medication))
+
+          */
     }
 }
 
