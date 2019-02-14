@@ -12,11 +12,13 @@ import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 import PatientInfoCard from './cards/PatientInfoCard';
 import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
-import { capturedLot } from './LotNumberCapture';
-import { capturedExpiration } from './ExpirationDateCapture';
+
+import { capturedLot, capturedTextBlocksLot } from './LotNumberCapture';
+import { capturedExpiration, capturedTextBlocksExpiration } from './ExpirationDateCapture';
 import MedicationNameDisplayCard from './cards/MedicationNameDisplayCard';
 import LotNumberDisplayCard from './cards/LotNumberDisplayCard';
 import ExpirationDateDisplayCard from './cards/ExpirationDateDisplayCard';
+
 
 var SoundPlayer = require('react-native-sound');
 var sound = null;
@@ -123,10 +125,14 @@ class MedicationCapturePage extends Component {
 
     }
 
-    parseTextBlock = (textBlocks) => {
-        //These two arrays will have the textBlocks added to them
-        let capturedArray = [];
+
+    parseTextBlock = (textBlocks) => { 
+        //These two arrays will have the textBlocks added to them 
+        let capturedArray = [];    
+
         textBlocks.forEach(function(element){
+            if (element.type == 'line') {console.log("Kevin: line " + element.value);}
+            
             if(element.type == 'element'){
                 console.log("TERIN TEST2!")
                 console.log("WORD: " + element.value)
@@ -143,25 +149,29 @@ class MedicationCapturePage extends Component {
             }
         }, this);
 
+        //Once lotNumber is captured this will not run. 
+        //Sends textBlocks over to LotNumberCapture.js to be parsed for checking if a lot number is found. returns that value.
+        //Then that value is sent to the Redux store
         const { medication } = this.props;
+
         if (!medication.lotNumber) {
-            let result = capturedLot(capturedArray);
-           // console.log("Kevin: RESULT: " + result);
-           // console.log("Kevin: Result LotNumber: " + medication.lotNumber + "---typeOf: " + typeof result);
+          //  let result = capturedLot(capturedArray);
+            let result = capturedTextBlocksLot(textBlocks);
             if (result != undefined){
                 this.props.onLotNumberCapture(result);
             }
         }
 
+        //Once ExpirationDate is captured this will not run. 
+        //Sends textBlocks over to ExpirationDateCapture.js to be parsed for checking if a expirationdate is found. returns that value.
+        //Then that value is sent to the Redux store
         if (!medication.expirationDate) {
-            let expResult = capturedExpiration(capturedArray);
+            //let expResult = capturedExpiration(capturedArray);
+            let expResult = capturedTextBlocksExpiration(textBlocks);
             if (expResult != undefined) {
                 this.props.onExpirationCapture(expResult);
             }
         }
-        //capturedLot(capturedArray);
-        //() => this.capturedLot(capturedArray);
-        //const { medication } = this.props;
     }
 
 
@@ -184,6 +194,8 @@ class MedicationCapturePage extends Component {
         var lotStrings = []
         var expStrings = []
         const keywords = ['batch', 'exp', 'lot', 'espiry'];
+
+        console.log("KEVIN: " + textBlocks.value);
 
 
         patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
