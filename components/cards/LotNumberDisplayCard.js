@@ -15,6 +15,8 @@ const LotNumberDisplayCard  = ({ medication }) => {
             <LotNumberLine/>
             <View style={medNameStyles.medicationNameCheckmarkStyle}>
                     <Item success ={(!medication.lotNumber) ? false : true}>
+                    <Input placeholder="Lot#" editable = {false} value ={medication.lotNumber}
+                                  placeholderTextColor={commonStyles.text.color} />
                         <Icon name='checkmark-circle' />
                     </Item>
             </View>
