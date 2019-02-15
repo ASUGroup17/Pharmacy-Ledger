@@ -49,24 +49,14 @@ class MedicationCapturePage extends Component {
     }
 
     addAnotherMedHandler = () => {
-      const { medicationsArray } = this.props;
       const {medication} = this.props;
       
         this.setState({ medicationCount: this.state.medicationCount + 1 })
         console.log("MEDICATION COUNT " + this.state.medicationCount)
+
+        //This is the line of code that sends the Medication Object to the Medication Array.  We will likely want to change the place of this
+        //function, but for now this is the logical place to do it for when we are adding another medication.
         this.props.onVialConfirmation(medication);
-        
-        console.log("kevin theArray typeof: " + typeof medicationsArray.medicationsArray.length);
-        console.log("kevin theArray length: " + medicationsArray.medicationsArray.length);
-        
-        //console.log("kevin array array.name: " + medicationsArray.name);
-        //console.log("kevin array length: " + medicationsArray.length);
-        /*console.log("Kevin array medicationOBJ: " + medication.name);
-        
-          console.log("kevin array name: " + medicationsArray.name);
-          console.log("kevin array lot: " + medicationsArray.lotNumber);
-          console.log("kevin array exp: " + medicationsArray.expirationDate);
-        */
     }
 
     changePatientHandler = () => {
