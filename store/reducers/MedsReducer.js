@@ -1,6 +1,7 @@
 import { HYDRATE_MEDICATION } from '../actions/types'
 
 const INITIAL_STATE = {
+  ndc: '',
   name: '',
   lotNumber: '',
   expirationDate: ''
