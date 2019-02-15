@@ -23,7 +23,17 @@ export const hydratePatientData = (data) => {
            patientData.index = selectedPatient.index
         }
         else {
-            patientData.id = undefined;
+            //patientData.id = undefined;
+            patientData.id = dummy_Patient_Data[1].patient_Id
+            patientData.firstName = dummy_Patient_Data[1].name.first
+            patientData.lastName = dummy_Patient_Data[1].name.last
+            patientData.email = dummy_Patient_Data[1].email
+            patientData.phone = dummy_Patient_Data[1].phone
+            patientData.address = dummy_Patient_Data[1].address
+            patientData.birthMonth = dummy_Patient_Data[1].birth_Date.month
+            patientData.birthDay = dummy_Patient_Data[1].birth_Date.day
+            patientData.birthYear = dummy_Patient_Data[1].birth_Date.year
+           patientData.index = dummy_Patient_Data[1].index
         }    
         
 
