@@ -49,12 +49,15 @@ class MedicationCapturePage extends Component {
     }
 
     addAnotherMedHandler = () => {
-      const { medication, medicationsArray } = this.props;
+      const { medicationsArray } = this.props;
+      const {medication} = this.props;
+      
         this.setState({ medicationCount: this.state.medicationCount + 1 })
         console.log("MEDICATION COUNT " + this.state.medicationCount)
         this.props.onVialConfirmation(medication);
         
-        //console.log("kevin theArray.length: " + medicationsArray.theArray.length);
+        console.log("kevin theArray typeof: " + typeof medicationsArray.medicationsArray.length);
+        console.log("kevin theArray length: " + medicationsArray.medicationsArray.length);
         
         //console.log("kevin array array.name: " + medicationsArray.name);
         //console.log("kevin array length: " + medicationsArray.length);
@@ -319,7 +322,6 @@ class MedicationCapturePage extends Component {
     render () {
         // This medication variable will represent props, and will be updated accordingly whenever mapStateToProps is called
         //The Different attributes used for the medication object are defined in the MedsReducer.js file
-        const { medication, medicationsArray } = this.props;
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
@@ -380,13 +382,14 @@ class MedicationCapturePage extends Component {
                           backgroundColor: '#e0f2dc',
                         }}
                       >
-                        {medicationsArray.map((medication) =>
+                        {this.state.medicationArray.map((med) =>
                           <Text>
-                            Medication Name: {medication.name}{"\n"}
-                            Lot Number: {medication.lotNumber}{"\n"}
-                            Exp Date: {medication.expirationDate}
+                            Medication Name: {med.medicationName}{"\n"}
+                            Lot Number: {med.lotNumber}{"\n"}
+                            Exp Date: {med.expDate}
                           </Text>
-                        )}
+                        )
+                      }
                       </DialogContent>
                     </Dialog>
                     {/* PatientInfoCard contains the Patient Info displayed just below the Camera screen.
@@ -481,10 +484,11 @@ class MedicationCapturePage extends Component {
 }
 
 
-const mapStateToProps = ({ medication, patient, medicationsArray }) => {
+const mapStateToProps = ({ medication, patient, medicationsArray } ) => {
     return {
         medication,
         patient,
+        //the acutal Array is accessed through 'this.props.medicationsArray.medicationsArray'
         medicationsArray
     }
 }
@@ -497,11 +501,11 @@ const mapDispatchToProps = (dispatch) => {
         onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate)),
         onVialConfirmation: (medication) => dispatch(getMedicationArray(medication))
         /* Once a Vial Scan is confirmed by user: 
-          'medication' is the medication object that was just scanned and confirmed by user. it has lot#, name & expirationDate.
-          medication will be passed to the medicationArray Action to add it to the existing array.
-          onVialConfirmation: (medication) => dispatch(getMedicationArray(medication))
-
-          */
+          -'medication' is the medication object that was just scanned and confirmed by user. it has lotNumber, name & expirationDate.
+          -medication will be passed to the medicationArray Action to add it to the existing array.
+          -a method such as 'onMedicationConfirmed' (when a medication is initially confirmed) should be when onVialConfirmation should be called,
+          the 'medication' state should be reset since the MedicationsArray would now contain the recently scanned vial 
+        */
     }
 }
 

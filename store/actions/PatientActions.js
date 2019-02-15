@@ -10,7 +10,6 @@ export const hydratePatientData = (data) => {
     
     return (dispatch) => {
         const selectedPatient = dummy_Patient_Data.find(patientData => patientData.patient_Id == data)
-        //console.log("Kevin dummy: data " + data + "  jsonID " + selectedPatient.patient_Id); 
         if (selectedPatient !== undefined) {
             patientData.id = selectedPatient.patient_Id
             patientData.firstName = selectedPatient.name.first

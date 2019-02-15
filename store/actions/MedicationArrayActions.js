@@ -1,31 +1,11 @@
 import { HYDRATE_MED_ARRAY } from './types';
 
+// onVialConfirmation(medication) calls this Action from the MedicationCapturePage.  It just dispatches the medication object to the medicationsArray state
 export const getMedicationArray = (medication) => {
-    /*const newMedication = {
-        name : "",
-        lotNumber : "",
-        expirationDate : ""
-    };*/
-    const medicationsArray = [{
-        name : "",
-        lotNumber : "",
-        expirationDate : ""
-    }];
     return (dispatch) => {
-
-        medicationsArray[0].name = medication.name;
-        medicationsArray[0].lotNumber = medication.lotNumber;
-        medicationsArray[0].expirationDate = medication.expirationDate;
-        
         dispatch({
             type: HYDRATE_MED_ARRAY,
-            payload : medicationsArray
+            payload : medication
         });
     }
 };
-
-//const medicationsArray = [];
-    /*
-    console.log("Kevin Array name: " + medication.name);
-    console.log("Kevin Array lot: " + medication.lotNumber);
-    console.log("Kevin Array exp: " + medication.expirationDate);*/
