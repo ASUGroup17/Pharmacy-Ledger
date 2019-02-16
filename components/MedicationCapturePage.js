@@ -22,6 +22,7 @@ import ExpirationDateDisplayCard from './cards/ExpirationDateDisplayCard';
 
 var SoundPlayer = require('react-native-sound');
 var sound = null;
+var negSound = null;
 
 class MedicationCapturePage extends Component {
 
@@ -299,11 +300,17 @@ class MedicationCapturePage extends Component {
         };
 
 
+        // For audio cues
         //------------------------------------------------------------
         componentWillMount(){
             song = new SoundPlayer('ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
                 if(error)
                     console.log('Error when iniliazing', error);
+            });
+
+            negSound = new SoundPlayer('error_notification.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
+                if(error)
+                    console.log('Error when iniliazing negative audio', error);
             });
             
         }
@@ -311,6 +318,15 @@ class MedicationCapturePage extends Component {
         onPressButtonPlay(){
             if(song != null){
                 song.play((success) => {
+                    if(!success)
+                    console.log('Error when playing');
+                });
+            }
+        }
+
+        audioNegative(){
+            if(song != null){
+                negSound.play((success) => {
                     if(!success)
                     console.log('Error when playing');
                 });
