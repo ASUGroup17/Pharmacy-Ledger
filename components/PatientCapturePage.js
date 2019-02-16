@@ -18,6 +18,8 @@ import PatientInfoCard from './cards/PatientInfoCard';
 var SoundPlayer = require('react-native-sound');
 var sound = null;
 var negSound = null;
+// React-native-timer
+const timer = require('react-native-timer');
 
 class PatientCapturePage extends Component {
 
