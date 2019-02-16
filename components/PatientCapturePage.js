@@ -120,11 +120,6 @@ class PatientCapturePage extends Component {
                                 Continue
                             </Text>
                         </Button>
-                        <Button bordered style={commonStyles.button} onPress={this.audioNegative}>
-                            <Text>
-                                Play
-                            </Text>
-                        </Button>
                     </View>
                 </View>
                 </Content>
