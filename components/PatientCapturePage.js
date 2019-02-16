@@ -17,6 +17,7 @@ import PatientInfoCard from './cards/PatientInfoCard';
 // For sounds
 var SoundPlayer = require('react-native-sound');
 var sound = null;
+var negSound = null;
 
 class PatientCapturePage extends Component {
 
@@ -40,12 +41,26 @@ class PatientCapturePage extends Component {
             if(error)
                 console.log('Error when iniliazing', error);
         });
+
+        negSound = new SoundPlayer('error_notification.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
+            if(error)
+                console.log('Error when iniliazing negative audio', error);
+        });
         
     }
 
     onPressButtonPlay(event){
         if(song != null){
             song.play((success) => {
+                if(!success)
+                console.log('Error when playing');
+            });
+        }
+    }
+
+    audioNegative(){
+        if(song != null){
+            negSound.play((success) => {
                 if(!success)
                 console.log('Error when playing');
             });
@@ -103,6 +118,11 @@ class PatientCapturePage extends Component {
                             disabled={!patient.id}>
                             <Text>
                                 Continue
+                            </Text>
+                        </Button>
+                        <Button bordered style={commonStyles.button} onPress={this.audioNegative}>
+                            <Text>
+                                Play
                             </Text>
                         </Button>
                     </View>
