@@ -49,7 +49,16 @@ class PatientCapturePage extends Component {
                 console.log('Error when iniliazing negative audio', error);
         });
 
-        this._interval = setInterval(() => {
+        /*this._interval = setInterval(() => {
+            if(song != null){
+                negSound.play((success) => {
+                    if(!success)
+                    console.log('Error when playing');
+                });
+            }
+        }, 5000);*/
+
+        timer.setInterval(this, () => {
             if(song != null){
                 negSound.play((success) => {
                     if(!success)
@@ -79,7 +88,8 @@ class PatientCapturePage extends Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this._interval);
+        //clearInterval(this._interval);
+        timer.clearInterval(this);
     }
     //------------------------------------------------------------
 
