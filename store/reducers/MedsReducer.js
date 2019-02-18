@@ -2,9 +2,9 @@ import { HYDRATE_MEDICATION } from '../actions/types'
 
 const INITIAL_STATE = {
   ndc: '',
-  name: '',
-  lotNumber: '',
-  expirationDate: ''
+  name: null,
+  lotNumber: null,
+  expirationDate: null
 }
 
 // boilerplate

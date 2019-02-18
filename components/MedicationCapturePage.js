@@ -18,12 +18,16 @@ import { capturedExpiration, capturedTextBlocksExpiration } from './ExpirationDa
 import MedicationNameDisplayCard from './cards/MedicationNameDisplayCard';
 import LotNumberDisplayCard from './cards/LotNumberDisplayCard';
 import ExpirationDateDisplayCard from './cards/ExpirationDateDisplayCard';
+import MedicationScanConfirmPopup from './cards/MedicationScanConfirmPopup';
+import MedicationNameLine from './cards/MedicationNameLine';
 
 
 var SoundPlayer = require('react-native-sound');
 var sound = null;
 
+
 class MedicationCapturePage extends Component {
+
 
     continueHandler = () => {
 
@@ -66,6 +70,7 @@ class MedicationCapturePage extends Component {
     state = {
       visiblePopup: false,
       visiblePopup1: false,
+      confirmVialPopup: null,
       setState: false
     };
 
@@ -298,7 +303,6 @@ class MedicationCapturePage extends Component {
             }
         };
 
-
         //------------------------------------------------------------
         componentWillMount(){
             song = new SoundPlayer('ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
@@ -322,6 +326,7 @@ class MedicationCapturePage extends Component {
         // This medication variable will represent props, and will be updated accordingly whenever mapStateToProps is called
         //The Different attributes used for the medication object are defined in the MedsReducer.js file
         const { medication } = this.props;
+        
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
@@ -391,6 +396,27 @@ class MedicationCapturePage extends Component {
                         )}
                       </DialogContent>
                     </Dialog>
+
+                     {                   //KN US271-------
+                     }
+                      <Dialog
+                     visible={(medication.name !== null && medication.lotNumber !== null && medication.expirationDate !== null) && this.state.confirmVialPopup !== false}
+                     onTouchOutside={() => {
+                       this.setState({ confirmVialPopup: false });
+                     }}             
+                    >
+                    <DialogContent>
+                      
+                        <MedicationScanConfirmPopup medObject={(medication)}/>
+                        
+                      
+                   </DialogContent>
+
+                    </Dialog>
+
+
+
+
                     {/* PatientInfoCard contains the Patient Info displayed just below the Camera screen.
                       Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN */}
                     <PatientInfoCard />

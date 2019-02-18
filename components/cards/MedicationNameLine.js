@@ -9,8 +9,7 @@ import { medicationDataDisplayStyles  as medNameStyles } from '../../styles/comm
 //I do see a problem using an array of medications, with the 'if' logic used here
 
 // THis is used on the MedicationCapture Page, could be used in the shopping cart, Confirm after Scan PopUp and the Finalize Screen
-
-const MedicationNameLine = ({medication}) => {
+ const MedicationNameLine = ({medication}) => {
     if (!medication.name) {
         return (
             <View style={medNameStyles.medicationNameTextStyle}>
@@ -30,9 +29,9 @@ const MedicationNameLine = ({medication}) => {
     );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ medication }) => {
     return {
-        medication : state.medication
+        medication
     };
 };
 
