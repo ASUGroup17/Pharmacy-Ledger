@@ -425,11 +425,19 @@ class MedicationCapturePage extends Component {
                   onPress={() => {
                     this.setState({ medicationOptionsPopup: true });
                   }}
-                > Test</Text>
+                > Popup Holder</Text>
                 <MedicationOptionsPopup
                   visible={this.state.medicationOptionsPopup}
-                  onOkay={() => {
-                    
+                  onAddAnotherMed={() => {
+                    this.addAnotherMedHandler()
+                    this.setState({ medicationOptionsPopup: false });
+                  }}
+                  onViewCart={() => {
+                    this.setState({ visiblePopup1: true });
+                  }}
+                  onFinalize={() => {
+                    this.continueHandler()
+                    this.setState({ medicationOptionsPopup: false });
                   }}
                   onClose={() => {
                     this.setState({ medicationOptionsPopup: false });

@@ -11,22 +11,38 @@ return (
     onTouchOutside={props.onClose}
     dialogTitle={
       <DialogTitle
-        title="Change Patient"
+        title="Confirmed!"
         style={{
           backgroundColor: '#e0f2dc',
         }}
         hasTitleBar={false}
-        align="left"
+        align="center"
       />
     }
     actions={[
       <DialogButton
-        text="OK"
+        text="Scan Another Medication"
         style={{
           backgroundColor: '#e0f2dc',
         }}
-        onPress={props.onOkay}
+        onPress={props.onAddAnotherMed}
+        key="button-1"
+      />,
+      <DialogButton
+        text="View Shopping Cart"
+        style={{
+          backgroundColor: '#e0f2dc',
+        }}
+        onPress={props.onViewCart}
         key="button-2"
+      />,
+      <DialogButton
+        text="Finalize List of Medications"
+        style={{
+          backgroundColor: '#e0f2dc',
+        }}
+        onPress={props.onFinalize}
+        key="button-3"
       />,
       <DialogButton
         text="Cancel"
@@ -34,17 +50,17 @@ return (
           backgroundColor: '#e0f2dc',
         }}
         onPress={props.onClose}
-        key="button-3"
+        key="button-4"
       />
     ]}
   >
-    <DialogContent
-      style={{
-        backgroundColor: '#e0f2dc',
-      }}
-    >
-      <Text>You are requesting to go back to the Add Patient page. Any medications currently scanned will not be saved. Select OK to continue to Add Patient page.</Text>
-    </DialogContent>
+  <DialogContent
+    style={{
+      backgroundColor: '#e0f2dc',
+    }}
+  >
+    <Text>What would you like to do next?</Text>
+  </DialogContent>
   </Dialog>
 )}
 
