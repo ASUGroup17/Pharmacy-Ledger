@@ -18,6 +18,7 @@ import { capturedExpiration, capturedTextBlocksExpiration } from './ExpirationDa
 import MedicationNameDisplayCard from './cards/MedicationNameDisplayCard';
 import LotNumberDisplayCard from './cards/LotNumberDisplayCard';
 import ExpirationDateDisplayCard from './cards/ExpirationDateDisplayCard';
+import MedicationOptionsPopup from './cards/MedicationOptionsPopup';
 
 
 var SoundPlayer = require('react-native-sound');
@@ -66,6 +67,7 @@ class MedicationCapturePage extends Component {
     state = {
       visiblePopup: false,
       visiblePopup1: false,
+      medicationOptionsPopup: false,
       setState: false
     };
 
@@ -418,6 +420,23 @@ class MedicationCapturePage extends Component {
                         </Text>
                     </Button> */}
                 </View>
+
+                <Text style={commonStyles.linkRed}
+                  onPress={() => {
+                    this.setState({ medicationOptionsPopup: true });
+                  }}
+                > Test</Text>
+                <MedicationOptionsPopup
+                  visible={this.state.medicationOptionsPopup}
+                  onOkay={() => {
+                    
+                  }}
+                  onClose={() => {
+                    this.setState({ medicationOptionsPopup: false });
+                  }}
+                  >
+                </MedicationOptionsPopup>
+
                     <Text style={commonStyles.linkRed}
                       onPress={() => {
                         this.setState({ visiblePopup: true });
