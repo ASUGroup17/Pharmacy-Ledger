@@ -36,8 +36,10 @@ class MedicationCapturePage extends Component {
 
     confirmVialScanHandler = () => {
       //Need to call the medicationArray actions item here
-      //const { medication } = this.props;
+      const { medication } = this.props;
       //this.props.onLotNumberCapture(undefined);
+      this.props.onVialConfirmation(medication);
+      this.props.onLotNumberCapture(1);
     }
 
     continueHandler = () => {
@@ -427,7 +429,7 @@ class MedicationCapturePage extends Component {
                           backgroundColor: '#e0f2dc',
                         }}
                       >
-                        {this.state.medicationArray.map((med) =>
+                        {this.props.medicationArray.map((med) =>
                           <Text>
                             Medication Name: {med.medicationName}{"\n"}
                             Lot Number: {med.lotNumber}{"\n"}
@@ -448,7 +450,7 @@ class MedicationCapturePage extends Component {
                       }                
                         actions={[
                         <DialogButton text="Confirm" style={{ backgroundColor: '#e0f2dc' }} key="confirmMedButton"
-                        onPress={ () => {  }}/>,
+                        onPress={this.confirmVialScanHandler }/>,
                         <DialogButton text="Discard Scan" style={{ backgroundColor: '#e0f2dc' }} key="DiscardScanButton"
                           onPress={ () =>{  this.props.onLotNumberCapture(1);  }} />
                       ]}
