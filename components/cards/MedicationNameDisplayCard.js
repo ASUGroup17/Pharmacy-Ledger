@@ -10,10 +10,8 @@ import MedicationNameLine from './MedicationNameLine';
 //The CSS styling for this is defined in styles/common.js under medicationNameStyles
 const MedicationNameDisplayCard = ({ props }) => {
         return(            
-            <View style={medNameStyles.medicationNameContainer}>
-              
-                <MedicationNameLine/>
-              
+            <View style={medNameStyles.medicationNameContainer}>              
+                <MedicationNameLine/>              
                 <View style={medNameStyles.medicationNameCheckmarkStyle}>
                     <Item success ={(!props.medication.name) ? false : true}>
                         <Icon name='checkmark-circle' />

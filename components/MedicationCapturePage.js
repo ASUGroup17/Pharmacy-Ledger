@@ -33,11 +33,9 @@ let multipleExpirationCaptures = 0;
 
 class MedicationCapturePage extends Component {
 
-
+    //This is called when 'Confirm' button is selected on the VialScanPopupConfirmation Window.  Adds the medication object to the array and clear the medication object
     confirmVialScanHandler = () => {
-      //Need to call the medicationArray actions item here
-      const { medication } = this.props;
-      //this.props.onLotNumberCapture(undefined);
+      const { medication } = this.props;      
       this.props.onVialConfirmation(medication);
       this.props.onLotNumberCapture(1);
     }
@@ -175,7 +173,7 @@ class MedicationCapturePage extends Component {
 
         //Once lotNumber is captured this will not run. 
         //Sends textBlocks over to LotNumberCapture.js to be parsed for checking if a lot number is found. returns that value.
-        //Then that value is sent to the Redux store
+        //Then that value is sent to the Redux store once this occurs 3 times in a row.
         const { medication } = this.props;
 
         if (!medication.lotNumber) {
@@ -504,11 +502,6 @@ class MedicationCapturePage extends Component {
                             Continue
                         </Text>
                     </Button>
-{/*<Button bordered style={commonStyles.button} onPress={this.onPressButtonPlay.bind(this)}>
-                        <Text>
-                            Play
-                        </Text>
-                    </Button> */}
                 </View>
                     <Text style={commonStyles.link}
                       onPress={() => {
