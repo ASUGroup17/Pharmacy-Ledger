@@ -6,6 +6,7 @@ import { RNCamera } from 'react-native-camera'
 import { getMedication } from '../store/actions/MedicationActions';
 import { getLotNumber } from '../store/actions/LotNumberActions';
 import { getExpirationDate } from '../store/actions/ExpirationDateActions';
+import { getMedicationArray } from '../store/actions/MedicationArrayActions';
 import axios from 'axios'
 import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
@@ -73,8 +74,14 @@ class MedicationCapturePage extends Component {
     }
 
     addAnotherMedHandler = () => {
+      const {medication} = this.props;
+      
         this.setState({ medicationCount: this.state.medicationCount + 1 })
         console.log("MEDICATION COUNT " + this.state.medicationCount)
+
+        //This is the line of code that sends the Medication Object to the Medication Array.  We will likely want to change the place of this
+        //function, but for now this is the logical place to do it for when we are adding another medication.
+        this.props.onVialConfirmation(medication);
     }
 
     changePatientHandler = () => {
@@ -368,7 +375,6 @@ class MedicationCapturePage extends Component {
     render () {
         // This medication variable will represent props, and will be updated accordingly whenever mapStateToProps is called
         //The Different attributes used for the medication object are defined in the MedsReducer.js file
-        const { medication } = this.props;
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
@@ -429,13 +435,14 @@ class MedicationCapturePage extends Component {
                           backgroundColor: '#e0f2dc',
                         }}
                       >
-                        {this.state.medicationArray.map((medication) =>
+                        {this.state.medicationArray.map((med) =>
                           <Text>
-                            Medication Name: {medication.medicationName}{"\n"}
-                            Lot Number: {medication.lotNumber}{"\n"}
-                            Exp Date: {medication.expDate}
+                            Medication Name: {med.medicationName}{"\n"}
+                            Lot Number: {med.lotNumber}{"\n"}
+                            Exp Date: {med.expDate}
                           </Text>
-                        )}
+                        )
+                      }
                       </DialogContent>
                     </Dialog>
 
@@ -575,10 +582,12 @@ class MedicationCapturePage extends Component {
 }
 
 
-const mapStateToProps = ({ medication, patient }) => {
+const mapStateToProps = ({ medication, patient, medicationsArray } ) => {
     return {
         medication,
-        patient
+        patient,
+        //the acutal Array is accessed through 'this.props.medicationsArray.medicationsArray'
+        medicationsArray
     }
 }
 
@@ -587,7 +596,14 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onMedicationCapture: (ndcNumbers) => dispatch(getMedication(ndcNumbers)),
         onLotNumberCapture: (lotNumber) => dispatch (getLotNumber(lotNumber)),
-        onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate))
+        onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate)),
+        onVialConfirmation: (medication) => dispatch(getMedicationArray(medication))
+        /* Once a Vial Scan is confirmed by user: 
+          -'medication' is the medication object that was just scanned and confirmed by user. it has lotNumber, name & expirationDate.
+          -medication will be passed to the medicationArray Action to add it to the existing array.
+          -a method such as 'onMedicationConfirmed' (when a medication is initially confirmed) should be when onVialConfirmation should be called,
+          the 'medication' state should be reset since the MedicationsArray would now contain the recently scanned vial 
+        */
     }
 }
 
