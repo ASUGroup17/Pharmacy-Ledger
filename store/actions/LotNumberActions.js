@@ -1,5 +1,5 @@
 import {
-    HYDRATE_MEDICATION, CLEAR_MEDICATION, CLEAR_LOTNUMBER, CLEAR_DATAFIELD
+    HYDRATE_MEDICATION, CLEAR_MEDICATION
 } from './types'
 
 export const getLotNumber = (lotNumber) => {
