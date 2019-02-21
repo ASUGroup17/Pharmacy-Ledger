@@ -18,13 +18,16 @@ import { capturedExpiration, capturedTextBlocksExpiration } from './ExpirationDa
 import MedicationNameDisplayCard from './cards/MedicationNameDisplayCard';
 import LotNumberDisplayCard from './cards/LotNumberDisplayCard';
 import ExpirationDateDisplayCard from './cards/ExpirationDateDisplayCard';
-import MedicationScanConfirmPopup from './cards/MedicationScanConfirmPopup';
-import MedicationNameLine from './cards/MedicationNameLine';
 import { medicationDataDisplayStyles  as medNameStyles } from '../styles/common';
 
 
 var SoundPlayer = require('react-native-sound');
 var sound = null;
+
+let capturedLotNumbers = [];
+let capturedExpirationDates = [];
+let multipleLotCaptures = 0;
+let multipleExpirationCaptures = 0;
 
 
 class MedicationCapturePage extends Component {
@@ -176,22 +179,46 @@ class MedicationCapturePage extends Component {
         const { medication } = this.props;
 
         if (!medication.lotNumber) {
-          //  let result = capturedLot(capturedArray);
             let result = capturedTextBlocksLot(textBlocks);
-            if (result != undefined){
-                this.props.onLotNumberCapture(result);
+
+            if (result == undefined) { }
+            else{             
+              if(capturedLotNumbers.includes(result) == true){ multipleLotCaptures++ }
+              else { 
+                capturedLotNumbers.length = 0; 
+                multipleLotCaptures = 0; 
+              }
+              //This checks to ensure that the data captured isn't undefined, and that the same data has been captured 3 times in a row
+              capturedLotNumbers.push(result);
+              if (result != undefined && multipleLotCaptures >= 2){
+                  this.props.onLotNumberCapture(result);
+                  //Empties the Array
+                  capturedLotNumbers.length = 0;
+                  multipleLotCaptures = 0;
+              }
             }
         }
-
         //Once ExpirationDate is captured this will not run. 
         //Sends textBlocks over to ExpirationDateCapture.js to be parsed for checking if a expirationdate is found. returns that value.
         //Then that value is sent to the Redux store
         if (!medication.expirationDate) {
-            //let expResult = capturedExpiration(capturedArray);
             let expResult = capturedTextBlocksExpiration(textBlocks);
-            if (expResult != undefined) {
-                this.props.onExpirationCapture(expResult);
-            }
+            if (expResult == undefined) { }
+            else {
+              if (capturedExpirationDates.includes(expResult) == true) { multipleExpirationCaptures++ }
+              else {
+                capturedExpirationDates.length = 0;
+                multipleExpirationCaptures = 0;
+              }
+              //Checks that expResult isn't undefined and has been captured the same 3 times in a row
+              capturedExpirationDates.push(expResult);
+              console.log('kevin: r exp expResult: ' + expResult);
+                if (expResult != undefined && multipleExpirationCaptures >= 2) {
+                  this.props.onExpirationCapture(expResult);
+                  capturedExpirationDates.length = 0;
+                  multipleExpirationCaptures = 0;
+              }
+            }//end outter else            
         }
     }
 
@@ -216,7 +243,7 @@ class MedicationCapturePage extends Component {
         var expStrings = []
         const keywords = ['batch', 'exp', 'lot', 'espiry'];
 
-        console.log("KEVIN: " + textBlocks.value);
+        
 
 
         patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
