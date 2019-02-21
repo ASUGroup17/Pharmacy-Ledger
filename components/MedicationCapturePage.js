@@ -20,6 +20,7 @@ import LotNumberDisplayCard from './cards/LotNumberDisplayCard';
 import ExpirationDateDisplayCard from './cards/ExpirationDateDisplayCard';
 import MedicationScanConfirmPopup from './cards/MedicationScanConfirmPopup';
 import MedicationNameLine from './cards/MedicationNameLine';
+import { medicationDataDisplayStyles  as medNameStyles } from '../styles/common';
 
 
 var SoundPlayer = require('react-native-sound');
@@ -28,6 +29,21 @@ var sound = null;
 
 class MedicationCapturePage extends Component {
 
+
+    confirmVialScanHandler = () => {
+      //Need to call the medicationArray actions item here
+      const { medication } = this.props;
+      console.log("Kevin handler name  before: " + medication.name);
+      console.log("Kevin handler ndc before: " + medication.ndc);
+      console.log("Kevin handler lot before: " + medication.lotNumber);
+      console.log("Kevin handler expdate before: " + medication.expirationDate);
+      this.props.onLotNumberCapture(undefined);
+      //() => {dispatch(getLotNumber(undefined))}
+      console.log("Kevin handler name after: " + medication.name);
+      console.log("Kevin handler ndc after: " + medication.ndc);
+      console.log("Kevin handler lot after: " + medication.lotNumber);
+      console.log("Kevin handler expdate after: " + medication.expirationDate);
+    }
 
     continueHandler = () => {
 
@@ -326,7 +342,6 @@ class MedicationCapturePage extends Component {
         // This medication variable will represent props, and will be updated accordingly whenever mapStateToProps is called
         //The Different attributes used for the medication object are defined in the MedsReducer.js file
         const { medication } = this.props;
-        
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
@@ -400,18 +415,41 @@ class MedicationCapturePage extends Component {
                      {                   //KN US271-------
                      }
                       <Dialog
-                     visible={(medication.name !== null && medication.lotNumber !== null && medication.expirationDate !== null) && this.state.confirmVialPopup !== false}
-                     onTouchOutside={() => {
-                       this.setState({ confirmVialPopup: false });
-                     }}             
+                     visible={((medication.name !== null && medication.lotNumber !== null && medication.expirationDate !== null) && this.state.confirmVialPopup !== false)}
+                     dialogTitle={
+                        <DialogTitle title="Confirm Vial Information" style={{ backgroundColor: '#e0f2dc' }} hasTitleBar={true}
+                          align="left"/>
+                      }                
+                        actions={[
+                        <DialogButton text="Confirm" style={{ backgroundColor: '#e0f2dc' }} key="confirmMedButton"
+                        onPress={ () => { }}/>,
+                        <DialogButton text="Discard Scan" style={{ backgroundColor: '#e0f2dc' }} key="DiscardScanButton"
+                          onPress={ () =>{  this.props.onLotNumberCapture(1);  }} />
+                      ]}
+                    
                     >
-                    <DialogContent>
-                      
-                        <MedicationScanConfirmPopup medObject={(medication)}/>
-                        
-                      
+                   <DialogContent style={{width:350, flexDirection:'column'}}>
+                    <View>                      
+                      <View style={{ flexDirection: 'row' }}>
+                          <Text style={medNameStyles.medicationNameTextStyle}>
+                            Medication: {medication.name}
+                          </Text>
+                          <Icon name='camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>  
+                      </View>
+                      <View style={{ flexDirection: 'row' }}>
+                          <Text style={medNameStyles.medicationNameTextStyle}>
+                            Lot Number: {medication.lotNumber}
+                          </Text>
+                          <Icon name='camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>  
+                      </View>
+                      <View style={{ flexDirection: 'row' }}>
+                          <Text style={medNameStyles.medicationNameTextStyle}>
+                            Expiration Date: {medication.expirationDate}
+                          </Text>
+                          <Icon name='camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>  
+                      </View>
+                    </View>
                    </DialogContent>
-
                     </Dialog>
 
 
@@ -496,9 +534,10 @@ class MedicationCapturePage extends Component {
                 </Content>
             </Container>
         );
+                      }
 
 
-    }
+    
 
     takePicture = async function(camera) {
         const options = { quality: 0.5, base64: true };
