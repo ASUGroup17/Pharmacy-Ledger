@@ -488,9 +488,9 @@ class MedicationCapturePage extends Component {
                     <View style={styles.groupTight}>
 
                         
-                        <MedicationNameDisplayCard/>  
-                        <LotNumberDisplayCard/>  
-                        <ExpirationDateDisplayCard/>
+                        <MedicationNameDisplayCard props ={this.props}/>  
+                        <LotNumberDisplayCard props={this.props}/>  
+                        <ExpirationDateDisplayCard props={this.props}/>
 
                     </View>
                     <Button bordered style={commonStyles.button} onPress={this.addAnotherMedHandler}>
