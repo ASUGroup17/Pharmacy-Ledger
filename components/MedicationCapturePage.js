@@ -36,17 +36,8 @@ class MedicationCapturePage extends Component {
 
     confirmVialScanHandler = () => {
       //Need to call the medicationArray actions item here
-      const { medication } = this.props;
-      console.log("Kevin handler name  before: " + medication.name);
-      console.log("Kevin handler ndc before: " + medication.ndc);
-      console.log("Kevin handler lot before: " + medication.lotNumber);
-      console.log("Kevin handler expdate before: " + medication.expirationDate);
-      this.props.onLotNumberCapture(undefined);
-      //() => {dispatch(getLotNumber(undefined))}
-      console.log("Kevin handler name after: " + medication.name);
-      console.log("Kevin handler ndc after: " + medication.ndc);
-      console.log("Kevin handler lot after: " + medication.lotNumber);
-      console.log("Kevin handler expdate after: " + medication.expirationDate);
+      //const { medication } = this.props;
+      //this.props.onLotNumberCapture(undefined);
     }
 
     continueHandler = () => {
@@ -375,6 +366,7 @@ class MedicationCapturePage extends Component {
     render () {
         // This medication variable will represent props, and will be updated accordingly whenever mapStateToProps is called
         //The Different attributes used for the medication object are defined in the MedsReducer.js file
+        const { medication } = this.props;
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
@@ -456,7 +448,7 @@ class MedicationCapturePage extends Component {
                       }                
                         actions={[
                         <DialogButton text="Confirm" style={{ backgroundColor: '#e0f2dc' }} key="confirmMedButton"
-                        onPress={ () => { }}/>,
+                        onPress={ () => {  }}/>,
                         <DialogButton text="Discard Scan" style={{ backgroundColor: '#e0f2dc' }} key="DiscardScanButton"
                           onPress={ () =>{  this.props.onLotNumberCapture(1);  }} />
                       ]}
