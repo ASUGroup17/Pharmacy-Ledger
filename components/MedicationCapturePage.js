@@ -398,29 +398,19 @@ class MedicationCapturePage extends Component {
                     <PatientInfoCard />
                     <View style={styles.groupTight}>
 
-
                         <MedicationNameDisplayCard/>
                         <LotNumberDisplayCard/>
                         <ExpirationDateDisplayCard/>
 
                     </View>
-                    <Button bordered style={commonStyles.button} onPress={this.addAnotherMedHandler}>
-                        <Text>
-                            Add Another Medication
-                        </Text>
-                    </Button>
-                    <Button bordered style={commonStyles.button} onPress={this.continueHandler}>
-                        <Text>
-                            Continue
-                        </Text>
-                    </Button>
+
 {/*<Button bordered style={commonStyles.button} onPress={this.onPressButtonPlay.bind(this)}>
                         <Text>
                             Play
                         </Text>
                     </Button> */}
                 </View>
-
+                
                 <Text style={commonStyles.linkRed}
                   onPress={() => {
                     this.setState({ medicationOptionsPopup: true });
