@@ -20,6 +20,7 @@ import MedicationNameDisplayCard from './cards/MedicationNameDisplayCard';
 import LotNumberDisplayCard from './cards/LotNumberDisplayCard';
 import ExpirationDateDisplayCard from './cards/ExpirationDateDisplayCard';
 import { medicationDataDisplayStyles  as medNameStyles } from '../styles/common';
+import MedicationOptionsPopup from './cards/MedicationOptionsPopup';
 
 
 var SoundPlayer = require('react-native-sound');
@@ -87,6 +88,7 @@ class MedicationCapturePage extends Component {
     state = {
       visiblePopup: false,
       visiblePopup1: false,
+      medicationOptionsPopup: false,
       confirmVialPopup: null,
       setState: false
     };
