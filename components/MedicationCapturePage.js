@@ -34,11 +34,11 @@ let multipleExpirationCaptures = 0;
 
 class MedicationCapturePage extends Component {
 
-
+    //This is called when 'Confirm' button is selected on the VialScanPopupConfirmation Window.  Adds the medication object to the array and clear the medication object
     confirmVialScanHandler = () => {
-      //Need to call the medicationArray actions item here
-      //const { medication } = this.props;
-      //this.props.onLotNumberCapture(undefined);
+      const { medication } = this.props;      
+      this.props.onVialConfirmation(medication);
+      this.props.onLotNumberCapture(1);
     }
 
     continueHandler = () => {
@@ -67,13 +67,8 @@ class MedicationCapturePage extends Component {
 
     addAnotherMedHandler = () => {
       const {medication} = this.props;
-      
         this.setState({ medicationCount: this.state.medicationCount + 1 })
         console.log("MEDICATION COUNT " + this.state.medicationCount)
-
-        //This is the line of code that sends the Medication Object to the Medication Array.  We will likely want to change the place of this
-        //function, but for now this is the logical place to do it for when we are adding another medication.
-        this.props.onVialConfirmation(medication);
     }
 
     changePatientHandler = () => {
@@ -175,7 +170,7 @@ class MedicationCapturePage extends Component {
 
         //Once lotNumber is captured this will not run.
         //Sends textBlocks over to LotNumberCapture.js to be parsed for checking if a lot number is found. returns that value.
-        //Then that value is sent to the Redux store
+        //Then that value is sent to the Redux store once this occurs 3 times in a row.
         const { medication } = this.props;
 
         if (!medication.lotNumber) {
@@ -429,7 +424,7 @@ class MedicationCapturePage extends Component {
                           backgroundColor: '#e0f2dc',
                         }}
                       >
-                        {this.state.medicationArray.map((med) =>
+                        {this.props.medicationArray.map((med) =>
                           <Text>
                             Medication Name: {med.medicationName}{"\n"}
                             Lot Number: {med.lotNumber}{"\n"}
@@ -450,7 +445,7 @@ class MedicationCapturePage extends Component {
                       }                
                         actions={[
                         <DialogButton text="Confirm" style={{ backgroundColor: '#e0f2dc' }} key="confirmMedButton"
-                        onPress={ () => {  }}/>,
+                        onPress={this.confirmVialScanHandler }/>,
                         <DialogButton text="Discard Scan" style={{ backgroundColor: '#e0f2dc' }} key="DiscardScanButton"
                           onPress={ () =>{  this.props.onLotNumberCapture(1);  }} />
                       ]}
