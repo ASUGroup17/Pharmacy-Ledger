@@ -57,7 +57,7 @@ export const capturedTextBlocksExpiration = (textBlocks) => {
                 else if (textBlocks[index].components[index2+1] !== undefined){
                     if ((expPat3.test(textBlocks[index].components[index2].value) || expPat6.test(textBlocks[index].components[index2].value.toLowerCase())) &&
                         (expPat4.test(textBlocks[index].components[index2+1].value) || expPat7.test(textBlocks[index].components[index2+1].value))) {
-                        let newExpDate = textBlocks[index].components[index2].value + "/" + textBlocks[index].components[index2+1].value;
+                        let newExpDate = textBlocks[index].components[index2].value + " " + textBlocks[index].components[index2+1].value;
                         console.log("Kevin: Return 3 " + newExpDate);
                         return newExpDate;
                     }    
