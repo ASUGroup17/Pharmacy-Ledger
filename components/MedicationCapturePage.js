@@ -1,27 +1,26 @@
 import React, {Component} from 'react';
-import { View, ScrollView, FlatList, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
-import { Container, Content, CardItem, Button, Text, Input, Item, Icon, List, ListItem } from 'native-base'
+import { Container, Content, Text, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
+import realm from '../db/allSchemas';
+import PatientInfoCard from './cards/PatientInfoCard';
+import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
+
 import { getMedication } from '../store/actions/MedicationActions';
 import { getLotNumber } from '../store/actions/LotNumberActions';
 import { getExpirationDate } from '../store/actions/ExpirationDateActions';
 import { getMedicationArray } from '../store/actions/MedicationArrayActions';
-import axios from 'axios'
 import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
-import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
-import realm from '../db/allSchemas';
-import PatientInfoCard from './cards/PatientInfoCard';
-import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
-//import { List, ListItem } from 'react-native-elements';
-
-import { capturedLot, capturedTextBlocksLot } from './LotNumberCapture';
-import { capturedExpiration, capturedTextBlocksExpiration } from './ExpirationDateCapture';
+import { insertNewMatch } from '../db/allSchemas';
+import { capturedTextBlocksLot } from './LotNumberCapture';
+import { capturedTextBlocksExpiration } from './ExpirationDateCapture';
 import MedicationNameDisplayCard from './cards/MedicationNameDisplayCard';
 import LotNumberDisplayCard from './cards/LotNumberDisplayCard';
 import ExpirationDateDisplayCard from './cards/ExpirationDateDisplayCard';
 import { medicationDataDisplayStyles  as medNameStyles } from '../styles/common';
 import MedicationOptionsPopup from './cards/MedicationOptionsPopup';
+
 
 
 var SoundPlayer = require('react-native-sound');
@@ -35,7 +34,7 @@ let multipleExpirationCaptures = 0;
 
 class MedicationCapturePage extends Component {
 
-   
+  
 
     continueHandler = () => {
 
@@ -62,9 +61,12 @@ class MedicationCapturePage extends Component {
     }
 
     addAnotherMedHandler = () => {
-      const {medication} = this.props;
+      //const {medication} = this.props;
         this.setState({ medicationCount: this.state.medicationCount + 1 })
         console.log("MEDICATION COUNT " + this.state.medicationCount)
+        //This will clear the medication object.  The camera does not stop capturing NDC, lot or Expirations.  THis prevents uninteded data captures
+        this.props.onLotNumberCapture(1);
+        this.setState({ confirmVialPopup : true});
     }
 
     changePatientHandler = () => {
@@ -89,10 +91,11 @@ class MedicationCapturePage extends Component {
       const { medication } = this.props;      
       this.props.onVialConfirmation(medication);
       this.props.onLotNumberCapture(1);
-      //this.setState({ confirmVialPopup: false});
-      this.setState({ MedicationOptionsPopup: true });
+      this.setState({ confirmVialPopup: false});
+      this.setState({ medicationOptionsPopup: true });
       };          
 
+      onComponentWillMount
     constructor(props) {
         super(props);
         this.state = {
@@ -452,8 +455,9 @@ class MedicationCapturePage extends Component {
 
                      {                   //KN US271-------
                      }
+                      {
                       <Dialog
-                     visible={((medication.name !== null && medication.lotNumber !== null && medication.expirationDate !== null))}
+                     visible={((medication.name !== null && medication.lotNumber !== null && medication.expirationDate !== null) && (this.state.confirmVialPopup != false))}
                      dialogTitle={
                         <DialogTitle title="Confirm Vial Information" style={{ backgroundColor: '#e0f2dc' }} hasTitleBar={true}
                           align="left"/>
@@ -489,9 +493,7 @@ class MedicationCapturePage extends Component {
                     </View>
                    </DialogContent>
                     </Dialog>
-
-
-
+                    }
 
                     {/* PatientInfoCard contains the Patient Info displayed just below the Camera screen.
                       Located in ..components/cards/PatientInfoCard.js   -1/10/2019 KN */}
@@ -503,12 +505,6 @@ class MedicationCapturePage extends Component {
                         <ExpirationDateDisplayCard props={this.props}/>
 
                     </View>
-
-{/*<Button bordered style={commonStyles.button} onPress={this.onPressButtonPlay.bind(this)}>
-                        <Text>
-                            Play
-                        </Text>
-                    </Button> */}
                 </View>
                 
                 <Text style={commonStyles.linkRed}
