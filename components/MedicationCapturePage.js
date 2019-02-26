@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { View, ScrollView, FlatList, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { connect } from 'react-redux'
-import { Container, Content, CardItem, Button, Text, Input, Item, Icon } from 'native-base'
+import { Container, Content, CardItem, Button, Text, Input, Item, Icon, List, ListItem } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import { getMedication } from '../store/actions/MedicationActions';
 import { getLotNumber } from '../store/actions/LotNumberActions';
@@ -13,6 +13,7 @@ import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
 import realm from '../db/allSchemas';
 import PatientInfoCard from './cards/PatientInfoCard';
 import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
+//import { List, ListItem } from 'react-native-elements';
 
 import { capturedLot, capturedTextBlocksLot } from './LotNumberCapture';
 import { capturedExpiration, capturedTextBlocksExpiration } from './ExpirationDateCapture';
@@ -34,12 +35,7 @@ let multipleExpirationCaptures = 0;
 
 class MedicationCapturePage extends Component {
 
-    //This is called when 'Confirm' button is selected on the VialScanPopupConfirmation Window.  Adds the medication object to the array and clear the medication object
-    confirmVialScanHandler = () => {
-      const { medication } = this.props;      
-      this.props.onVialConfirmation(medication);
-      this.props.onLotNumberCapture(1);
-    }
+   
 
     continueHandler = () => {
 
@@ -87,6 +83,15 @@ class MedicationCapturePage extends Component {
       confirmVialPopup: null,
       setState: false
     };
+
+    //This is called when 'Confirm' button is selected on the VialScanPopupConfirmation Window.  Adds the medication object to the array and clear the medication object
+    confirmVialScanHandler = () => {
+      const { medication } = this.props;      
+      this.props.onVialConfirmation(medication);
+      this.props.onLotNumberCapture(1);
+      //this.setState({ confirmVialPopup: false});
+      this.setState({ MedicationOptionsPopup: true });
+      };          
 
     constructor(props) {
         super(props);
@@ -406,46 +411,56 @@ class MedicationCapturePage extends Component {
                           align="left"
                         />
                       }
-                      actions={[
-                        <DialogButton
-                          text="OK"
-                          style={{
-                            backgroundColor: '#e0f2dc',
-                          }}
-                          onPress={() => {
-                            this.setState({ visiblePopup1: false });
-                          }}
-                          key="button-4"
-                        />
-                      ]}
+                      actions={[ <DialogButton text="OK" style={{backgroundColor: '#e0f2dc' }}
+                          onPress={() => { this.setState({ visiblePopup1: false }); }}
+                          key="button-4" /> ]}
                     >
+                    <ScrollView endFillColor='#e0f2dc' centerContent='true'>
                       <DialogContent
                         style={{
+                          width:350,
                           backgroundColor: '#e0f2dc',
                         }}
-                      >
-                        {this.props.medicationArray.map((med) =>
-                          <Text>
-                            Medication Name: {med.medicationName}{"\n"}
-                            Lot Number: {med.lotNumber}{"\n"}
-                            Exp Date: {med.expDate}
-                          </Text>
+                      >                    
+                        {this.props.medicationsArray.medicationsArray.map((med) =>
+                        <View  key={med.ndc}>
+                          <View style={{ flexDirection: 'row' }}>
+                              <Text style={medNameStyles.medicationNameTextStyle}>
+                                Medication: {med.name}
+                              </Text>
+                              <Icon name='camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>  
+                          </View>
+                          <View style={{ flexDirection: 'row' }}>
+                            <Text style={medNameStyles.medicationNameTextStyle}>
+                              Lot Number: {med.lotNumber}
+                            </Text>
+                            <Icon name='camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>  
+                          </View>
+                          <View style={{ flexDirection: 'row', bottomBorderColor:'black', borderBottomWidth:1}}>
+                            <Text style={medNameStyles.medicationNameTextStyle}>
+                              Expiration Date: {med.expirationDate}
+                            </Text>
+                            <Icon name='camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>  
+                          </View>
+                        </View>
                         )
-                      }
+                        }
+                        
                       </DialogContent>
+                      </ScrollView>
                     </Dialog>
 
                      {                   //KN US271-------
                      }
                       <Dialog
-                     visible={((medication.name !== null && medication.lotNumber !== null && medication.expirationDate !== null) && this.state.confirmVialPopup !== false)}
+                     visible={((medication.name !== null && medication.lotNumber !== null && medication.expirationDate !== null))}
                      dialogTitle={
                         <DialogTitle title="Confirm Vial Information" style={{ backgroundColor: '#e0f2dc' }} hasTitleBar={true}
                           align="left"/>
                       }                
                         actions={[
                         <DialogButton text="Confirm" style={{ backgroundColor: '#e0f2dc' }} key="confirmMedButton"
-                        onPress={this.confirmVialScanHandler }/>,
+                        onPress= {this.confirmVialScanHandler  }/>,
                         <DialogButton text="Discard Scan" style={{ backgroundColor: '#e0f2dc' }} key="DiscardScanButton"
                           onPress={ () =>{  this.props.onLotNumberCapture(1);  }} />
                       ]}
@@ -483,9 +498,9 @@ class MedicationCapturePage extends Component {
                     <PatientInfoCard />
                     <View style={styles.groupTight}>
 
-                        <MedicationNameDisplayCard/>
-                        <LotNumberDisplayCard/>
-                        <ExpirationDateDisplayCard/>
+                        <MedicationNameDisplayCard props={this.props}/>
+                        <LotNumberDisplayCard props={this.props}/>
+                        <ExpirationDateDisplayCard props={this.props}/>
 
                     </View>
 

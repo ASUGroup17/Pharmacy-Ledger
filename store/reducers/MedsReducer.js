@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   ndc: '',
   name: null,
   lotNumber: null,
-  expirationDate: null
+  expirationDate: null,
+  id : null
 }
 
 // boilerplate
