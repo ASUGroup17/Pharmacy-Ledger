@@ -11,6 +11,7 @@ import { getMedication } from '../store/actions/MedicationActions';
 import { getLotNumber } from '../store/actions/LotNumberActions';
 import { getExpirationDate } from '../store/actions/ExpirationDateActions';
 import { getMedicationArray } from '../store/actions/MedicationArrayActions';
+import { getMedicationID } from '../store/actions/MedcationIDActions';
 import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import { insertNewMatch } from '../db/allSchemas';
 import { capturedTextBlocksLot } from './LotNumberCapture';
@@ -23,6 +24,7 @@ import MedicationOptionsPopup from './cards/MedicationOptionsPopup';
 
 
 
+
 var SoundPlayer = require('react-native-sound');
 var sound = null;
 
@@ -30,10 +32,11 @@ let capturedLotNumbers = [];
 let capturedExpirationDates = [];
 let multipleLotCaptures = 0;
 let multipleExpirationCaptures = 0;
+let medicationIDValue = 0;
 
 
 class MedicationCapturePage extends Component {
-
+  
   
 
     continueHandler = () => {
@@ -89,13 +92,22 @@ class MedicationCapturePage extends Component {
     //This is called when 'Confirm' button is selected on the VialScanPopupConfirmation Window.  Adds the medication object to the array and clear the medication object
     confirmVialScanHandler = () => {
       const { medication } = this.props;      
+      //console.log('kevin id: medicationIDValue: ' + medicationIDValue);
+      //console.log('kevin id: medicationIDValue Typeof: ' + typeof medicationIDValue);
+          
+      console.log('kevin id: medID: ' + medication.medID);
+      console.log('kevin id: Name: ' + medication.name);
+
       this.props.onVialConfirmation(medication);
       this.props.onLotNumberCapture(1);
       this.setState({ confirmVialPopup: false});
-      this.setState({ medicationOptionsPopup: true });
+      this.setState({ medicationOptionsPopup: true });      
+      this.props.medicationsArray.medicationsArray.forEach(element => {
+        console.log('kevin id: of array medID : ' + element.medID);
+        console.log('kevin id: of array Name: ' + element.name);  
+      });
+      
       };          
-
-      onComponentWillMount
     constructor(props) {
         super(props);
         this.state = {
@@ -193,11 +205,15 @@ class MedicationCapturePage extends Component {
               }
               //This checks to ensure that the data captured isn't undefined, and that the same data has been captured 3 times in a row
               capturedLotNumbers.push(result);
-              if (result != undefined && multipleLotCaptures >= 2){
+              if (result != undefined && multipleLotCaptures >= 3){
                   this.props.onLotNumberCapture(result);
                   //Empties the Array
                   capturedLotNumbers.length = 0;
                   multipleLotCaptures = 0;
+
+                  //These next lines assign the value for the medID
+                  this.props.onSetMedID(medicationIDValue);
+                  medicationIDValue++; 
               }
             }
         }
@@ -426,24 +442,24 @@ class MedicationCapturePage extends Component {
                         }}
                       >                    
                         {this.props.medicationsArray.medicationsArray.map((med) =>
-                        <View  key={med.ndc}>
+                        <View  key={med.medID}>
                           <View style={{ flexDirection: 'row' }}>
                               <Text style={medNameStyles.medicationNameTextStyle}>
                                 Medication: {med.name}
                               </Text>
-                              <Icon name='camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>  
+                              <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>  
                           </View>
                           <View style={{ flexDirection: 'row' }}>
                             <Text style={medNameStyles.medicationNameTextStyle}>
                               Lot Number: {med.lotNumber}
                             </Text>
-                            <Icon name='camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>  
+                            <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>  
                           </View>
                           <View style={{ flexDirection: 'row', bottomBorderColor:'black', borderBottomWidth:1}}>
                             <Text style={medNameStyles.medicationNameTextStyle}>
                               Expiration Date: {med.expirationDate}
                             </Text>
-                            <Icon name='camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>  
+                            <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>  
                           </View>
                         </View>
                         )
@@ -476,19 +492,19 @@ class MedicationCapturePage extends Component {
                           <Text style={medNameStyles.medicationNameTextStyle}>
                             Medication: {medication.name}
                           </Text>
-                          <Icon name='camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>  
+                          <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>  
                       </View>
                       <View style={{ flexDirection: 'row' }}>
                           <Text style={medNameStyles.medicationNameTextStyle}>
                             Lot Number: {medication.lotNumber}
                           </Text>
-                          <Icon name='camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>  
+                          <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>  
                       </View>
                       <View style={{ flexDirection: 'row' }}>
                           <Text style={medNameStyles.medicationNameTextStyle}>
                             Expiration Date: {medication.expirationDate}
                           </Text>
-                          <Icon name='camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>  
+                          <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>  
                       </View>
                     </View>
                    </DialogContent>
@@ -612,7 +628,8 @@ const mapDispatchToProps = (dispatch) => {
         onMedicationCapture: (ndcNumbers) => dispatch(getMedication(ndcNumbers)),
         onLotNumberCapture: (lotNumber) => dispatch (getLotNumber(lotNumber)),
         onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate)),
-        onVialConfirmation: (medication) => dispatch(getMedicationArray(medication))
+        onVialConfirmation: (medication) => dispatch(getMedicationArray(medication)),
+        onSetMedID: (medicationIDValue) => dispatch(getMedicationID(medicationIDValue))
         /* Once a Vial Scan is confirmed by user: 
           -'medication' is the medication object that was just scanned and confirmed by user. it has lotNumber, name & expirationDate.
           -medication will be passed to the medicationArray Action to add it to the existing array.

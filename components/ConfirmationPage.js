@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Container, Content, Card, Body, Button, Text, Form, Item, Input, Right, CardItem } from 'native-base'
+import { View, ScrollView } from 'react-native'
+import { Container, Content, Card, Button, Text, Icon } from 'native-base'
 import { connect } from 'react-redux'
 
 import { confirmationPageStyles as styles, commonStyles } from '../styles/common'
+import { medicationDataDisplayStyles  as medNameStyles } from '../styles/common';
 import  PatientInfoCard  from './cards/PatientInfoCard';
 
 class ConfirmationPage extends Component {
@@ -21,28 +22,11 @@ class ConfirmationPage extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      /*
-            From MedicationCapturePage.
-            Medications will likely have to be an array;
-            this is mostly for building and testing purposes.
-            */
-           /*Commenting out the individual medication related items. Implementing an array here due to array state issues,
-           of creating the array in MedicationCapturePage.  This is for Testing & creating a proper display of multiple medications
-           from an array. 
-            ndc: this.props.ndc,
-            medicationName: this.props.medicationName,
-            lotNumber: this.props.lotNumber,
-            expDate: this.props.expDate,
-            */
-          //Fake array used to display an array of Medications dynamically
-          medicationArray : [
-            { ndc : 1110111, medicationName: "FakeMed1", lotNumber : 123, expDate : '12/2018' }, 
-            { ndc : 4454124, medicationName: "FakeMed2", lotNumber : 456, expDate : '3/2020' },
-            { ndc : 7777799, medicationName: "FakeLongMed3                 -------------   -------", lotNumber : 741, expDate : '1/2019' },
-            { ndc : 1234567, medicationName: "FakeMed4", lotNumber : 1289, expDate : '5/2020' },
-            { ndc : 7654321, medicationName: "FakeMed5", lotNumber : 8672, expDate : '12/2021' },
-          ]
         }
+    }
+
+    deleteMedicationHandler = () => {
+      
     }
   
 
@@ -51,14 +35,9 @@ class ConfirmationPage extends Component {
       <Container style={commonStyles.container}>
         <Content contentContainerStyle={{ justifyContent: 'center' }} style={commonStyles.content}>
           <View>
-            {/*
-            -One card contains a series of Card Items to be displayed in this View.
-            -Specific Text Color styling wasn't working through CSS file common.js, so in-line
-            styling was used; not ideal, perhaps this can be fixed
-            */} 
           <Card>
             <PatientInfoCard />
-              <CardItem header style={styles.cardHeaderStyle}>
+             {/* <CardItem header style={styles.cardHeaderStyle}>
                 <Text>
                   {this.props.medication.name}
                 </Text>
@@ -72,7 +51,37 @@ class ConfirmationPage extends Component {
                     Lot Number and Expiration Here!!! {this.props.lotNumber}
                   </Text>
                 </Body>
-              </CardItem>
+          </CardItem>*/}
+          <ScrollView endFillColor='#e0f2dc' centerContent='true'>                                          
+                        {this.props.medicationsArray.medicationsArray.map((med) =>
+                        <View  key={med.id} style={{bottomBorderColor:'black', borderBottomWidth:1}}>
+                          <View style={{ flexDirection: 'row' }}>
+                              <Text style={medNameStyles.medicationNameTextStyle}>
+                                Medication: {med.name}
+                              </Text>
+                              <Icon name='camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>  
+                          </View>
+                          <View style={{ flexDirection: 'row' }}>
+                            <Text style={medNameStyles.medicationNameTextStyle}>
+                              Lot Number: {med.lotNumber}
+                            </Text>
+                            <Icon name='camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>  
+                          </View>
+                          <View style={{ flexDirection: 'row'}}>
+                            <Text style={medNameStyles.medicationNameTextStyle}>
+                              Expiration Date: {med.expirationDate}
+                            </Text>
+                            <Icon name='camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>  
+                          </View>
+                          <View style={{ alignSelf: 'flex-end', padding: 2 }}>
+                            <Text style={{fontWeight:'bold', color: 'red'}}>
+                              Delete Medication
+                            </Text>                          
+                          </View>
+                        </View>
+                        )
+                        }                   
+                      </ScrollView>
             </Card>
           </View>
           <View style={styles.buttonRowStyle}>
@@ -93,11 +102,38 @@ class ConfirmationPage extends Component {
   }
 }
 
-const mapStateToProps = ({ medication, patient }) => {
+const mapStateToProps = ({ medication, patient, medicationsArray }) => {
   return {
       medication,
-      patient
+      patient,
+      medicationsArray
   }
 }
 
 export default connect(mapStateToProps)(ConfirmationPage);
+
+                      // <ScrollView endFillColor='#e0f2dc' centerContent='true'>                                          
+                      //   {this.props.medicationsArray.medicationsArray.map((med) =>
+                      //   <View  key={med.ndc}>
+                      //     <View style={{ flexDirection: 'row' }}>
+                      //         <Text style={medNameStyles.medicationNameTextStyle}>
+                      //           Medication: {med.name}
+                      //         </Text>
+                      //         <Icon name='camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>  
+                      //     </View>
+                      //     <View style={{ flexDirection: 'row' }}>
+                      //       <Text style={medNameStyles.medicationNameTextStyle}>
+                      //         Lot Number: {med.lotNumber}
+                      //       </Text>
+                      //       <Icon name='camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>  
+                      //     </View>
+                      //     <View style={{ flexDirection: 'row', bottomBorderColor:'black', borderBottomWidth:1}}>
+                      //       <Text style={medNameStyles.medicationNameTextStyle}>
+                      //         Expiration Date: {med.expirationDate}
+                      //       </Text>
+                      //       <Icon name='camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>  
+                      //     </View>
+                      //   </View>
+                      //   )
+                      //   }                   
+                      // </ScrollView>

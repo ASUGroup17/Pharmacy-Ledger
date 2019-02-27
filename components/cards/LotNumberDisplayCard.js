@@ -16,7 +16,7 @@ LotNumberDisplayCard  = ({ props }) => {
                     <Item success ={(!props.medication.lotNumber) ? false : true}>
                         <Icon name='checkmark-circle' />
                     </Item>
-                    <Icon name='camera' onPress={() =>  {props.onLotNumberCapture(undefined)} }/>
+                    <Icon type='Ionicons' name='md-reverse-camera' onPress={() =>  {props.onLotNumberCapture(undefined)} }/>
                 </View>
             </View>
         );

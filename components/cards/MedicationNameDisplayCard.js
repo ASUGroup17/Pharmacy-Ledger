@@ -16,7 +16,7 @@ const MedicationNameDisplayCard = ({ props }) => {
                     <Item success ={(!props.medication.name) ? false : true}>
                         <Icon name='checkmark-circle' />
                     </Item>
-                    <Icon name='camera' onPress={() =>  {props.onMedicationCapture(undefined)} }/>
+                    <Icon type='Ionicons' name='md-reverse-camera' onPress={() =>  {props.onMedicationCapture(undefined)} }/>
                 </View>
             </View>
         );
