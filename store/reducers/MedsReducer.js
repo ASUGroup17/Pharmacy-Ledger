@@ -2,7 +2,7 @@ import { HYDRATE_MEDICATION, CLEAR_MEDICATION, CLEAR_DATAFIELD } from '../action
 
 const INITIAL_STATE = {
   ndc: '',
-  medID : null,// or 0  ?
+  medID :  null,
   name: null,
   lotNumber: null,
   expirationDate: null,

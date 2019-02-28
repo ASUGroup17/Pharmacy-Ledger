@@ -11,7 +11,7 @@ import { getMedication } from '../store/actions/MedicationActions';
 import { getLotNumber } from '../store/actions/LotNumberActions';
 import { getExpirationDate } from '../store/actions/ExpirationDateActions';
 import { getMedicationArray } from '../store/actions/MedicationArrayActions';
-import { getMedicationID } from '../store/actions/MedcationIDActions';
+import { getMedicationID } from '../store/actions/MedicationIDActions';
 import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import { insertNewMatch } from '../db/allSchemas';
 import { capturedTextBlocksLot } from './LotNumberCapture';
@@ -210,11 +210,9 @@ class MedicationCapturePage extends Component {
                   //Empties the Array
                   capturedLotNumbers.length = 0;
                   multipleLotCaptures = 0;
-
                   //These next lines assign the value for the medID
                   this.props.onSetMedID(medicationIDValue);
                   medicationIDValue++; 
-              }
             }
         }
         //Once ExpirationDate is captured this will not run. 
@@ -235,7 +233,8 @@ class MedicationCapturePage extends Component {
                 if (expResult != undefined && multipleExpirationCaptures >= 2) {
                   this.props.onExpirationCapture(expResult);
                   capturedExpirationDates.length = 0;
-                  multipleExpirationCaptures = 0;
+                  multipleExpirationCaptures = 0;                 
+              }
               }
             }//end outter else            
         }
