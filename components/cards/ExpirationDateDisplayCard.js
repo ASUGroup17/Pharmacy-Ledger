@@ -14,7 +14,7 @@ const ExpirationDateDisplayCard  = ({ props }) => {
                     <Item success ={(!props.medication.expirationDate) ? false : true}>
                         <Icon name='checkmark-circle' />
                     </Item>
-                    <Icon name='camera' onPress={() =>  {props.onExpirationCapture(undefined)} }/>
+                    <Icon type='Ionicons' name='md-reverse-camera' onPress={() =>  {props.onExpirationCapture(undefined)} }/>
             </View>
         </View>
     );

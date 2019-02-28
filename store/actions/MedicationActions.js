@@ -1,8 +1,7 @@
 import axios from 'axios'
 import {
-    HYDRATE_MEDICATION, CLEAR_MEDICATION_NAME, CLEAR_DATAFIELD
+    HYDRATE_MEDICATION
 } from './types'
-
 
 export const getMedication = (ndcNumbers) => { // expects an array as argument
     const ndcDbUrl = 'https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc='
