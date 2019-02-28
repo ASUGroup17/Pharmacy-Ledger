@@ -33,11 +33,11 @@ let multipleExpirationCaptures = 0;
 
 class MedicationCapturePage extends Component {
 
-
+    //This is called when 'Confirm' button is selected on the VialScanPopupConfirmation Window.  Adds the medication object to the array and clear the medication object
     confirmVialScanHandler = () => {
-      //Need to call the medicationArray actions item here
-      //const { medication } = this.props;
-      //this.props.onLotNumberCapture(undefined);
+      const { medication } = this.props;      
+      this.props.onVialConfirmation(medication);
+      this.props.onLotNumberCapture(1);
     }
 
     continueHandler = () => {
@@ -173,7 +173,7 @@ class MedicationCapturePage extends Component {
 
         //Once lotNumber is captured this will not run. 
         //Sends textBlocks over to LotNumberCapture.js to be parsed for checking if a lot number is found. returns that value.
-        //Then that value is sent to the Redux store
+        //Then that value is sent to the Redux store once this occurs 3 times in a row.
         const { medication } = this.props;
 
         if (!medication.lotNumber) {
@@ -427,7 +427,7 @@ class MedicationCapturePage extends Component {
                           backgroundColor: '#e0f2dc',
                         }}
                       >
-                        {this.state.medicationArray.map((med) =>
+                        {this.props.medicationArray.map((med) =>
                           <Text>
                             Medication Name: {med.medicationName}{"\n"}
                             Lot Number: {med.lotNumber}{"\n"}
@@ -448,7 +448,7 @@ class MedicationCapturePage extends Component {
                       }                
                         actions={[
                         <DialogButton text="Confirm" style={{ backgroundColor: '#e0f2dc' }} key="confirmMedButton"
-                        onPress={ () => {  }}/>,
+                        onPress={this.confirmVialScanHandler }/>,
                         <DialogButton text="Discard Scan" style={{ backgroundColor: '#e0f2dc' }} key="DiscardScanButton"
                           onPress={ () =>{  this.props.onLotNumberCapture(1);  }} />
                       ]}
@@ -487,9 +487,9 @@ class MedicationCapturePage extends Component {
                     <View style={styles.groupTight}>
 
                         
-                        <MedicationNameDisplayCard/>  
-                        <LotNumberDisplayCard/>  
-                        <ExpirationDateDisplayCard/>
+                        <MedicationNameDisplayCard props ={this.props}/>  
+                        <LotNumberDisplayCard props={this.props}/>  
+                        <ExpirationDateDisplayCard props={this.props}/>
 
                     </View>
                     <Button bordered style={commonStyles.button} onPress={this.addAnotherMedHandler}>
@@ -502,11 +502,6 @@ class MedicationCapturePage extends Component {
                             Continue
                         </Text>
                     </Button>
-{/*<Button bordered style={commonStyles.button} onPress={this.onPressButtonPlay.bind(this)}>
-                        <Text>
-                            Play
-                        </Text>
-                    </Button> */}
                 </View>
                     <Text style={commonStyles.link}
                       onPress={() => {
