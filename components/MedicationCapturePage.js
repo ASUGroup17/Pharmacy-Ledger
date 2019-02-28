@@ -432,7 +432,7 @@ class MedicationCapturePage extends Component {
                           backgroundColor: '#e0f2dc',
                         }}
                       >
-                        {this.props.medicationArray.map((med) =>
+                        {this.props.medicationsArray.medicationsArray.map((med) =>
                           <Text>
                             Medication Name: {med.medicationName}{"\n"}
                             Lot Number: {med.lotNumber}{"\n"}
