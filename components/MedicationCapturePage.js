@@ -20,6 +20,8 @@ import MedicationNameDisplayCard from './cards/MedicationNameDisplayCard';
 import LotNumberDisplayCard from './cards/LotNumberDisplayCard';
 import ExpirationDateDisplayCard from './cards/ExpirationDateDisplayCard';
 import { medicationDataDisplayStyles  as medNameStyles } from '../styles/common';
+import MedicationOptionsPopup from './cards/MedicationOptionsPopup';
+
 
 
 var SoundPlayer = require('react-native-sound');
@@ -88,6 +90,8 @@ class MedicationCapturePage extends Component {
       visiblePopup: false,
       visiblePopup1: false,
       confirmVialPopup: null,
+      medicationOptionsPopup: false,
+
       setState: false
     };
 
@@ -148,13 +152,13 @@ class MedicationCapturePage extends Component {
     }
 
 
-    parseTextBlock = (textBlocks) => { 
-        //These two arrays will have the textBlocks added to them 
-        let capturedArray = [];    
+    parseTextBlock = (textBlocks) => {
+        //These two arrays will have the textBlocks added to them
+        let capturedArray = [];
 
         textBlocks.forEach(function(element){
             if (element.type == 'line') {console.log("Kevin: line " + element.value);}
-            
+
             if(element.type == 'element'){
                 console.log("TERIN TEST2!")
                 console.log("WORD: " + element.value)
@@ -171,7 +175,7 @@ class MedicationCapturePage extends Component {
             }
         }, this);
 
-        //Once lotNumber is captured this will not run. 
+        //Once lotNumber is captured this will not run.
         //Sends textBlocks over to LotNumberCapture.js to be parsed for checking if a lot number is found. returns that value.
         //Then that value is sent to the Redux store once this occurs 3 times in a row.
         const { medication } = this.props;
@@ -197,6 +201,7 @@ class MedicationCapturePage extends Component {
             }
         }
         //Once ExpirationDate is captured this will not run. 
+
         //Sends textBlocks over to ExpirationDateCapture.js to be parsed for checking if a expirationdate is found. returns that value.
         //Then that value is sent to the Redux store
         if (!medication.expirationDate) {
@@ -350,7 +355,7 @@ class MedicationCapturePage extends Component {
                 if(error)
                     console.log('Error when iniliazing', error);
             });
-            
+
         }
 
         onPressButtonPlay(){
@@ -492,18 +497,34 @@ class MedicationCapturePage extends Component {
                         <ExpirationDateDisplayCard props={this.props}/>
 
                     </View>
-                    <Button bordered style={commonStyles.button} onPress={this.addAnotherMedHandler}>
-                        <Text>
-                            Add Another Medication
-                        </Text>
-                    </Button>
-                    <Button bordered style={commonStyles.button} onPress={this.continueHandler}>
-                        <Text>
-                            Continue
-                        </Text>
-                    </Button>
+         
                 </View>
-                    <Text style={commonStyles.link}
+                
+                <Text style={commonStyles.linkRed}
+                  onPress={() => {
+                    this.setState({ medicationOptionsPopup: true });
+                  }}
+                > Popup Holder</Text>
+                <MedicationOptionsPopup
+                  visible={this.state.medicationOptionsPopup}
+                  onAddAnotherMed={() => {
+                    this.addAnotherMedHandler()
+                    this.setState({ medicationOptionsPopup: false });
+                  }}
+                  onViewCart={() => {
+                    this.setState({ visiblePopup1: true });
+                  }}
+                  onFinalize={() => {
+                    this.continueHandler()
+                    this.setState({ medicationOptionsPopup: false });
+                  }}
+                  onClose={() => {
+                    this.setState({ medicationOptionsPopup: false });
+                  }}
+                  >
+                </MedicationOptionsPopup>
+
+                    <Text style={commonStyles.linkRed}
                       onPress={() => {
                         this.setState({ visiblePopup: true });
                       }}
