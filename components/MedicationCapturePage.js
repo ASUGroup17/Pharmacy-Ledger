@@ -312,6 +312,8 @@ class MedicationCapturePage extends Component {
                 if(error)
                     console.log('Error when iniliazing negative audio', error);
             });
+
+            var negAudio = setInterval(audioNegative(), 7000);
             
         }
 
@@ -338,6 +340,12 @@ class MedicationCapturePage extends Component {
         // This medication variable will represent props, and will be updated accordingly whenever mapStateToProps is called
         //The Different attributes used for the medication object are defined in the MedsReducer.js file
         const { medication } = this.props;
+        
+        /** checks for audio clearInterval */
+        if(medication.medicationName != null && medication.lotNumber != null && medication.expDate !=null){
+            clearInterval(negAudio);
+        }
+
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
