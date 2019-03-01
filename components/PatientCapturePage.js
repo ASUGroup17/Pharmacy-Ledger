@@ -47,14 +47,7 @@ class PatientCapturePage extends Component {
                 console.log('Error when iniliazing negative audio', error);
         });
 
-        /*this._interval = setInterval(() => {
-            if(song != null){
-                negSound.play((success) => {
-                    if(!success)
-                    console.log('Error when playing');
-                });
-            }
-        }, 5000);*/
+        var negAudio = setInterval(this.audioNegative, 5000);
         
     }
 
@@ -92,6 +85,12 @@ class PatientCapturePage extends Component {
     render () {
         // destructures patient from this.props object
         const { patient } = this.props
+
+        //Clears interval for negative audio
+        if(patient.id != null){
+            clearInterval(negAudio);
+        }
+
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
