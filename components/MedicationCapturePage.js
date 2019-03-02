@@ -9,7 +9,7 @@ import { getExpirationDate } from '../store/actions/ExpirationDateActions';
 import axios from 'axios'
 import { medicationCaptureStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import { insertNewMatch, queryAllMatches } from '../db/allSchemas';
-import realm from '../db/allSchemas';
+// import realm from '../db/allSchemas';
 import PatientInfoCard from './cards/PatientInfoCard';
 import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
 
@@ -107,7 +107,7 @@ class MedicationCapturePage extends Component {
     createMatch = (ndc, keyword, findField, keywordElement, findFieldElement) => {
         console.log("NDC: " + this.state.ndc + " Type of:" + typeof this.state.ndc)
         const match = {
-            id: realm.objects(MATCH_SCHEMA).length + 1,
+            // id: realm.objects(MATCH_SCHEMA).length + 1,
             ndc: ndc.toString(),
             keyword: keyword,
             width: parseFloat(keywordElement.map(b => b.bounds.size.width)),

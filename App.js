@@ -25,14 +25,21 @@ import { navigatorStyle } from './styles/common'
 
 registerComponents()
 
-// Start App
-Navigation.startSingleScreenApp({
-  screen: {
-    screen: 'pharmacy-ledger.LoginPage',
-    title: 'Pharmacy Ledger Login',
-    navigatorStyle: navigatorStyle
-  }
+Navigation.events().registerAppLaunchedListener(() => {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: 'pharmacy-ledger.LoginPage'
+      }
+    }
+  })
+
 })
+// screen: {
+//   screen: 'pharmacy-ledger.LoginPage',
+//   title: 'Pharmacy Ledger Login',
+//   navigatorStyle: navigatorStyle
+// }
 
 // type Props = {};
 // export default class App extends Component<Props> {
