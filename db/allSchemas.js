@@ -2,7 +2,7 @@
 Author: Terin Champion
 Team: 17
 Project: Pharmacy Ledger
-Realm database Schemas to track word distance from keyword.
+Realm database Schemas to track word distance from keyword and store medication transaction information.
 */
 
 
@@ -31,6 +31,21 @@ export const matchSchema = {
     findY: { type: 'double' },
     // Field that is found at this distance relative to the keyword.
     findField: { type: 'string' }
+  }
+}
+
+//Define Transaction
+export const transactionSchema = {
+  name: TRANSACTION_SCHEMA,
+  primaryKey: 'transId',
+  properties: {
+    transId: 'int', //Primary Key
+    date: { type: 'date' },
+    patientId: { type: 'string' },
+    lotNumber: { type: 'string' },
+    expirationDate: { type: 'date' },
+    ndc: { type: 'string' },
+    provider: { type: 'string' }
   }
 }
 
