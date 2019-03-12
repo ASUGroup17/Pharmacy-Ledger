@@ -7,7 +7,7 @@ import { getMedication } from '../store/actions/MedicationActions';
 import { getLotNumber } from '../store/actions/LotNumberActions';
 import { getExpirationDate } from '../store/actions/ExpirationDateActions';
 import { getMedicationArray } from '../store/actions/MedicationArrayActions';
-import { getMedicationID } from '../store/actions/MedcationIDActions';
+import { getMedicationID } from '../store/actions/MedicationIDActions';
 import { confirmationPageStyles as styles, commonStyles } from '../styles/common'
 import { medicationDataDisplayStyles  as medNameStyles } from '../styles/common';
 import  PatientInfoCard  from './cards/PatientInfoCard';
