@@ -1,6 +1,5 @@
 import React from 'react';
 import { View } from 'react-native';
-import { connect } from 'react-redux';
 import { Item, Icon } from 'native-base';
 
 import LotNumberLine from './LotNumberLine';
@@ -9,22 +8,18 @@ import { medicationDataDisplayStyles  as medNameStyles } from '../../styles/comm
 
 //Creates a Component to be used on the MedicationCapturePage to display Lot No Informaiton with
 // proper icons
-const LotNumberDisplayCard  = ({ medication }) => {
-    return (
-        <View style={medNameStyles.medicationNameContainer}>
-            <LotNumberLine/>
-            <View style={medNameStyles.medicationNameCheckmarkStyle}>
-                    <Item success ={(!medication.lotNumber) ? false : true}>
+LotNumberDisplayCard  = ({ props }) => {
+        return (
+            <View style={medNameStyles.medicationNameContainer}>
+                <LotNumberLine/>
+                <View style={medNameStyles.medicationNameCheckmarkStyle}>
+                    <Item success ={(!props.medication.lotNumber) ? false : true}>
                         <Icon name='checkmark-circle' />
                     </Item>
+                    <Icon type='Ionicons' name='md-reverse-camera' onPress={() =>  {props.onLotNumberCapture(undefined)} }/>
+                </View>
             </View>
-        </View>
-    );
-}
+        );
+    }
 
-const mapStateToProps = (state) => {
-    return {
-        medication : state.medication
-    };}
-
-export default connect (mapStateToProps)(LotNumberDisplayCard);
+export default LotNumberDisplayCard;

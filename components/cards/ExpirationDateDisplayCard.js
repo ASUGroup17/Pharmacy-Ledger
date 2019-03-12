@@ -6,23 +6,18 @@ import { Item, Icon } from 'native-base';
 import ExpirationDateLine from './ExpirationDateLine';
 import { medicationDataDisplayStyles  as medNameStyles } from '../../styles/common'; 
 
-const ExpirationDateDisplayCard  = ({ medication }) => {
+const ExpirationDateDisplayCard  = ({ props }) => {
     return (
         <View style={medNameStyles.medicationNameContainer}>
             <ExpirationDateLine/>
             <View style={medNameStyles.medicationNameCheckmarkStyle}>
-                    <Item success ={(!medication.expirationDate) ? false : true}>
+                    <Item success ={(!props.medication.expirationDate) ? false : true}>
                         <Icon name='checkmark-circle' />
                     </Item>
+                    <Icon type='Ionicons' name='md-reverse-camera' onPress={() =>  {props.onExpirationCapture(undefined)} }/>
             </View>
         </View>
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        medication : state.medication
-    };
-}
-
-export default connect (mapStateToProps)(ExpirationDateDisplayCard);
+export default ExpirationDateDisplayCard;

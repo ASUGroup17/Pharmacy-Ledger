@@ -1,10 +1,12 @@
-import { HYDRATE_MEDICATION } from '../actions/types'
+import { HYDRATE_MEDICATION, CLEAR_MEDICATION, CLEAR_DATAFIELD } from '../actions/types'
 
 const INITIAL_STATE = {
   ndc: '',
-  name: '',
-  lotNumber: '',
-  expirationDate: ''
+  medID :  null,
+  name: null,
+  lotNumber: null,
+  expirationDate: null,
+  
 }
 
 // boilerplate
@@ -12,7 +14,12 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case HYDRATE_MEDICATION: {
-      console.log(action.payload)
+      return { ...state, ...action.payload }
+    }
+    case CLEAR_MEDICATION: {
+      return  INITIAL_STATE ;
+    }
+    case CLEAR_DATAFIELD: {
       return { ...state, ...action.payload }
     }
     default:
