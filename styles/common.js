@@ -83,6 +83,7 @@ export const medicationDataDisplayStyles = StyleSheet.create({
   },
   //The portion of the Container that has the checkmark Icon
   medicationNameCheckmarkStyle: {
+    flexDirection: 'row',
     alignItems: "flex-end"
   }
 });
