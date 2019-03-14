@@ -24,6 +24,8 @@ import MedicationOptionsPopup from './cards/MedicationOptionsPopup';
 import MedicationNameLine from './cards/MedicationNameLine';
 import DuplicateMedicationPopup from './cards/DuplicateMedicationPopup';
 import ConfirmVialScanPopUp from './cards/ConfirmVialScanPopUp';
+import ShoppingCartPopUp from './cards/ShoppingCartPopUp';
+import ChangePatientPopUp from './cards/ChangePatientPopUp';
 
 
 
@@ -419,59 +421,15 @@ class MedicationCapturePage extends Component {
                       this.setState({ visiblePopup1: true });
                     }}
                     />
-                    <Dialog
-                      visible={this.state.visiblePopup1}
-                      onTouchOutside={() => {
-                        this.setState({ visiblePopup1: false });
-                      }}
-                      dialogTitle={
-                        <DialogTitle
-                          title="Scanned Medications"
-                          style={{
-                            backgroundColor: '#e0f2dc',
-                          }}
-                          hasTitleBar={false}
-                          align="left"
-                        />
-                      }
-                      actions={[ <DialogButton text="OK" style={{backgroundColor: '#e0f2dc' }}
-                          onPress={() => { this.setState({ visiblePopup1: false }); }}
-                          key="button-4" /> ]}
-                    >
-                    <ScrollView endFillColor='#e0f2dc' centerContent='true'>
-                      <DialogContent
-                        style={{
-                          width:350,
-                          backgroundColor: '#e0f2dc',
-                        }}
-                      >                    
-                        {this.props.medicationsArray.medicationsArray.map((med) =>
-                        <View  key={med.medID}>
-                          <View style={{ flexDirection: 'row' }}>
-                              <Text style={medNameStyles.medicationNameTextStyle}>
-                                Medication: {med.name}
-                              </Text>
-                              <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>  
-                          </View>
-                          <View style={{ flexDirection: 'row' }}>
-                            <Text style={medNameStyles.medicationNameTextStyle}>
-                              Lot Number: {med.lotNumber}
-                            </Text>
-                            <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>  
-                          </View>
-                          <View style={{ flexDirection: 'row', bottomBorderColor:'black', borderBottomWidth:1}}>
-                            <Text style={medNameStyles.medicationNameTextStyle}>
-                              Expiration Date: {med.expirationDate}
-                            </Text>
-                            <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>  
-                          </View>
-                        </View>
-                        )
-                        }
-                        
-                      </DialogContent>
-                      </ScrollView>
-                    </Dialog>
+
+                    <ShoppingCartPopUp
+                      visible = {this.state.visiblePopup1}
+                      medicationsArray={this.props.medicationsArray.medicationsArray} 
+                      onMakeInvisible={() => { this.setState({ visiblePopup1 : false })}}
+                      onClearMedicationName={()=> { this.props.onMedicationCapture(undefined)}}
+                      onClearLotNumber={()=> {this.props.onLotNumberCapture(undefined)}}
+                      onClearExpirationDate={()=> {this.props.onExpirationCapture(undefined)}}                      
+                      />
 
                      <ConfirmVialScanPopUp 
                       visible={((medication.name !== null && medication.lotNumber !== null && medication.expirationDate !== null) && (this.state.confirmVialPopup != false))}//{this.state.confirmVialPopup}
@@ -523,7 +481,15 @@ class MedicationCapturePage extends Component {
                         this.setState({ visiblePopup: true });
                       }}
                     > Change Patient</Text>
-                    <Dialog
+
+                <ChangePatientPopUp 
+                  visible={ this.state.visiblePopup }
+                  onMakeInvisible={() => this.setState({ visiblePopup : false })}
+                  onPatientHandler={() => {
+                    this.setState({ visiblePopup : false })
+                    this.changePatientHandler()} }
+                />
+                    {/*<Dialog
                       visible={this.state.visiblePopup}
                       onTouchOutside={() => {
                         this.setState({ visiblePopup: false });
@@ -544,7 +510,9 @@ class MedicationCapturePage extends Component {
                           style={{
                             backgroundColor: '#e0f2dc',
                           }}
-                          onPress={this.changePatientHandler}
+                          onPress={() => { 
+                            this.setState({ visiblePopup : false })
+                            this.changePatientHandler() }}
                           key="button-2"
                         />,
                         <DialogButton
@@ -566,7 +534,7 @@ class MedicationCapturePage extends Component {
                       >
                         <Text>You are requesting to go back to the Add Patient page. Any medications currently scanned will not be saved. Select OK to continue to Add Patient page.</Text>
                       </DialogContent>
-                    </Dialog>
+                      </Dialog>*/}
                     <DuplicateMedicationPopup 
                         visible={this.state.duplicatePopupVisibility}
                         duplicateName = {medication.name} 
