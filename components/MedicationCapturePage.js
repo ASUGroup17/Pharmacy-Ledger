@@ -26,6 +26,8 @@ var negSound = null;
 
 class MedicationCapturePage extends Component {
 
+  
+
     continueHandler = () => {
 
         this.props.navigator.push({
@@ -48,6 +50,8 @@ class MedicationCapturePage extends Component {
                 medicationCount : this.state.medicationCount
             }
         })
+
+        //clearInterval(this.negAudio);
     }
 
     addAnotherMedHandler = () => {
@@ -313,7 +317,7 @@ class MedicationCapturePage extends Component {
                     console.log('Error when iniliazing negative audio', error);
             });
 
-            var negAudio = setInterval(this.audioNegative, 7000);
+            //var negAudio = setInterval(this.audioNegative, 5000);
             
         }
 
@@ -342,8 +346,12 @@ class MedicationCapturePage extends Component {
         const { medication } = this.props;
         
         /** checks for audio clearInterval */
-        if(medication.medicationName != null && medication.lotNumber != null && medication.expDate !=null){
-            clearInterval(negAudio);
+        //if(medication.medicationName && medication.lotNumber && medication.expDate){
+            //clearInterval(this.negAudio);
+        //}
+
+        if(medication.name && medication.lotNumber && medication.expirationDate){
+          clearInterval(this.negAudio);
         }
 
         return (

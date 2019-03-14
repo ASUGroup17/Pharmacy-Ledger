@@ -21,6 +21,9 @@ var negSound = null;
 
 class PatientCapturePage extends Component {
 
+    // Intializes the variable for the negative audio interval
+    negAudio = 0;
+
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.MedicationCapturePage',
@@ -37,17 +40,21 @@ class PatientCapturePage extends Component {
     // For audible sounds
     //------------------------------------------------------------
     componentWillMount(){
+
+        // Initializes the positive audio notification
         song = new SoundPlayer('ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
             if(error)
                 console.log('Error when iniliazing', error);
         });
 
+        // Initializes the negative audio notification
         negSound = new SoundPlayer('error_notification.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
             if(error)
                 console.log('Error when iniliazing negative audio', error);
         });
 
-        var negAudio = setInterval(this.audioNegative, 5000);
+        // Initializes the negative audio notification interval timer
+        this.negAudio = setInterval(this.audioNegative, 5000);
         
     }
 
@@ -60,20 +67,14 @@ class PatientCapturePage extends Component {
         }
     }
 
-    audioNegative(){
+    audioNegative(){    
         if(song != null){
             negSound.play((success) => {
                 if(!success)
                 console.log('Error when playing');
             });
-        }
+        }     
     }
-
-    componentWillUnmount() {
-        //clearInterval(this._interval);
-        timer.clearInterval(this);
-    }
-    //------------------------------------------------------------
 
     /*
       Sets the state of this object's patientID to e.data. e is the barcode's info:
@@ -87,8 +88,8 @@ class PatientCapturePage extends Component {
         const { patient } = this.props
 
         //Clears interval for negative audio
-        if(patient.id != null){
-            clearInterval(negAudio);
+        if(patient.id){
+            clearInterval(this.negAudio);
         }
 
         return (
