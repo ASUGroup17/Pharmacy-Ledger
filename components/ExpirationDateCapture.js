@@ -19,9 +19,11 @@ let expPat7 = new RegExp(/(0[123456789]|10|11|12)([-]|[\s]|[/])([0-9][0-9])$/); 
 
 
 // Are expPat 8 & 9 too loose of requirments? I'm concerned they would captured too frequently, creating false positives
-let expPat8 = new RegExp(/\bexp\b/);
+//let expPat8 = new RegExp(/\bexp\b/);
+let expPat8 = new RegExp(/\bexp/);
 
-let expPat9 = new RegExp(/\bexpiry\b/);
+//let expPat9 = new RegExp(/\bexpiry\b/);
+let expPat9 = new RegExp(/\bexpiry/);
 
 export const capturedTextBlocksExpiration = (textBlocks) => {
     let expiredFound = false;

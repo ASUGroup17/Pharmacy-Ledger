@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import { View, ScrollView } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { Container, Content, Text, Icon } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import realm from '../db/allSchemas';
-import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
 
 import PatientInfoCard from './cards/PatientInfoCard';
 import { getMedication } from '../store/actions/MedicationActions';
@@ -19,9 +18,7 @@ import { capturedTextBlocksExpiration } from './ExpirationDateCapture';
 import MedicationNameDisplayCard from './cards/MedicationNameDisplayCard';
 import LotNumberDisplayCard from './cards/LotNumberDisplayCard';
 import ExpirationDateDisplayCard from './cards/ExpirationDateDisplayCard';
-import { medicationDataDisplayStyles  as medNameStyles } from '../styles/common';
 import MedicationOptionsPopup from './cards/MedicationOptionsPopup';
-import MedicationNameLine from './cards/MedicationNameLine';
 import DuplicateMedicationPopup from './cards/DuplicateMedicationPopup';
 import ConfirmVialScanPopUp from './cards/ConfirmVialScanPopUp';
 import ShoppingCartPopUp from './cards/ShoppingCartPopUp';
@@ -489,67 +486,22 @@ class MedicationCapturePage extends Component {
                     this.setState({ visiblePopup : false })
                     this.changePatientHandler()} }
                 />
-                    {/*<Dialog
-                      visible={this.state.visiblePopup}
-                      onTouchOutside={() => {
-                        this.setState({ visiblePopup: false });
-                      }}
-                      dialogTitle={
-                        <DialogTitle
-                          title="Change Patient"
-                          style={{
-                            backgroundColor: '#e0f2dc',
-                          }}
-                          hasTitleBar={false}
-                          align="left"
-                        />
-                      }
-                      actions={[
-                        <DialogButton
-                          text="OK"
-                          style={{
-                            backgroundColor: '#e0f2dc',
-                          }}
-                          onPress={() => { 
-                            this.setState({ visiblePopup : false })
-                            this.changePatientHandler() }}
-                          key="button-2"
-                        />,
-                        <DialogButton
-                          text="Cancel"
-                          style={{
-                            backgroundColor: '#e0f2dc',
-                          }}
-                          onPress={() => {
-                            this.setState({ visiblePopup: false });
-                          }}
-                          key="button-3"
-                        />
-                      ]}
-                    >
-                      <DialogContent
-                        style={{
-                          backgroundColor: '#e0f2dc',
-                        }}
-                      >
-                        <Text>You are requesting to go back to the Add Patient page. Any medications currently scanned will not be saved. Select OK to continue to Add Patient page.</Text>
-                      </DialogContent>
-                      </Dialog>*/}
-                    <DuplicateMedicationPopup 
-                        visible={this.state.duplicatePopupVisibility}
-                        duplicateName = {medication.name} 
-                        medArray={this.props.medicationsArray.medicationsArray} 
-                        makeInvisible={() => {
-                          this.props.onLotNumberCapture(1);
-                          this.setState({ duplicatePopupVisibility : false });
-                        }}
-                        makeVisible={()=> {this.setState({ duplicatePopupVisibility:true })}}
-                        confirmDuplicate={()=> {
-                          this.props.onVialConfirmation(medication);
-                          this.props.onLotNumberCapture(1);
-                          this.setState({ duplicatePopupVisibility : false})
-                        }}
-                        />
+                    
+                <DuplicateMedicationPopup 
+                    visible={this.state.duplicatePopupVisibility}
+                    duplicateName = {medication.name} 
+                    medArray={this.props.medicationsArray.medicationsArray} 
+                    makeInvisible={() => {
+                      this.props.onLotNumberCapture(1);
+                      this.setState({ duplicatePopupVisibility : false });
+                    }}
+                    makeVisible={()=> {this.setState({ duplicatePopupVisibility:true })}}
+                    confirmDuplicate={()=> {
+                      this.props.onVialConfirmation(medication);
+                      this.props.onLotNumberCapture(1);
+                      this.setState({ duplicatePopupVisibility : false})
+                    }}
+                    />
                 </Content>
             </Container>
         );
@@ -584,12 +536,6 @@ const mapDispatchToProps = (dispatch) => {
         onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate)),
         onVialConfirmation: (medication) => dispatch(getMedicationArray(medication)),
         onSetMedID: (medicationIDValue) => dispatch(getMedicationID(medicationIDValue))
-        /* Once a Vial Scan is confirmed by user: 
-          -'medication' is the medication object that was just scanned and confirmed by user. it has lotNumber, name & expirationDate.
-          -medication will be passed to the medicationArray Action to add it to the existing array.
-          -a method such as 'onMedicationConfirmed' (when a medication is initially confirmed) should be when onVialConfirmation should be called,
-          the 'medication' state should be reset since the MedicationsArray would now contain the recently scanned vial 
-        */
     }
 }
 
