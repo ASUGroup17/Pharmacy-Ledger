@@ -11,6 +11,7 @@ import { all } from 'rsvp';
 
 
 export const MATCH_SCHEMA = 'Match'
+export const TRANSACTION_SCHEMA = 'Transaction'
 
 // Define Match
 export const matchSchema = {
@@ -52,7 +53,7 @@ export const transactionSchema = {
 // Database options
 const databaseOptions = {
   path: 'pharmacyLedgerDb.realm',
-  schema: [matchSchema],
+  schema: [matchSchema, transactionSchema],
   schemaVersion: 0
 }
 
