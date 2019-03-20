@@ -111,4 +111,13 @@ export const queryNdcMatches = (ndc) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));;
 })
 
+// functions for Transactions List
+export const insertNewTransaction = newTransaction => new Promise((resolve, reject) => {
+  Realm.open(databaseOptions).then(realm => {
+    realm.write(() => {
+      realm.create(TRANSACTION_SCHEMA, newTransaction)
+      resolve(newTransaction)
+    })
+  }).catch((error) => reject(error))
+})
 export default new Realm(databaseOptions);
