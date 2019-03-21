@@ -120,4 +120,13 @@ export const insertNewTransaction = newTransaction => new Promise((resolve, reje
     })
   }).catch((error) => reject(error))
 })
+
+export const queryTransactions = (startDate, endDate, lotNumber, ndc, patientId, provider) => new Promise((resolve, reject) => {
+  Realm.open(databaseOptions).then(realm => {
+      let allTransactions = realm.objects(TRANSACTION_SCHEMA).filtered(
+        'date >= $0 AND date <= $1 AND lotNumber LIKE $2 AND ndc == $3 AND patientId == $4 AND provider == $5', 
+        startDate, endDate, lotNumber, ndc, patientId, provider)
+      resolve(allTransactions);
+  }).catch((error) => reject(error));;
+})
 export default new Realm(databaseOptions);
