@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View } from 'react-native'
 import { connect } from 'react-redux'
-import { Container, Content, Text, Icon } from 'native-base'
+import { Container, Content, Text, Icon, Item } from 'native-base'
 import { RNCamera } from 'react-native-camera'
 import realm from '../db/allSchemas';
 
@@ -410,14 +410,31 @@ class MedicationCapturePage extends Component {
                         ref={cam => this.camera = cam}
                         >
                     </RNCamera>
-                    {/*
-                    Popup dialog for medication list.
-                    */}
-                    <Icon style={commonStyles.medIcon} name='medkit'
-                    onPress={() => {
-                      this.setState({ visiblePopup1: true });
-                    }}
-                    />
+
+                    <View flexDirection="row" justifyContent="space-around">
+                            {/*
+                            Popup dialog for medication list.
+                            */}
+                            <Icon style={commonStyles.medIcon} name='medkit'
+                            onPress={() => {
+                            this.setState({ visiblePopup1: true });
+                            }}
+                            />
+                        
+                        <Item success ={(!medication.lotNumber) ? false : true}>
+                            <Icon type="FontAwesome" name="hashtag"></Icon>
+                        </Item>
+                        
+                        <Item success ={(!medication.expirationDate) ? false : true}>
+                                <Icon type="FontAwesome" name="calendar"></Icon>
+                        </Item>
+
+                        <Item success ={(!medication.name) ? false : true}>
+                                <Icon type="FontAwesome" name="barcode"></Icon>
+                        </Item>
+                    </View>
+                     
+                    
 
                     <ShoppingCartPopUp
                       visible = {this.state.visiblePopup1}
