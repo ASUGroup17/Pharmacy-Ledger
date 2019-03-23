@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -45,6 +46,7 @@
 		533CBE1138B24228AEDCD75F /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AF80E73BC340C9BE0D0730 /* libRNCamera.a */; };
 		54932CD079F045EFA11209B5 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0B1A0E03B9744E685927937 /* Feather.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		8EF5BDA91C83404183AE18B8 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9604B133194F03ABC635F6 /* libRNSound.a */; };
 		91793366B9944AF6B80C67D8 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 871F16E15FFD4EEF91FA2CFF /* libc++.tbd */; };
 		9187C746A7024BF3B5E259E1 /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FFE27287909B4AE1ACCE8DC2 /* Roboto_medium.ttf */; };
 		943F175E63254B14A5F9735F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EFC7107B8214FF1A86CCB72 /* libz.tbd */; };
@@ -59,7 +61,6 @@
 		DC043C972186AFA000681D95 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC043C962186AFA000681D95 /* Ionicons.ttf */; };
 		DC8874EE21867718003F0A72 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8874ED218676E9003F0A72 /* libReactNativeNavigation.a */; };
 		EBD6963962014E14B6DF0E77 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42346CD542964FF7B984C158 /* rubicon-icon-font.ttf */; };
-		8EF5BDA91C83404183AE18B8 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9604B133194F03ABC635F6 /* libRNSound.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -301,6 +302,13 @@
 			remoteGlobalIDString = 3D3CD9181DE5FBD800167DC4;
 			remoteInfo = "jschelpers-tvOS";
 		};
+		542431F222469E4500D68FB5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50C837C24C074D2099CCB635 /* RNSound.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
+			remoteInfo = RNSound;
+		};
 		5435B2F321AE18E00034090D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A3EAD5D53491414A9E856743 /* RNCamera.xcodeproj */;
@@ -402,6 +410,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PharmacyLedger/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1B45A6194DA84C58997B172E /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		1D9604B133194F03ABC635F6 /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
 		2055E66A4FFD4AA7B750AEA0 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		21F1164830244A09904C88A5 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* PharmacyLedger-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PharmacyLedger-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -414,6 +423,7 @@
 		42346CD542964FF7B984C158 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		473D73D7E6FB4CD790223CA2 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		4E604E7D9B754BF7BAC50807 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		50C837C24C074D2099CCB635 /* RNSound.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSound.xcodeproj; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6BD5CEE3A3A740AA86725D15 /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -432,8 +442,6 @@
 		F3FDDDE7186543C69D51EA8B /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		F7AF80E73BC340C9BE0D0730 /* libRNCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCamera.a; sourceTree = "<group>"; };
 		FFE27287909B4AE1ACCE8DC2 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
-		50C837C24C074D2099CCB635 /* RNSound.xcodeproj */ = {isa = PBXFileReference; name = "RNSound.xcodeproj"; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		1D9604B133194F03ABC635F6 /* libRNSound.a */ = {isa = PBXFileReference; name = "libRNSound.a"; path = "libRNSound.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -645,12 +653,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		542431EF22469E4400D68FB5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				542431F322469E4500D68FB5 /* libRNSound.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5435B2C721AE18DA0034090D /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 				F7AF80E73BC340C9BE0D0730 /* libRNCamera.a */,
 				3471048B747A4108B351980C /* libRealmReact.a */,
 				21F1164830244A09904C88A5 /* libSplashScreen.a */,
+				1D9604B133194F03ABC635F6 /* libRNSound.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -961,6 +978,10 @@
 					ProjectRef = A3EAD5D53491414A9E856743 /* RNCamera.xcodeproj */;
 				},
 				{
+					ProductGroup = 542431EF22469E4400D68FB5 /* Products */;
+					ProjectRef = 50C837C24C074D2099CCB635 /* RNSound.xcodeproj */;
+				},
+				{
 					ProductGroup = DC043C672186AF0300681D95 /* Products */;
 					ProjectRef = DC043C662186AF0300681D95 /* RNVectorIcons.xcodeproj */;
 				},
@@ -1204,6 +1225,13 @@
 			remoteRef = 3DAD3EAE1DF850E9000B6D8A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		542431F322469E4500D68FB5 /* libRNSound.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSound.a;
+			remoteRef = 542431F222469E4500D68FB5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		5435B2F421AE18E00034090D /* libRNCamera.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1440,7 +1468,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
 				);
 				INFOPLIST_FILE = PharmacyLedgerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1472,7 +1500,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
 				);
 				INFOPLIST_FILE = PharmacyLedgerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1505,7 +1533,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
 				);
 				INFOPLIST_FILE = PharmacyLedger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1531,7 +1559,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
 				);
 				INFOPLIST_FILE = PharmacyLedger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1563,7 +1591,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
 				);
 				INFOPLIST_FILE = "PharmacyLedger-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1602,7 +1630,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
 				);
 				INFOPLIST_FILE = "PharmacyLedger-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1640,7 +1668,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
 				);
 				INFOPLIST_FILE = "PharmacyLedger-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1678,7 +1706,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
 				);
 				INFOPLIST_FILE = "PharmacyLedger-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

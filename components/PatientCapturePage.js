@@ -6,7 +6,7 @@
 
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Container, Content, Button, Text, Form, Item, Icon, Input } from 'native-base'
+import { Container, Content, Button, Text, Form, Item, Icon, Input, Row } from 'native-base'
 import { connect } from 'react-redux'
 import { RNCamera } from 'react-native-camera'
 
@@ -98,13 +98,15 @@ class PatientCapturePage extends Component {
                             <Item  success={!patient.id ? false : true}>
                                 {this.onPressButtonPlay(this)}
                             </Item>
-                        </View>                        
-                        <Button bordered style={commonStyles.button} onPress={this.continueHandler}
-                            disabled={!patient.id}>
-                            <Text>
-                                Continue
-                            </Text>
-                        </Button>
+                        </View>  
+                        <Row>
+                            <Button style={commonStyles.button} onPress={this.continueHandler}
+                                disabled={!patient.id}>
+                                <Text>
+                                    Continue
+                                </Text>
+                            </Button>
+                        </Row>
                     </View>
                 </View>
                 </Content>
