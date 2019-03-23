@@ -3,6 +3,16 @@ import { Platform, StyleSheet, Link, View } from 'react-native'
 import { Row, Icon } from 'native-base'
 // <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css"></link>
 
+// Phoenix Children's Color Palette
+const mainRed = '#CE2C34'
+const secondaryRed = '#A32128'
+const actionBlue = '#2C6287'
+const secActionBlue = '#35749F'
+const darkMagenta = '#A3427D'
+const lightMagenta = '#C85185'
+const purple = '#8F5FB4'
+
+
 export const confirmationPageStyles = StyleSheet.create({
   viewStyle: {
     flex: 0,
@@ -78,7 +88,7 @@ export const medicationDataDisplayStyles = StyleSheet.create({
   //The Portions of the Container that has the Text
   medicationNameTextStyle : {
     flex : 1,
-    color: '#0f2362', // a navy color
+    color: darkMagenta,
     flexWrap: 'wrap'
   },
   //The portion of the Container that has the checkmark Icon
@@ -141,15 +151,14 @@ export const commonStyles = StyleSheet.create({
     not used in confirmationPageStyles
   */
   button: {
+    flex: 1,
     alignSelf: 'center',
     justifyContent: 'space-around',
     alignContent: 'space-around',
-    color: '#7E0AF9',
-    backgroundColor: '#63d7cc', // a light teal color
-    marginBottom: 20,
-    marginTop: 20
-  },
-
+    color: '#4D98C5',
+    backgroundColor: '#4D98C5', // a light teal color
+    margin: 20
+  },  
   buttonRight: {
     alignSelf: 'flex-end',
     color: '#7E0AF9',
@@ -218,19 +227,19 @@ export const commonStyles = StyleSheet.create({
   */
   link: {
     alignSelf: 'center',
-    color: '#0000ff', // a navy color
+    color: '#0000ff',
     padding: 2
   },
 
   linkRed: {
     alignSelf: 'flex-start',
-    color: '#ff001d', // a red color
+    color: secondaryRed, // a red color
     padding: 2
   },
 
   patientInfoStyle: {
     // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
-    backgroundColor: '#0f2362', // a navy color
+    backgroundColor: darkMagenta,
     paddingRight: 20,
     paddingBottom: 0,
     paddingTop: 0,
@@ -245,9 +254,14 @@ export const commonStyles = StyleSheet.create({
   }
 })
 
+commonStyles.cancelButton = {
+  ...commonStyles.button,
+  backgroundColor: secondaryRed
+}
+
 export const patientInfoCardStyles = StyleSheet.create({
   patient_ID_DOB_Style: {
-    backgroundColor: '#0f2362', // a navy color
+    backgroundColor: darkMagenta, 
     paddingRight: 20,
     paddingBottom: 0,
     paddingTop: 0,
@@ -256,7 +270,7 @@ export const patientInfoCardStyles = StyleSheet.create({
     //justifyContent: 'center'
   },
   patient_IDStyle: {
-    backgroundColor: '#0f2362', // a navy color
+    backgroundColor: darkMagenta,
     paddingRight: 0,
     paddingBottom: 0,
     paddingTop: 0,
@@ -265,7 +279,7 @@ export const patientInfoCardStyles = StyleSheet.create({
     width: '65%'
   },
   patient_DOBStyle: {
-    backgroundColor: '#0f2362', // a navy color
+    backgroundColor: darkMagenta,
     paddingRight: 0,
     paddingBottom: 0,
     paddingTop: 0,
@@ -276,13 +290,13 @@ export const patientInfoCardStyles = StyleSheet.create({
 })
 
 export const navigatorStyle = {
-  navBarBackgroundColor: 'rgb(236,28,44)', // a red color
+  navBarBackgroundColor: mainRed, // a red color
   navBarTextColor: 'rgb(255,255,255)' // a white color
 }
 
 export const tabBarStyle = {
-  tabBarBackgroundColor: '#0f2362', // A dark blue color
+  tabBarBackgroundColor: darkMagenta, // A dark blue color
   tabBarButtonColor: 'rgb(255,255,255)', // A white color
-  tabBarSelectedButtonColor: '#63d7cc', // a teal color
+  tabBarSelectedButtonColor: actionBlue,
   forceTitlesDisplay: true
 }
