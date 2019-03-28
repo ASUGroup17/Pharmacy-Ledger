@@ -46,10 +46,6 @@ class MedicationCapturePage extends Component {
             title: 'Confirm Transaction',
             navigatorStyle: navigatorStyle,
 
-            /*
-              Passing these props to the next Screen (ConfirmationPage)
-              that will be pushed to the Navigator Stack.
-            */
             passProps: {
                 //These first 4 are from the MedicationCapturePage
                 ndc: this.state.ndc,
@@ -170,10 +166,7 @@ class MedicationCapturePage extends Component {
         let capturedArray = [];
 
         textBlocks.forEach(function(element){
-            if (element.type == 'line') {console.log("Kevin: line " + element.value);}
-
             if(element.type == 'element'){
-                console.log("TERIN TEST2!")
                 console.log("WORD: " + element.value)
                 console.log("WORD:Size.width: " + element.bounds.size.width)
                 console.log("WORD:Size.height: " + element.bounds.size.height)
@@ -182,7 +175,6 @@ class MedicationCapturePage extends Component {
                 capturedArray.push( { word : element.value, xCoord : element.bounds.origin.x, yCoord : element.bounds.origin.y, height : element.bounds.size.height, width : element.bounds.size.width } );
             }
             else{
-                console.log("TERIN TEST3!" + element.type)
                 if(element.components.length > 0)
                     this.parseTextBlock(element.components);
             }

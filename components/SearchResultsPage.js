@@ -59,39 +59,5 @@ class SearchResultsPage extends Component {
  }
 
 
-   /**<Form>
-       <Item>
-           <Input placeholder = "Administering Physician"
-             placeholderTextColor={commonStyles.text.color} />
-       </Item>
-       <Item>
-           <Input placeholder = "Date Administered"
-             placeholderTextColor={commonStyles.text.color} />
-       </Item>
-       <Item>
-           <Input placeholder = "Medication Name"
-             placeholderTextColor={commonStyles.text.color} />
-       </Item>
-       <Item>
-           <Input placeholder = "Lot #"
-             placeholderTextColor={commonStyles.text.color} />
-       </Item>
-       <Item>
-           <Input placeholder = "Concentration"
-             placeholderTextColor={commonStyles.text.color} />
-       </Item>
-       <Item last>
-           <Input placeholder = "Expiration Date"
-             placeholderTextColor={commonStyles.text.color} />
-       </Item>
-   </Form>*/
-
- // const mapStateToProps = ({ searchResult }) => {
- //     return {
- //         searchResult
- //     }
- // }
- //
- // export default connect (mapStateToProps) (SearchResultsPage);
 
 export default SearchResultsPage;
