@@ -423,21 +423,21 @@ class MedicationCapturePage extends Component {
                         <DialogTitle
                           title="Scanned Medications"
                           style={{
-                            backgroundColor: '#e0f2dc',
+                            backgroundColor: '#cbaded',
                           }}
                           hasTitleBar={false}
                           align="left"
                         />
                       }
-                      actions={[ <DialogButton text="OK" style={{backgroundColor: '#e0f2dc' }}
+                      actions={[ <DialogButton text="OK" style={{backgroundColor: '#cbaded' }}
                           onPress={() => { this.setState({ visiblePopup1: false }); }}
                           key="button-4" /> ]}
                     >
-                    <ScrollView endFillColor='#e0f2dc' centerContent='true'>
+                    <ScrollView endFillColor='#cbaded' centerContent='true'>
                       <DialogContent
                         style={{
                           width:350,
-                          backgroundColor: '#e0f2dc',
+                          backgroundColor: '#cbaded',
                         }}
                       >
                         {this.props.medicationsArray.medicationsArray.map((med) =>
@@ -474,13 +474,13 @@ class MedicationCapturePage extends Component {
                       <Dialog
                      visible={((medication.name !== null && medication.lotNumber !== null && medication.expirationDate !== null) && (this.state.confirmVialPopup != false))}
                      dialogTitle={
-                        <DialogTitle title="Confirm Vial Information" style={{ backgroundColor: '#e0f2dc' }} hasTitleBar={true}
+                        <DialogTitle title="Confirm Vial Information" style={{ backgroundColor: '#cbaded' }} hasTitleBar={true}
                           align="left"/>
                       }
                         actions={[
-                        <DialogButton text="Confirm" style={{ backgroundColor: '#e0f2dc' }} key="confirmMedButton"
+                        <DialogButton text="Confirm" style={{ backgroundColor: '#cbaded' }} key="confirmMedButton"
                         onPress= {this.confirmVialScanHandler  }/>,
-                        <DialogButton text="Discard Scan" style={{ backgroundColor: '#e0f2dc' }} key="DiscardScanButton"
+                        <DialogButton text="Discard Scan" style={{ backgroundColor: '#cbaded' }} key="DiscardScanButton"
                           onPress={ () =>{  this.props.onLotNumberCapture(1);  }} />
                       ]}
 
