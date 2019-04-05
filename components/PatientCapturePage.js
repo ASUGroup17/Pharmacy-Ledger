@@ -54,7 +54,7 @@ class PatientCapturePage extends Component {
         });
 
         // Initializes the negative audio notification interval timer
-        this.negAudioInterval = setInterval(this.negAudioPlayer, 5000);
+        this.negAudioInterval = setInterval(this.negAudioPlayer, 30000);
         
     }
 

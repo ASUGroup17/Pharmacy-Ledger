@@ -317,7 +317,7 @@ class MedicationCapturePage extends Component {
                     console.log('Error when iniliazing negative audio', error);
             });
 
-            this.negAudioInterval = setInterval(this.negAudioPlayer, 5000);
+            this.negAudioInterval = setInterval(this.negAudioPlayer, 30000);
         }
 
         posAudioPlayer(){
