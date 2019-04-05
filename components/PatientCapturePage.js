@@ -16,13 +16,13 @@ import PatientInfoCard from './cards/PatientInfoCard';
 
 // For sounds
 var SoundPlayer = require('react-native-sound');
-var sound = null;
-var negSound = null;
+const posSoundInitializer = null;
+const negSoundInitializer = null;
 
 class PatientCapturePage extends Component {
 
     // Intializes the variable for the negative audio interval
-    negAudio = 0;
+    negAudioInterval = 0;
 
     continueHandler = () => {
         this.props.navigator.push({
@@ -42,34 +42,34 @@ class PatientCapturePage extends Component {
     componentWillMount(){
 
         // Initializes the positive audio notification
-        song = new SoundPlayer('ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
+        posSoundInitializer = new SoundPlayer('ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
             if(error)
                 console.log('Error when iniliazing', error);
         });
 
         // Initializes the negative audio notification
-        negSound = new SoundPlayer('error_notification.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
+        negSoundInitializer = new SoundPlayer('error_notification.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
             if(error)
                 console.log('Error when iniliazing negative audio', error);
         });
 
         // Initializes the negative audio notification interval timer
-        this.negAudio = setInterval(this.audioNegative, 5000);
+        this.negAudioInterval = setInterval(this.negAudioPlayer, 5000);
         
     }
 
-    onPressButtonPlay(event){
-        if(song != null){
-            song.play((success) => {
+    posAudioPlayer(event){
+        if(posSoundInitializer != null){
+            posSoundInitializer.play((success) => {
                 if(!success)
                 console.log('Error when playing');
             });
         }
     }
 
-    audioNegative(){    
-        if(song != null){
-            negSound.play((success) => {
+    negAudioPlayer(){    
+        if(negSoundInitializer != null){
+            negSoundInitializer.play((success) => {
                 if(!success)
                 console.log('Error when playing');
             });
@@ -89,7 +89,7 @@ class PatientCapturePage extends Component {
 
         //Clears interval for negative audio
         if(patient.id){
-            clearInterval(this.negAudio);
+            clearInterval(this.negAudioInterval);
         }
 
         return (
@@ -125,7 +125,7 @@ class PatientCapturePage extends Component {
                                 <Icon name='checkmark-circle' />  
                             </Item>
                             <Item  success={!patient.id ? false : true}>
-                                {this.onPressButtonPlay(this)}
+                                {this.posAudioPlayer(this)}
                             </Item>
                         </View>                        
                         <Button bordered style={commonStyles.button} onPress={this.continueHandler}

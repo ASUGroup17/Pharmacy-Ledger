@@ -19,15 +19,14 @@ import MedicationNameDisplayCard from './cards/MedicationNameDisplayCard';
 import LotNumberDisplayCard from './cards/LotNumberDisplayCard';
 import ExpirationDateDisplayCard from './cards/ExpirationDateDisplayCard';
 
-
-var SoundPlayer = require('react-native-sound');
-var sound = null;
-var negSound = null;
+const SoundPlayer = require('react-native-sound');
+const posSoundInitializer = null;
+const negSoundInitializer = null;
 
 class MedicationCapturePage extends Component {
 
   // Intializes the variable for the negative audio interval
-  negAudio = 0;
+  negAudioInterval = 0;
 
     continueHandler = () => {
 
@@ -281,7 +280,7 @@ class MedicationCapturePage extends Component {
 
         /*
         if(this.state.medicationName && this.state.lotNumber && this.state.expDate){
-            onPressButtonPlay();
+            posAudioPlayer();
         }
         */
 
@@ -308,31 +307,31 @@ class MedicationCapturePage extends Component {
         // For audio cues
         //------------------------------------------------------------
         componentWillMount(){
-            song = new SoundPlayer('ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
+            posSoundInitializer = new SoundPlayer('ui_confirmation.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
                 if(error)
                     console.log('Error when iniliazing', error);
             });
 
-            negSound = new SoundPlayer('error_notification.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
+            negSoundInitializer = new SoundPlayer('error_notification.wav', SoundPlayer.MAIN_BUNDLE, (error) => {
                 if(error)
                     console.log('Error when iniliazing negative audio', error);
             });
 
-            this.negAudio = setInterval(this.audioNegative, 5000);
+            this.negAudioInterval = setInterval(this.negAudioPlayer, 5000);
         }
 
-        onPressButtonPlay(){
-            if(song != null){
-                song.play((success) => {
+        posAudioPlayer(){
+            if(posSoundInitializer != null){
+                posSoundInitializer.play((success) => {
                     if(!success)
                     console.log('Error when playing');
                 });
             }
         }
 
-        audioNegative(){
-            if(song != null){
-                negSound.play((success) => {
+        negAudioPlayer(){
+            if(negSoundInitializer != null){
+                negSoundInitializer.play((success) => {
                     if(!success)
                     console.log('Error when playing');
                 });
@@ -346,7 +345,7 @@ class MedicationCapturePage extends Component {
         const { medication } = this.props;
 
         if(medication.name && medication.lotNumber && medication.expirationDate){
-          clearInterval(this.negAudio);
+          clearInterval(this.negAudioInterval);
         }
 
         return (
@@ -439,7 +438,7 @@ class MedicationCapturePage extends Component {
                             Continue
                         </Text>
                     </Button>
-{/*<Button bordered style={commonStyles.button} onPress={this.onPressButtonPlay.bind(this)}>
+{/*<Button bordered style={commonStyles.button} onPress={this.posAudioPlayer.bind(this)}>
                         <Text>
                             Play
                         </Text>
