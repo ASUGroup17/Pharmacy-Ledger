@@ -139,15 +139,6 @@ export const commonStyles = StyleSheet.create({
     flexGrow: 1
   },
 
-  container2: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignContent: 'space-between',
-    backgroundColor: 'rgb(255,255,255)', // a white color
-    flexGrow: 1
-  },
-
   content: {
     flex: 1,
     flexGrow: 1,

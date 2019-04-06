@@ -23,7 +23,7 @@ class PatientCapturePage extends Component {
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.MedicationCapturePage',
-            title: 'Add Medication', //title: 'Add Medication',
+            title: 'Medication', //title: 'Add Medication',
             navigatorStyle: navigatorStyle,
             // These props will be passed to the MedicatioCapturePage.
         })
@@ -64,7 +64,7 @@ class PatientCapturePage extends Component {
         // destructures patient from this.props object
         const { patient } = this.props
         return (
-            <Container style={commonStyles.container2}>
+            <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
                 <View style={commonStyles.content2}>
                     <Text style={commonStyles.text}> Scan Patient's Wristband
