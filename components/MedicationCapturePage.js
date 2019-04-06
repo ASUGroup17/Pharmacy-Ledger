@@ -248,17 +248,10 @@ class MedicationCapturePage extends Component {
     }
 
     onTextRecognized = ({ textBlocks }) => {
-        var patt1, patt2, patt3, lotExp, expirationExp
+        let lotExp, expirationExp
         var lotStrings = []
         var expStrings = []
-        const keywords = ['batch', 'exp', 'lot', 'espiry'];
-
         
-
-
-        patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
-        patt2 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9]");
-        patt3 = new RegExp("[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9]");
         lotExp = new RegExp('lot', 'i');
         expirationExp = new RegExp('exp', 'i');
 
@@ -266,16 +259,10 @@ class MedicationCapturePage extends Component {
         this.parseTextBlock(textBlocks)
 
         console.log("TEXTBLOCK: " + detectedTexts)
-        var match = patt1.exec(detectedTexts)
-        if(!match){
-            var match = patt2.exec(detectedTexts)
-        }
-        if(!match){
-            var match = patt3.exec(detectedTexts)
-        }
-        if(match){
-            this.props.onMedicationCapture([match])
-        }
+        const match = matchDrug(detectedTexts)
+
+        if(match) this.props.onMedicationCapture([match])
+
         if(lotExp.test(detectedTexts)){
             lotStrings.push(textBlocks)
         }
@@ -603,6 +590,19 @@ class MedicationCapturePage extends Component {
       }
 }
 
+const matchDrug = (detectedTexts) => {
+  const patterns = [
+      "[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]",
+      "[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9]",
+      "[0-9][0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9]"
+  ]
+  
+  const matchedPattern = patterns.find(patt => 
+      new RegExp(patt).exec(detectedTexts))
+
+  // TODO: get function above (matchedPattern) to return this
+  return new RegExp(matchedPattern).exec(detectedTexts)
+}
 
 const mapStateToProps = ({ medication, patient, medicationsArray } ) => {
     return {
