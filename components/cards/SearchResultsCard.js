@@ -1,19 +1,14 @@
 import React from 'react';
-import { View, Body } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { CardItem, Text, Card } from 'native-base';
+import { CardItem, Text, Card, Body } from 'native-base';
 import { commonStyles } from '../../styles/common';
 
 //const SearchResultsCard = ( { searchResult } ) => {
-class SearchResultsCard extends component {
+const SearchResultsCard = ( props ) => {
 
-    constructor (props) {
-        super(props)
-    }
-    
-    render () {
         return (
-            //<View>
+            <View>
                 <Card>
                 <CardItem header bordered>
                     <Body>
@@ -40,9 +35,8 @@ class SearchResultsCard extends component {
                     </Body>
                 </CardItem>
                 </Card>
-            //</View>
+            </View>
         );
-}
 }
 
 // const mapStateToProps = (state) => {
