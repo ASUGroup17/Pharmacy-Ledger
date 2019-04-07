@@ -20,9 +20,11 @@ let expPattern7 = new RegExp(/\blot\b/);
 // down into specific words that are captured.
 export const capturedTextBlocksLot = (textBlocks) => {
     let lotFound = false;
-    for (let index = 0; index < textBlocks.length; index++) {
+    let len = textBlocks.length;
+    for (let index = 0; index < len; index++) {
      
-        for (let index2 = 0; index2 < textBlocks[index].components.length; index2++){
+        let len2 = textBlocks[index].components.length;
+        for (let index2 = 0; index2 < len2; index2++){
             if((lotFound == false) && 
                 (expPattern7.test(textBlocks[index].components[index2].value.toLowerCase()) || expPattern6.test(textBlocks[index].components[index2].value.toLowerCase()) ||
                 expPattern5.test(textBlocks[index].components[index2].value.toLowerCase())  )){

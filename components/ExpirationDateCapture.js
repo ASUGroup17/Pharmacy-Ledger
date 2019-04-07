@@ -25,9 +25,11 @@ let expPat9 = new RegExp(/\bexpiry\b/);
 
 export const capturedTextBlocksExpiration = (textBlocks) => {
     let expiredFound = false;
-    for (let index = 0; index < textBlocks.length; index++) {
+    let len1 = textBlocks.length;
+    for (let index = 0; index < len1; index++) {
      
-        for (let index2 = 0; index2 < textBlocks[index].components.length; index2++){
+        let len2 = textBlocks[index].components.length;
+        for (let index2 = 0; index2 < len2; index2++){
             
             if ((expiredFound === false) && (expPat8.test(textBlocks[index].components[index2].value.toLowerCase()) ||
                     expPat9.test(textBlocks[index].components[index2].value.toLowerCase()))) {
