@@ -6,12 +6,11 @@ import { Row, Icon } from 'native-base'
 // Phoenix Children's Color Palette
 const mainRed = '#EC1C2C'
 const secondaryRed = '#ff001d'
-const actionBlue = '#2C6287'
-const secActionBlue = '#35749F'
-const darkMagenta = '#A3427D'
-const lightMagenta = '#C85185'
+const actionBlue = '#63d7cc'
+const secActionBlue = '#489c94'
+const darkPurple = '#6627B9'
+const lightPurple = '#6627B9'
 const purple = '#8F5FB4'
-
 
 export const confirmationPageStyles = StyleSheet.create({
   viewStyle: {
@@ -88,7 +87,7 @@ export const medicationDataDisplayStyles = StyleSheet.create({
   //The Portions of the Container that has the Text
   medicationNameTextStyle : {
     flex : 1,
-    color: darkMagenta,
+    color: darkPurple,
     flexWrap: 'wrap'
   },
   //The portion of the Container that has the checkmark Icon
@@ -155,8 +154,8 @@ export const commonStyles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-around',
     alignContent: 'space-around',
-    color: '#4D98C5',
-    backgroundColor: '#4D98C5', // a light teal color
+    color: secActionBlue,
+    backgroundColor: secActionBlue,
     margin: 20
   },
   buttonRight: {
@@ -233,13 +232,13 @@ export const commonStyles = StyleSheet.create({
 
   linkRed: {
     alignSelf: 'flex-start',
-    color: secondaryRed, // a red color
+    color: secondaryRed,
     padding: 2
   },
 
   patientInfoStyle: {
     // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
-    backgroundColor: darkMagenta,
+    backgroundColor: darkPurple,
     paddingRight: 20,
     paddingBottom: 0,
     paddingTop: 0,
@@ -261,7 +260,7 @@ commonStyles.cancelButton = {
 
 export const patientInfoCardStyles = StyleSheet.create({
   patient_ID_DOB_Style: {
-    backgroundColor: darkMagenta,
+    backgroundColor: darkPurple,
     paddingRight: 20,
     paddingBottom: 0,
     paddingTop: 0,
@@ -270,7 +269,7 @@ export const patientInfoCardStyles = StyleSheet.create({
     //justifyContent: 'center'
   },
   patient_IDStyle: {
-    backgroundColor: darkMagenta,
+    backgroundColor: darkPurple,
     paddingRight: 0,
     paddingBottom: 0,
     paddingTop: 0,
@@ -279,7 +278,7 @@ export const patientInfoCardStyles = StyleSheet.create({
     width: '65%'
   },
   patient_DOBStyle: {
-    backgroundColor: darkMagenta,
+    backgroundColor: darkPurple,
     paddingRight: 0,
     paddingBottom: 0,
     paddingTop: 0,
@@ -290,12 +289,12 @@ export const patientInfoCardStyles = StyleSheet.create({
 })
 
 export const navigatorStyle = {
-  navBarBackgroundColor: mainRed, // a red color
+  navBarBackgroundColor: mainRed,
   navBarTextColor: 'rgb(255,255,255)' // a white color
 }
 
 export const tabBarStyle = {
-  tabBarBackgroundColor: darkMagenta, // A dark blue color
+  tabBarBackgroundColor: darkPurple,
   tabBarButtonColor: 'rgb(255,255,255)', // A white color
   tabBarSelectedButtonColor: actionBlue,
   forceTitlesDisplay: true
