@@ -4,8 +4,8 @@ import { Row, Icon } from 'native-base'
 // <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css"></link>
 
 // Phoenix Children's Color Palette
-const mainRed = '#CE2C34'
-const secondaryRed = '#A32128'
+const mainRed = '#EC1C2C'
+const secondaryRed = '#ff001d'
 const actionBlue = '#2C6287'
 const secActionBlue = '#35749F'
 const darkMagenta = '#A3427D'
@@ -158,7 +158,7 @@ export const commonStyles = StyleSheet.create({
     color: '#4D98C5',
     backgroundColor: '#4D98C5', // a light teal color
     margin: 20
-  },  
+  },
   buttonRight: {
     alignSelf: 'flex-end',
     color: '#7E0AF9',
@@ -261,7 +261,7 @@ commonStyles.cancelButton = {
 
 export const patientInfoCardStyles = StyleSheet.create({
   patient_ID_DOB_Style: {
-    backgroundColor: darkMagenta, 
+    backgroundColor: darkMagenta,
     paddingRight: 20,
     paddingBottom: 0,
     paddingTop: 0,
