@@ -44,7 +44,7 @@ const startMainTabs = () => {
       {
         screen: 'pharmacy-ledger.SearchLedgerPage',
         label: 'Search Ledger',
-        title: 'Search Ledger',
+        title: 'Search',
         icon: require('../icons/if_11_Search_106236.png'),
         navigatorStyle: navigatorStyle
       }

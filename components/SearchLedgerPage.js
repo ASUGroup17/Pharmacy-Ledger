@@ -95,16 +95,16 @@ class SearchLedgerPage extends Component {
                             </Item>
                         </Form>
                         <Row>
-                            <Button iconLeft style={{ ...commonStyles.button, flex: 1, margin: 4 }} onPress={this.searchResultsHandler}>
-                                <Text>
-                                    Search
-                                </Text>
-                            </Button>
-                            <Button iconRight style={{ ...commonStyles.cancelButton, flex: 1, margin: 4 }} onPress={this.cancelHandler}>
-                                <Text>
-                                    Cancel
-                                </Text>
-                            </Button>
+                          <Button iconLeft style={{ ...commonStyles.cancelButton, flex: 1, margin: 4 }} onPress={this.cancelHandler}>
+                              <Text>
+                                  Cancel
+                              </Text>
+                          </Button>
+                          <Button iconRight style={{ ...commonStyles.button, flex: 1, margin: 4 }} onPress={this.searchResultsHandler}>
+                              <Text>
+                                  Search
+                              </Text>
+                          </Button>
                         </Row>
                     </View>
                 </Content>
