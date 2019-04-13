@@ -2,7 +2,7 @@
 Author: Terin Champion
 Team: 17
 Project: Pharmacy Ledger
-Realm database Schemas to track word distance from keyword.
+Realm database Schemas to track word distance from keyword and store medication transaction information.
 */
 
 
@@ -11,6 +11,7 @@ import { all } from 'rsvp';
 
 
 export const MATCH_SCHEMA = 'Match'
+export const TRANSACTION_SCHEMA = 'Transaction'
 
 // Define Match
 export const matchSchema = {
@@ -34,10 +35,25 @@ export const matchSchema = {
   }
 }
 
+//Define Transaction
+export const transactionSchema = {
+  name: TRANSACTION_SCHEMA,
+  primaryKey: 'transId',
+  properties: {
+    transId: 'int', //Primary Key
+    date: { type: 'date' },
+    patientId: { type: 'string' },
+    lotNumber: { type: 'string' },
+    expirationDate: { type: 'date' },
+    ndc: { type: 'string' },
+    provider: { type: 'string' }
+  }
+}
+
 // Database options
 const databaseOptions = {
   path: 'pharmacyLedgerDb.realm',
-  schema: [matchSchema],
+  schema: [matchSchema, transactionSchema],
   schemaVersion: 0
 }
 
@@ -95,4 +111,22 @@ export const queryNdcMatches = (ndc) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));;
 })
 
+// functions for Transactions List
+export const insertNewTransaction = newTransaction => new Promise((resolve, reject) => {
+  Realm.open(databaseOptions).then(realm => {
+    realm.write(() => {
+      realm.create(TRANSACTION_SCHEMA, newTransaction)
+      resolve(newTransaction)
+    })
+  }).catch((error) => reject(error))
+})
+
+export const queryTransactions = (startDate, endDate, lotNumber, ndc, patientId, provider) => new Promise((resolve, reject) => {
+  Realm.open(databaseOptions).then(realm => {
+      let allTransactions = realm.objects(TRANSACTION_SCHEMA).filtered(
+        'date >= $0 AND date <= $1 AND lotNumber LIKE $2 AND ndc == $3 AND patientId == $4 AND provider == $5', 
+        startDate, endDate, lotNumber, ndc, patientId, provider)
+      resolve(allTransactions);
+  }).catch((error) => reject(error));;
+})
 export default new Realm(databaseOptions);
