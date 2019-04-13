@@ -105,6 +105,7 @@ class SearchLedgerPage extends Component {
                                     Cancel
                                 </Text>
                             </Button>
+
                         </Row>
                     </View>
                 </Content>

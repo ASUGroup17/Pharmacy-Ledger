@@ -527,6 +527,7 @@ class MedicationCapturePage extends Component {
                       this.setState({ medicationOptionsPopup: true });
                     }}
                   > Popup Holder</Text> */}
+
                 <MedicationOptionsPopup
                   visible={this.state.medicationOptionsPopup}
                   onAddAnotherMed={() => {
