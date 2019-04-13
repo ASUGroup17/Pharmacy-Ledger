@@ -29,7 +29,7 @@ registerComponents()
 Navigation.startSingleScreenApp({
   screen: {
     screen: 'pharmacy-ledger.LoginPage',
-    title: 'Pharmacy Ledger Login',
+    title: 'Pharmacy Ledger',
     navigatorStyle: navigatorStyle
   }
 })

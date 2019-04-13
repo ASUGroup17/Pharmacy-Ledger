@@ -9,7 +9,7 @@
 // Importing different types of components to be used.
 import React, { Component } from 'react';
 import  { Platform, StyleSheet, Link, View} from 'react-native';
-import { Container, Content, Button, Text, Form, Item, Input } from 'native-base';
+import { Container, Content, Button, Text, Form, Item, Input, Row } from 'native-base';
 import { searchLedgerPageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 
 class SearchLedgerPage extends Component {
@@ -94,16 +94,18 @@ class SearchLedgerPage extends Component {
                                   placeholderTextColor={commonStyles.text.color} />
                             </Item>
                         </Form>
-                        <Button bordered style = {commonStyles.button} onPress={this.searchResultsHandler}>
-                            <Text>
-                                Search
-                            </Text>
-                        </Button>
-                        <Button bordered style= {commonStyles.button} onPress={this.cancelHandler}>
-                            <Text>
-                                Cancel
-                            </Text>
-                        </Button>
+                        <Row>
+                          <Button iconLeft style={{ ...commonStyles.cancelButton, flex: 1, margin: 4 }} onPress={this.cancelHandler}>
+                              <Text>
+                                  Cancel
+                              </Text>
+                          </Button>
+                          <Button iconRight style={{ ...commonStyles.button, flex: 1, margin: 4 }} onPress={this.searchResultsHandler}>
+                              <Text>
+                                  Search
+                              </Text>
+                          </Button>
+                        </Row>
                     </View>
                 </Content>
             </Container>

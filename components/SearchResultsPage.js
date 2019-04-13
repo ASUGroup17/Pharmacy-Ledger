@@ -46,7 +46,7 @@ class SearchResultsPage extends Component {
                       {this.state.searchResults.map((searchResult) =>
                         <SearchResultsCard searchResult={searchResult} />
                       )}
-                        <Button bordered style = {commonStyles.button} onPress={this.newSearchHandler} >
+                        <Button style = {commonStyles.button} onPress={this.newSearchHandler} >
                             <Text>
                                 New Search
                             </Text>
