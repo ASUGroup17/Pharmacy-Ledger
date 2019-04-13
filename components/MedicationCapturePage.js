@@ -38,8 +38,8 @@ let medicationIDValue = 0;
 
 
 class MedicationCapturePage extends Component {
-  
-  
+
+
 
     continueHandler = () => {
 
@@ -201,11 +201,11 @@ class MedicationCapturePage extends Component {
             let result = capturedTextBlocksLot(textBlocks);
 
             if (result == undefined) { }
-            else{             
+            else{
               if(capturedLotNumbers.includes(result) == true){ multipleLotCaptures++ }
-              else { 
-                capturedLotNumbers.length = 0; 
-                multipleLotCaptures = 0; 
+              else {
+                capturedLotNumbers.length = 0;
+                multipleLotCaptures = 0;
               }
               //This checks to ensure that the data captured isn't undefined, and that the same data has been captured 3 times in a row
               capturedLotNumbers.push(result);
@@ -216,10 +216,10 @@ class MedicationCapturePage extends Component {
                   multipleLotCaptures = 0;
                   //These next lines assign the value for the medID
                   this.props.onSetMedID(medicationIDValue);
-                  medicationIDValue++; 
+                  medicationIDValue++;
             }
         }
-        //Once ExpirationDate is captured this will not run. 
+        //Once ExpirationDate is captured this will not run.
         //Sends textBlocks over to ExpirationDateCapture.js to be parsed for checking if a expirationdate is found. returns that value.
         //Then that value is sent to the Redux store
         if (!medication.expirationDate) {
@@ -237,10 +237,10 @@ class MedicationCapturePage extends Component {
                 if (expResult != undefined && multipleExpirationCaptures >= 2) {
                   this.props.onExpirationCapture(expResult);
                   capturedExpirationDates.length = 0;
-                  multipleExpirationCaptures = 0;                 
+                  multipleExpirationCaptures = 0;
               }
               }
-            }//end outter else            
+            }//end outter else
         }
     }
 
@@ -265,7 +265,7 @@ class MedicationCapturePage extends Component {
         var expStrings = []
         const keywords = ['batch', 'exp', 'lot', 'espiry'];
 
-        
+
 
 
         patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
@@ -394,7 +394,7 @@ class MedicationCapturePage extends Component {
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
-                <View style={commonStyles.content}>
+                <View style={commonStyles.content2}>
                     <Text style={{alignSelf: 'center'}}>
                         Scan Medication
                     </Text>
@@ -465,12 +465,13 @@ class MedicationCapturePage extends Component {
 
                     </View>
                 </View>
-                
-                <Text style={commonStyles.linkRed}
-                  onPress={() => {
-                    this.setState({ confirmVialPopup: true });
-                  }}
-                > Popup Holder</Text>
+                {/*
+                  <Text style={commonStyles.linkRed}
+                    onPress={() => {
+                      this.setState({ medicationOptionsPopup: true });
+                    }}
+                  > Popup Holder</Text> */}
+
                 <MedicationOptionsPopup
                   visible={this.state.medicationOptionsPopup}
                   onAddAnotherMed={() => {
@@ -525,7 +526,7 @@ class MedicationCapturePage extends Component {
                       }
 
 
-    
+
 
     takePicture = async function(camera) {
         const options = { quality: 0.5, base64: true };
@@ -553,6 +554,12 @@ const mapDispatchToProps = (dispatch) => {
         onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate)),
         onVialConfirmation: (medication) => dispatch(getMedicationArray(medication)),
         onSetMedID: (medicationIDValue) => dispatch(getMedicationID(medicationIDValue))
+        /* Once a Vial Scan is confirmed by user:
+          -'medication' is the medication object that was just scanned and confirmed by user. it has lotNumber, name & expirationDate.
+          -medication will be passed to the medicationArray Action to add it to the existing array.
+          -a method such as 'onMedicationConfirmed' (when a medication is initially confirmed) should be when onVialConfirmation should be called,
+          the 'medication' state should be reset since the MedicationsArray would now contain the recently scanned vial
+        */
     }
 }
 

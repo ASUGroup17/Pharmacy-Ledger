@@ -6,13 +6,14 @@
 
 import React, {Component} from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Container, Content, Button, Text, Form, Item, Icon, Input } from 'native-base'
+import { Container, Content, Button, Text, Form, Item, Icon, Input, Row } from 'native-base'
 import { connect } from 'react-redux'
 import { RNCamera } from 'react-native-camera'
 
 import { hydratePatientData } from '../store/actions/PatientActions'
 import { patientCapturePageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import PatientInfoCard from './cards/PatientInfoCard';
+import Orientation from 'react-native-orientation';
 
 // For sounds
 var SoundPlayer = require('react-native-sound');
@@ -23,7 +24,7 @@ class PatientCapturePage extends Component {
     continueHandler = () => {
         this.props.navigator.push({
             screen: 'pharmacy-ledger.MedicationCapturePage',
-            title: 'Add Medication',
+            title: 'Medication', //title: 'Add Medication',
             navigatorStyle: navigatorStyle,
             // These props will be passed to the MedicatioCapturePage.
         })
@@ -40,6 +41,8 @@ class PatientCapturePage extends Component {
             if(error)
                 console.log('Error when iniliazing', error);
         });
+
+        Orientation.lockToPortrait();
         
     }
 
@@ -66,7 +69,7 @@ class PatientCapturePage extends Component {
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
-                <View style={commonStyles.content}>
+                <View style={commonStyles.content2}>
                     <Text style={commonStyles.text}> Scan Patient's Wristband
                     </Text>
 
@@ -98,13 +101,15 @@ class PatientCapturePage extends Component {
                             <Item  success={!patient.id ? false : true}>
                                 {this.onPressButtonPlay(this)}
                             </Item>
-                        </View>                        
-                        <Button bordered style={commonStyles.button} onPress={this.continueHandler}
-                            disabled={!patient.id}>
-                            <Text>
-                                Continue
-                            </Text>
-                        </Button>
+                        </View>  
+                        <Row>
+                            <Button style={commonStyles.button} onPress={this.continueHandler}
+                                disabled={!patient.id}>
+                                <Text>
+                                    Continue
+                                </Text>
+                            </Button>
+                        </Row>
                     </View>
                 </View>
                 </Content>

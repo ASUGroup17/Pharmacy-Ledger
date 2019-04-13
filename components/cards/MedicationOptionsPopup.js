@@ -13,7 +13,7 @@ return (
       <DialogTitle
         title="Confirmed!"
         style={{
-          backgroundColor: '#e0f2dc',
+          backgroundColor: '#cbaded',
         }}
         hasTitleBar={false}
         align="center"
@@ -23,7 +23,7 @@ return (
       <DialogButton
         text="Scan Another Medication"
         style={{
-          backgroundColor: '#e0f2dc',
+          backgroundColor: '#cbaded',
         }}
         onPress={props.onAddAnotherMed}
         key="button-1"
@@ -31,7 +31,7 @@ return (
       <DialogButton
         text="View Shopping Cart"
         style={{
-          backgroundColor: '#e0f2dc',
+          backgroundColor: '#cbaded',
         }}
         onPress={props.onViewCart}
         key="button-2"
@@ -39,7 +39,7 @@ return (
       <DialogButton
         text="Finalize List of Medications"
         style={{
-          backgroundColor: '#e0f2dc',
+          backgroundColor: '#cbaded',
         }}
         onPress={props.onFinalize}
         key="button-3"
@@ -47,7 +47,7 @@ return (
       <DialogButton
         text="Cancel"
         style={{
-          backgroundColor: '#e0f2dc',
+          backgroundColor: '#cbaded',
         }}
         onPress={props.onClose}
         key="button-4"
@@ -56,7 +56,7 @@ return (
   >
   <DialogContent
     style={{
-      backgroundColor: '#e0f2dc',
+      backgroundColor: '#cbaded',
     }}
   >
     <Text>What would you like to do next?</Text>
