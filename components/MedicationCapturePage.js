@@ -36,8 +36,8 @@ let medicationIDValue = 0;
 
 
 class MedicationCapturePage extends Component {
-  
-  
+
+
 
     continueHandler = () => {
 
@@ -91,23 +91,23 @@ class MedicationCapturePage extends Component {
 
     //This is called when 'Confirm' button is selected on the VialScanPopupConfirmation Window.  Adds the medication object to the array and clear the medication object
     confirmVialScanHandler = () => {
-      const { medication } = this.props;      
+      const { medication } = this.props;
       //console.log('kevin id: medicationIDValue: ' + medicationIDValue);
       //console.log('kevin id: medicationIDValue Typeof: ' + typeof medicationIDValue);
-          
+
       console.log('kevin id: medID: ' + medication.medID);
       console.log('kevin id: Name: ' + medication.name);
 
       this.props.onVialConfirmation(medication);
       this.props.onLotNumberCapture(1);
       this.setState({ confirmVialPopup: false});
-      this.setState({ medicationOptionsPopup: true });      
+      this.setState({ medicationOptionsPopup: true });
       this.props.medicationsArray.medicationsArray.forEach(element => {
         console.log('kevin id: of array medID : ' + element.medID);
-        console.log('kevin id: of array Name: ' + element.name);  
+        console.log('kevin id: of array Name: ' + element.name);
       });
-      
-      };          
+
+      };
     constructor(props) {
         super(props);
         this.state = {
@@ -197,11 +197,11 @@ class MedicationCapturePage extends Component {
             let result = capturedTextBlocksLot(textBlocks);
 
             if (result == undefined) { }
-            else{             
+            else{
               if(capturedLotNumbers.includes(result) == true){ multipleLotCaptures++ }
-              else { 
-                capturedLotNumbers.length = 0; 
-                multipleLotCaptures = 0; 
+              else {
+                capturedLotNumbers.length = 0;
+                multipleLotCaptures = 0;
               }
               //This checks to ensure that the data captured isn't undefined, and that the same data has been captured 3 times in a row
               capturedLotNumbers.push(result);
@@ -212,10 +212,10 @@ class MedicationCapturePage extends Component {
                   multipleLotCaptures = 0;
                   //These next lines assign the value for the medID
                   this.props.onSetMedID(medicationIDValue);
-                  medicationIDValue++; 
+                  medicationIDValue++;
             }
         }
-        //Once ExpirationDate is captured this will not run. 
+        //Once ExpirationDate is captured this will not run.
         //Sends textBlocks over to ExpirationDateCapture.js to be parsed for checking if a expirationdate is found. returns that value.
         //Then that value is sent to the Redux store
         if (!medication.expirationDate) {
@@ -233,10 +233,10 @@ class MedicationCapturePage extends Component {
                 if (expResult != undefined && multipleExpirationCaptures >= 2) {
                   this.props.onExpirationCapture(expResult);
                   capturedExpirationDates.length = 0;
-                  multipleExpirationCaptures = 0;                 
+                  multipleExpirationCaptures = 0;
               }
               }
-            }//end outter else            
+            }//end outter else
         }
     }
 
@@ -261,7 +261,7 @@ class MedicationCapturePage extends Component {
         var expStrings = []
         const keywords = ['batch', 'exp', 'lot', 'espiry'];
 
-        
+
 
 
         patt1 = new RegExp("[0-9][0-9][0-9][0-9].[0-9][0-9][0-9][0-9].[0-9][0-9]");
@@ -423,47 +423,47 @@ class MedicationCapturePage extends Component {
                         <DialogTitle
                           title="Scanned Medications"
                           style={{
-                            backgroundColor: '#e0f2dc',
+                            backgroundColor: '#cbaded',
                           }}
                           hasTitleBar={false}
                           align="left"
                         />
                       }
-                      actions={[ <DialogButton text="OK" style={{backgroundColor: '#e0f2dc' }}
+                      actions={[ <DialogButton text="OK" style={{backgroundColor: '#cbaded' }}
                           onPress={() => { this.setState({ visiblePopup1: false }); }}
                           key="button-4" /> ]}
                     >
-                    <ScrollView endFillColor='#e0f2dc' centerContent='true'>
+                    <ScrollView endFillColor='#cbaded' centerContent='true'>
                       <DialogContent
                         style={{
                           width:350,
-                          backgroundColor: '#e0f2dc',
+                          backgroundColor: '#cbaded',
                         }}
-                      >                    
+                      >
                         {this.props.medicationsArray.medicationsArray.map((med) =>
                         <View  key={med.medID}>
                           <View style={{ flexDirection: 'row' }}>
                               <Text style={medNameStyles.medicationNameTextStyle}>
                                 Medication: {med.name}
                               </Text>
-                              <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>  
+                              <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>
                           </View>
                           <View style={{ flexDirection: 'row' }}>
                             <Text style={medNameStyles.medicationNameTextStyle}>
                               Lot Number: {med.lotNumber}
                             </Text>
-                            <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>  
+                            <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>
                           </View>
                           <View style={{ flexDirection: 'row', bottomBorderColor:'black', borderBottomWidth:1}}>
                             <Text style={medNameStyles.medicationNameTextStyle}>
                               Expiration Date: {med.expirationDate}
                             </Text>
-                            <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>  
+                            <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>
                           </View>
                         </View>
                         )
                         }
-                        
+
                       </DialogContent>
                       </ScrollView>
                     </Dialog>
@@ -474,36 +474,36 @@ class MedicationCapturePage extends Component {
                       <Dialog
                      visible={((medication.name !== null && medication.lotNumber !== null && medication.expirationDate !== null) && (this.state.confirmVialPopup != false))}
                      dialogTitle={
-                        <DialogTitle title="Confirm Vial Information" style={{ backgroundColor: '#e0f2dc' }} hasTitleBar={true}
+                        <DialogTitle title="Confirm Vial Information" style={{ backgroundColor: '#cbaded' }} hasTitleBar={true}
                           align="left"/>
-                      }                
+                      }
                         actions={[
-                        <DialogButton text="Confirm" style={{ backgroundColor: '#e0f2dc' }} key="confirmMedButton"
+                        <DialogButton text="Confirm" style={{ backgroundColor: '#cbaded' }} key="confirmMedButton"
                         onPress= {this.confirmVialScanHandler  }/>,
-                        <DialogButton text="Discard Scan" style={{ backgroundColor: '#e0f2dc' }} key="DiscardScanButton"
+                        <DialogButton text="Discard Scan" style={{ backgroundColor: '#cbaded' }} key="DiscardScanButton"
                           onPress={ () =>{  this.props.onLotNumberCapture(1);  }} />
                       ]}
-                    
+
                     >
                    <DialogContent style={{width:350, flexDirection:'column'}}>
-                    <View>                      
+                    <View>
                       <View style={{ flexDirection: 'row' }}>
                           <Text style={medNameStyles.medicationNameTextStyle}>
                             Medication: {medication.name}
                           </Text>
-                          <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>  
+                          <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onMedicationCapture(undefined); }}/>
                       </View>
                       <View style={{ flexDirection: 'row' }}>
                           <Text style={medNameStyles.medicationNameTextStyle}>
                             Lot Number: {medication.lotNumber}
                           </Text>
-                          <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>  
+                          <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onLotNumberCapture(undefined); }}/>
                       </View>
                       <View style={{ flexDirection: 'row' }}>
                           <Text style={medNameStyles.medicationNameTextStyle}>
                             Expiration Date: {medication.expirationDate}
                           </Text>
-                          <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>  
+                          <Icon type='Ionicons' name='md-reverse-camera' onPress={() => { this.props.onExpirationCapture(undefined) }}/>
                       </View>
                     </View>
                    </DialogContent>
@@ -521,7 +521,7 @@ class MedicationCapturePage extends Component {
 
                     </View>
                 </View>
-                
+
                 <Text style={commonStyles.linkRed}
                   onPress={() => {
                     this.setState({ medicationOptionsPopup: true });
@@ -560,7 +560,7 @@ class MedicationCapturePage extends Component {
                         <DialogTitle
                           title="Change Patient"
                           style={{
-                            backgroundColor: '#e0f2dc',
+                            backgroundColor: '#cbaded',
                           }}
                           hasTitleBar={false}
                           align="left"
@@ -570,7 +570,7 @@ class MedicationCapturePage extends Component {
                         <DialogButton
                           text="OK"
                           style={{
-                            backgroundColor: '#e0f2dc',
+                            backgroundColor: '#cbaded',
                           }}
                           onPress={this.changePatientHandler}
                           key="button-2"
@@ -578,7 +578,7 @@ class MedicationCapturePage extends Component {
                         <DialogButton
                           text="Cancel"
                           style={{
-                            backgroundColor: '#e0f2dc',
+                            backgroundColor: '#cbaded',
                           }}
                           onPress={() => {
                             this.setState({ visiblePopup: false });
@@ -589,10 +589,10 @@ class MedicationCapturePage extends Component {
                     >
                       <DialogContent
                         style={{
-                          backgroundColor: '#e0f2dc',
+                          backgroundColor: '#cbaded',
                         }}
                       >
-                        <Text>You are requesting to go back to the Add Patient page. Any medications currently scanned will not be saved. Select OK to continue to Add Patient page.</Text>
+                        <Text>You are requesting to go back to the Add Patient page. Any medications currently scanned will not be saved. Select OK to continue or Cancel to resume.</Text>
                       </DialogContent>
                     </Dialog>
                 </Content>
@@ -601,7 +601,7 @@ class MedicationCapturePage extends Component {
                       }
 
 
-    
+
 
     takePicture = async function(camera) {
         const options = { quality: 0.5, base64: true };
@@ -629,11 +629,11 @@ const mapDispatchToProps = (dispatch) => {
         onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate)),
         onVialConfirmation: (medication) => dispatch(getMedicationArray(medication)),
         onSetMedID: (medicationIDValue) => dispatch(getMedicationID(medicationIDValue))
-        /* Once a Vial Scan is confirmed by user: 
+        /* Once a Vial Scan is confirmed by user:
           -'medication' is the medication object that was just scanned and confirmed by user. it has lotNumber, name & expirationDate.
           -medication will be passed to the medicationArray Action to add it to the existing array.
           -a method such as 'onMedicationConfirmed' (when a medication is initially confirmed) should be when onVialConfirmation should be called,
-          the 'medication' state should be reset since the MedicationsArray would now contain the recently scanned vial 
+          the 'medication' state should be reset since the MedicationsArray would now contain the recently scanned vial
         */
     }
 }

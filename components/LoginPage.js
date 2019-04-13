@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Link, View, Image} from 'react-native';
-import { Container, Header, Content, Button, Text, Form, Item, Input } from 'native-base'
+import { Container, Header, Content, Button, Text, Form, Item, Input, Row } from 'native-base'
 import startMainTabs from './startMainTabs';
 import {loginPageStyles as styles, commonStyles} from '../styles/common'
 import Dialog, { DialogContent, DialogTitle, DialogButton } from 'react-native-popup-dialog';
@@ -41,11 +41,13 @@ class LoginPage extends Component {
                 placeholderTextColor={commonStyles.text.color} />
             </Item>
           </Form>
-          <Button bordered style={commonStyles.button} onPress={this.loginHandler}>
-            <Text>
-              Login!
-            </Text>
-          </Button>
+          <Row>
+            <Button style={commonStyles.button} onPress={this.loginHandler}>
+              <Text>
+                Login!
+              </Text>
+            </Button>
+          </Row>
           <Text style={commonStyles.text}>Selected EMR</Text>
           <Text style={commonStyles.text}>PCH - Allscripts</Text>
           <Text style={commonStyles.link}>Change System</Text>
