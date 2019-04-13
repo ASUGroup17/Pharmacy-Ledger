@@ -3,6 +3,7 @@ package com.pharmacyledger;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.github.yamill.orientation.OrientationPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import io.realm.react.RealmReactPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -13,6 +14,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.reactnativenavigation.NavigationApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.github.yamill.orientation.OrientationPackage; // orientation
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +32,7 @@ public class MainApplication extends NavigationApplication {
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new OrientationPackage(),
             new RNSoundPackage(),
             new RealmReactPackage(),
             new SplashScreenReactPackage(),

@@ -13,6 +13,7 @@ import { RNCamera } from 'react-native-camera'
 import { hydratePatientData } from '../store/actions/PatientActions'
 import { patientCapturePageStyles as styles, commonStyles, navigatorStyle } from '../styles/common'
 import PatientInfoCard from './cards/PatientInfoCard';
+import Orientation from 'react-native-orientation';
 
 // For sounds
 var SoundPlayer = require('react-native-sound');
@@ -40,6 +41,8 @@ class PatientCapturePage extends Component {
             if(error)
                 console.log('Error when iniliazing', error);
         });
+
+        Orientation.lockToPortrait();
         
     }
 
