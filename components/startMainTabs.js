@@ -36,8 +36,8 @@ const startMainTabs = () => {
     tabs: [
       {
         screen: 'pharmacy-ledger.PatientCapturePage',
-        label: 'Provide Care',
-        title: 'Provide Care',
+        label: 'Patient',
+        title: 'Patient',//title: 'Provide Care',
         icon: require('../icons/if_icon-person-add_211872.png'),
         navigatorStyle: navigatorStyle
       },

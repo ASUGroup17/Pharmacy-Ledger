@@ -390,7 +390,7 @@ class MedicationCapturePage extends Component {
         return (
             <Container style={commonStyles.container}>
                 <Content contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}>
-                <View style={commonStyles.content}>
+                <View style={commonStyles.content2}>
                     <Text style={{alignSelf: 'center'}}>
                         Scan Medication
                     </Text>
@@ -521,12 +521,13 @@ class MedicationCapturePage extends Component {
 
                     </View>
                 </View>
+                {/*
+                  <Text style={commonStyles.linkRed}
+                    onPress={() => {
+                      this.setState({ medicationOptionsPopup: true });
+                    }}
+                  > Popup Holder</Text> */}
 
-                <Text style={commonStyles.linkRed}
-                  onPress={() => {
-                    this.setState({ medicationOptionsPopup: true });
-                  }}
-                > Popup Holder</Text>
                 <MedicationOptionsPopup
                   visible={this.state.medicationOptionsPopup}
                   onAddAnotherMed={() => {
