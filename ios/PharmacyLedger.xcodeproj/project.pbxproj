@@ -61,6 +61,9 @@
 		DC043C972186AFA000681D95 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC043C962186AFA000681D95 /* Ionicons.ttf */; };
 		DC8874EE21867718003F0A72 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8874ED218676E9003F0A72 /* libReactNativeNavigation.a */; };
 		EBD6963962014E14B6DF0E77 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42346CD542964FF7B984C158 /* rubicon-icon-font.ttf */; };
+		8EF5BDA91C83404183AE18B8 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9604B133194F03ABC635F6 /* libRNSound.a */; };
+		68C1099B9B0E44F6AC878B55 /* libRCTOrientation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67869910D4324AC88036BFB8 /* libRCTOrientation.a */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -442,6 +445,11 @@
 		F3FDDDE7186543C69D51EA8B /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		F7AF80E73BC340C9BE0D0730 /* libRNCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCamera.a; sourceTree = "<group>"; };
 		FFE27287909B4AE1ACCE8DC2 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
+		50C837C24C074D2099CCB635 /* RNSound.xcodeproj */ = {isa = PBXFileReference; name = "RNSound.xcodeproj"; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		1D9604B133194F03ABC635F6 /* libRNSound.a */ = {isa = PBXFileReference; name = "libRNSound.a"; path = "libRNSound.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		D4FB8C497AE84C0E87EA0FD7 /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; name = "RCTOrientation.xcodeproj"; path = "../node_modules/react-native-orientation/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		67869910D4324AC88036BFB8 /* libRCTOrientation.a */ = {isa = PBXFileReference; name = "libRCTOrientation.a"; path = "libRCTOrientation.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -477,6 +485,7 @@
 				943F175E63254B14A5F9735F /* libz.tbd in Frameworks */,
 				02C3C77E854F452ABCF1CC64 /* libSplashScreen.a in Frameworks */,
 				8EF5BDA91C83404183AE18B8 /* libRNSound.a in Frameworks */,
+				68C1099B9B0E44F6AC878B55 /* libRCTOrientation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,6 +744,7 @@
 				0F394F0298AF4CCCBB96C1A9 /* RealmReact.xcodeproj */,
 				A1D132F67E78466184EC8497 /* SplashScreen.xcodeproj */,
 				50C837C24C074D2099CCB635 /* RNSound.xcodeproj */,
+				D4FB8C497AE84C0E87EA0FD7 /* RCTOrientation.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1468,13 +1478,16 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
+					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+
 				);
 				INFOPLIST_FILE = PharmacyLedgerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1500,13 +1513,16 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
+					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+
 				);
 				INFOPLIST_FILE = PharmacyLedgerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1533,7 +1549,9 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
+					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+
 				);
 				INFOPLIST_FILE = PharmacyLedger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1559,7 +1577,9 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
+					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+
 				);
 				INFOPLIST_FILE = PharmacyLedger/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1591,12 +1611,15 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
+					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+
 				);
 				INFOPLIST_FILE = "PharmacyLedger-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1630,12 +1653,15 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
+					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+
 				);
 				INFOPLIST_FILE = "PharmacyLedger-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1668,12 +1694,15 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
+					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+
 				);
 				INFOPLIST_FILE = "PharmacyLedger-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1706,12 +1735,15 @@
 					"$(SRCROOT)..\node_modules\neact-native-cameraios/**",
 					"$(SRCROOT)..\node_modules\nealmsrc/**",
 					"$(SRCROOT)..\node_modules\neact-native-splash-screenios",
-					"$(SRCROOT)..\node_modules\neact-native-soundRNSound",
+					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
+					"$(SRCROOT)\..\node_modules\react-native-orientation\iOS\RCTOrientation/**",
+
 				);
 				INFOPLIST_FILE = "PharmacyLedger-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
