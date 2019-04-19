@@ -12,13 +12,13 @@ export default ConfirmVialScanPopUp = (props) => {
             visible={ props.visible }
             
             dialogTitle={
-            <DialogTitle title="Confirm Vial Information" style={{ backgroundColor: '#e0f2dc' }} hasTitleBar={true}
+            <DialogTitle title="Confirm Vial Information" style={{ backgroundColor: '#cbaded' }} hasTitleBar={true}
                 align="left"/>
             }                
             actions={[
-            <DialogButton text="Confirm" style={{ backgroundColor: '#e0f2dc' }} key="confirmMedButton"
+            <DialogButton text="Confirm" style={{ backgroundColor: '#cbaded' }} key="confirmMedButton"
             onPress= { props.onConfirmVialScanHandler }/>,
-            <DialogButton text="Discard Scan" style={{ backgroundColor: '#e0f2dc' }} key="DiscardScanButton"
+            <DialogButton text="Discard Scan" style={{ backgroundColor: '#cbaded' }} key="DiscardScanButton"
                 onPress={ props.onDiscardScan } />
             ]}
         >

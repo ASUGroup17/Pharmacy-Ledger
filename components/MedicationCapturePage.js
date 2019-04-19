@@ -465,10 +465,6 @@ class MedicationCapturePage extends Component {
 
                     </View>
                 </View>
-<<<<<<< HEAD
-=======
-
->>>>>>> 4e6e9585133d0f26553239ca1bc2f7428bab671f
                 {/*
                   <Text style={commonStyles.linkRed}
                     onPress={() => {
@@ -558,10 +554,6 @@ const mapDispatchToProps = (dispatch) => {
         onExpirationCapture: (expDate) => dispatch (getExpirationDate(expDate)),
         onVialConfirmation: (medication) => dispatch(getMedicationArray(medication)),
         onSetMedID: (medicationIDValue) => dispatch(getMedicationID(medicationIDValue))
-<<<<<<< HEAD
-=======
-
->>>>>>> 4e6e9585133d0f26553239ca1bc2f7428bab671f
         /* Once a Vial Scan is confirmed by user:
           -'medication' is the medication object that was just scanned and confirmed by user. it has lotNumber, name & expirationDate.
           -medication will be passed to the medicationArray Action to add it to the existing array.
