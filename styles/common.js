@@ -3,6 +3,16 @@ import { Platform, StyleSheet, Link, View } from 'react-native'
 import { Row, Icon } from 'native-base'
 // <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css"></link>
 
+// Phoenix Children's Color Palette
+const mainWhite = '#FFFFFF'
+const mainRed = '#CE2C34'
+const secondaryRed = '#A32128'
+const actionBlue = '#2C6287'
+const secActionBlue = '#35749F'
+const darkMagenta = '#A3427D'
+const lightMagenta = '#C85185'
+const purple = '#8F5FB4'
+
 export const confirmationPageStyles = StyleSheet.create({
   viewStyle: {
     flex: 0,
@@ -11,21 +21,21 @@ export const confirmationPageStyles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'row',
     paddingLeft: 20,
-    backgroundColor: 'lavender',
+    backgroundColor: mainWhite,
     paddingTop: 0,
     paddingBottom: 0,
     marginTop: 0,
     marginBottom: 0
   },
   cardHeaderStyle: {
-    backgroundColor: 'lightgray',
-    paddingTop:10,
-    paddingBottom:10
+    backgroundColor: mainWhite,
+    paddingTop: 10,
+    paddingBottom: 10
   },
   cardBodyStyle: {
-    backgroundColor: 'gainsboro',
-    paddingTop:5,
-    paddingBottom:0
+    backgroundColor: mainWhite,
+    paddingTop: 5,
+    paddingBottom: 0
   },
   buttonRowStyle: {
     flexDirection: 'row',
@@ -46,7 +56,7 @@ export const medicationCaptureStyles = StyleSheet.create({
     flexDirection: 'row',
     paddingLeft: 10,
     paddingRight: 150,
-    backgroundColor: 'lavender',
+    backgroundColor: mainWhite,
     paddingTop: 0,
     paddingBottom: 0,
     marginTop: 0,
@@ -59,39 +69,38 @@ export const medicationCaptureStyles = StyleSheet.create({
     alignSelf: 'stretch',
     flexDirection: 'column',
     justifyContent: 'center'
-  },
-  
+  }
 })
 
 export const medicationDataDisplayStyles = StyleSheet.create({
- 
-  //The container for the whole display of medication Name, checkMark and Camera Icons
-  medicationNameContainer : {  
-    backgroundColor : 'lavender',
-    flex : 1,
+
+  // The container for the whole display of medication Name, checkMark and Camera Icons
+  medicationNameContainer: {
+    backgroundColor: mainWhite,
+    flex: 1,
     flexDirection: 'row',
     alignSelf: 'stretch',
-    justifyContent : 'space-between',
+    justifyContent: 'space-between',
     paddingLeft: 5,
     paddingRight: 5
   },
-  //The Portions of the Container that has the Text  
+  //The Portions of the Container that has the Text
   medicationNameTextStyle : {
     flex : 1,
-    color: '#0f2362',
+    color: darkMagenta,
     flexWrap: 'wrap'
   },
-  //The portion of the Container that has the checkmark Icon
+  // The portion of the Container that has the checkmark Icon
   medicationNameCheckmarkStyle: {
     flexDirection: 'row',
-    alignItems: "flex-end"
+    alignItems: 'flex-end'
   }
-});
+})
 
 export const patientCapturePageStyles = StyleSheet.create({
   patientIdView: {
     flex: 1,
-    backgroundColor: 'lavender', // upper part, patientID area
+    backgroundColor: mainWhite, // upper part, patientID area
     alignItems: 'center',
     justifyContent: 'space-around',
     paddingLeft: 5
@@ -102,7 +111,7 @@ export const patientCapturePageStyles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingLeft: 30,
     paddingRight: 50,
-    backgroundColor: 'lavender', // lower part
+    backgroundColor: mainWhite, // lower part
     paddingTop: 0,
     paddingBottom: 0,
     marginTop: 0,
@@ -125,14 +134,22 @@ export const commonStyles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignContent: 'space-between',
-    backgroundColor: 'lavender',
+    backgroundColor: mainWhite,
     flexGrow: 1
   },
 
   content: {
     flex: 1,
     flexGrow: 1,
-    backgroundColor: 'lavender'
+    backgroundColor: 'rgb(255,255,255)', // a white color
+    // alignContent: 'space-around',
+    // justifyContent: 'space-around'
+  },
+
+  content2: {
+    flex: 1,
+    flexGrow: 1,
+    backgroundColor: 'rgb(144,186,57)' // a white color
     // alignContent: 'space-around',
     // justifyContent: 'space-around'
   },
@@ -141,15 +158,14 @@ export const commonStyles = StyleSheet.create({
     not used in confirmationPageStyles
   */
   button: {
+    flex: 1,
     alignSelf: 'center',
     justifyContent: 'space-around',
     alignContent: 'space-around',
-    color: '#7E0AF9',
-    backgroundColor: '#C5ECF4',
-    marginBottom: 20,
-    marginTop: 20
-  },
-
+    color: '#4D98C5',
+    backgroundColor: '#4D98C5', // a light teal color
+    margin: 20
+  },  
   buttonRight: {
     alignSelf: 'flex-end',
     color: '#7E0AF9',
@@ -161,13 +177,14 @@ export const commonStyles = StyleSheet.create({
   medIcon: {
     alignSelf: 'flex-start',
     color: '#03ba43',
-    backgroundColor: 'lavender',
+    backgroundColor: mainWhite,
     marginTop: 20,
     marginLeft: 10
   },
 
   logo: {
     alignSelf: 'center',
+    margin: 20,
     justifyContent: 'space-around',
     alignContent: 'space-around'
 
@@ -179,7 +196,7 @@ export const commonStyles = StyleSheet.create({
   text: {
     alignSelf: 'center',
     padding: 2,
-    color: '#0f2362'
+    color: '#011627' // a dark gray color
   },
 
   title: {
@@ -223,13 +240,13 @@ export const commonStyles = StyleSheet.create({
 
   linkRed: {
     alignSelf: 'flex-start',
-    color: '#ff001d',
+    color: secondaryRed, // a red color
     padding: 2
   },
 
   patientInfoStyle: {
     // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
-    backgroundColor: '#000080', // A Navy Blue Color
+    backgroundColor: darkMagenta,
     paddingRight: 20,
     paddingBottom: 0,
     paddingTop: 0,
@@ -240,48 +257,53 @@ export const commonStyles = StyleSheet.create({
   },
 
   patientTextStyle: {
-    color: 'white'
+    color: mainWhite
   }
 })
 
+commonStyles.cancelButton = {
+  ...commonStyles.button,
+  backgroundColor: secondaryRed
+}
+
 export const patientInfoCardStyles = StyleSheet.create({
   patient_ID_DOB_Style: {
-    backgroundColor: '#000080', // A Navy Blue Color
+    backgroundColor: darkMagenta, 
     paddingRight: 20,
     paddingBottom: 0,
     paddingTop: 0,
-    paddingLeft: 0,
-    //flexDirection : 'row',
-    //justifyContent: 'center'
+    paddingLeft: 0
+    // flexDirection : 'row',
+    // justifyContent: 'center'
   },
   patient_IDStyle: {
-    backgroundColor: '#000080', // A Navy Blue Color
+    backgroundColor: darkMagenta,
     paddingRight: 0,
     paddingBottom: 0,
     paddingTop: 0,
     paddingLeft: 0,
-    color: 'white',
+    color: mainWhite,
     width: '65%'
   },
   patient_DOBStyle: {
-    backgroundColor: '#000080', // A Navy Blue Color
+    backgroundColor: darkMagenta,
     paddingRight: 0,
     paddingBottom: 0,
     paddingTop: 0,
     paddingLeft: 0,
-    color: 'white',
+    color: mainWhite,
     width: '35%'
   }
 })
 
 export const navigatorStyle = {
-  navBarBackgroundColor: '#d40303', // A red color
-  navBarTextColor: 'white'
+  navBarBackgroundColor: mainRed, // a red color
+  navBarTextColor: 'rgb(255,255,255)' // a white color
 }
 
 export const tabBarStyle = {
-  tabBarBackgroundColor: '#0f2362', // A dark blue color
-  tabBarButtonColor: '#ffffff', // A white color
-  tabBarSelectedButtonColor: '#63d7cc', // A teal color
+  tabBarBackgroundColor: darkMagenta, // A dark blue color
+  tabBarButtonColor: 'rgb(255,255,255)', // A white color
+  tabBarSelectedButtonColor: actionBlue,
   forceTitlesDisplay: true
 }
