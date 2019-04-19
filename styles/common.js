@@ -4,6 +4,7 @@ import { Row, Icon } from 'native-base'
 // <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css"></link>
 
 // Phoenix Children's Color Palette
+const mainWhite = '#FFFFFF'
 const mainRed = '#CE2C34'
 const secondaryRed = '#A32128'
 const actionBlue = '#2C6287'
