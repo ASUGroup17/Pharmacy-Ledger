@@ -11,7 +11,7 @@ export default ChangePatientPopUp = (props) => {
                 <DialogTitle
                     title="Change Patient"
                     style={{
-                    backgroundColor: '#e0f2dc',
+                    backgroundColor: '#cbaded',
                     }}
                     hasTitleBar={false}
                     align="left"
@@ -21,7 +21,7 @@ export default ChangePatientPopUp = (props) => {
                 <DialogButton
                     text="OK"
                     style={{
-                    backgroundColor: '#e0f2dc',
+                    backgroundColor: '#cbaded',
                     }}
                     onPress={ props.onPatientHandler }
                     key="button-2"
@@ -29,7 +29,7 @@ export default ChangePatientPopUp = (props) => {
                 <DialogButton
                     text="Cancel"
                     style={{
-                    backgroundColor: '#e0f2dc',
+                    backgroundColor: '#cbaded',
                     }}
                     onPress={ props.onMakeInvisible }
                     key="button-3"
@@ -38,7 +38,7 @@ export default ChangePatientPopUp = (props) => {
         >
             <DialogContent
             style={{
-                backgroundColor: '#e0f2dc',
+                backgroundColor: '#cbaded',
             }}
             >
             <Text>You are requesting to go back to the Add Patient page. Any medications currently scanned will not be saved. Select OK to continue to Add Patient page.</Text>
