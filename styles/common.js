@@ -297,6 +297,7 @@ export const patientInfoCardStyles = StyleSheet.create({
 })
 
 export const navigatorStyle = {
+  navBarBackgroundColor: mainRed,
   navBarTextColor: mainWhite,
   navBarButtonColor: mainWhite
 }
