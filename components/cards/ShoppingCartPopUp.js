@@ -14,20 +14,20 @@ export default ShoppingCartPopUp = (props) => {
             dialogTitle={
                 <DialogTitle
                     title="Scanned Medications"
-                    style={{ backgroundColor: '#e0f2dc' }}
+                    style={{ backgroundColor: '#cbaded' }}
                     hasTitleBar={false}
                     align="left"
                 />
             }
-            actions={[ <DialogButton text="OK" style={{backgroundColor: '#e0f2dc' }}
+            actions={[ <DialogButton text="OK" style={{backgroundColor: '#cbaded' }}
                 onPress={ props.onMakeInvisible }
                 key="button-4" /> ]}
         >
-            <ScrollView endFillColor='#e0f2dc' centerContent='true'>
+            <ScrollView endFillColor='#cbaded' centerContent='true'>
                 <DialogContent
                 style={{
                     width:350,
-                    backgroundColor: '#e0f2dc',
+                    backgroundColor: '#cbaded',
                 }}
                 >                    
                 {props.medicationsArray.map((med) =>
