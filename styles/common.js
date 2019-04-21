@@ -5,12 +5,12 @@ import { Row, Icon } from 'native-base'
 
 // Phoenix Children's Color Palette
 const mainWhite = '#FFFFFF'
-const mainRed = '#EC1C2C'
-const secondaryRed = '#ff001d'
-const actionBlue = '#63d7cc'
-const secActionBlue = '#489c94'
-const darkPurple = '#6627B9'
-const lightPurple = '#6627B9'
+const mainRed = '#CE2C34'
+const secondaryRed = '#A32128'
+const actionBlue = '#2C6287'
+const secActionBlue = '#35749F'
+const darkMagenta = '#A3427D'
+const lightMagenta = '#C85185'
 const purple = '#8F5FB4'
 
 export const confirmationPageStyles = StyleSheet.create({
@@ -84,10 +84,10 @@ export const medicationDataDisplayStyles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5
   },
-  // The Portions of the Container that has the Text
-  medicationNameTextStyle: {
-    flex: 1,
-    color: darkPurple,
+  //The Portions of the Container that has the Text
+  medicationNameTextStyle : {
+    flex : 1,
+    color: darkMagenta,
     flexWrap: 'wrap'
   },
   // The portion of the Container that has the checkmark Icon
@@ -141,7 +141,15 @@ export const commonStyles = StyleSheet.create({
   content: {
     flex: 1,
     flexGrow: 1,
-    backgroundColor: mainWhite
+    backgroundColor: 'rgb(255,255,255)', // a white color
+    // alignContent: 'space-around',
+    // justifyContent: 'space-around'
+  },
+
+  content2: {
+    flex: 1,
+    flexGrow: 1,
+    backgroundColor: 'rgb(144,186,57)' // a white color
     // alignContent: 'space-around',
     // justifyContent: 'space-around'
   },
@@ -154,10 +162,10 @@ export const commonStyles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-around',
     alignContent: 'space-around',
-    color: secActionBlue,
-    backgroundColor: secActionBlue,
+    color: '#4D98C5',
+    backgroundColor: '#4D98C5', // a light teal color
     margin: 20
-  },
+  },  
   buttonRight: {
     alignSelf: 'flex-end',
     color: '#7E0AF9',
@@ -232,13 +240,13 @@ export const commonStyles = StyleSheet.create({
 
   linkRed: {
     alignSelf: 'flex-start',
-    color: secondaryRed,
+    color: secondaryRed, // a red color
     padding: 2
   },
 
   patientInfoStyle: {
     // color:'#ffffff', //white; this is done in line styling because this wouldn't change the text color
-    backgroundColor: darkPurple,
+    backgroundColor: darkMagenta,
     paddingRight: 20,
     paddingBottom: 0,
     paddingTop: 0,
@@ -260,7 +268,7 @@ commonStyles.cancelButton = {
 
 export const patientInfoCardStyles = StyleSheet.create({
   patient_ID_DOB_Style: {
-    backgroundColor: darkPurple,
+    backgroundColor: darkMagenta, 
     paddingRight: 20,
     paddingBottom: 0,
     paddingTop: 0,
@@ -269,7 +277,7 @@ export const patientInfoCardStyles = StyleSheet.create({
     // justifyContent: 'center'
   },
   patient_IDStyle: {
-    backgroundColor: darkPurple,
+    backgroundColor: darkMagenta,
     paddingRight: 0,
     paddingBottom: 0,
     paddingTop: 0,
@@ -278,7 +286,7 @@ export const patientInfoCardStyles = StyleSheet.create({
     width: '65%'
   },
   patient_DOBStyle: {
-    backgroundColor: darkPurple,
+    backgroundColor: darkMagenta,
     paddingRight: 0,
     paddingBottom: 0,
     paddingTop: 0,
@@ -289,14 +297,13 @@ export const patientInfoCardStyles = StyleSheet.create({
 })
 
 export const navigatorStyle = {
-  navBarBackgroundColor: mainRed,
-  navBarTextColor: mainWhite,
-  navBarButtonColor: mainWhite
+  navBarBackgroundColor: mainRed, // a red color
+  navBarTextColor: 'rgb(255,255,255)' // a white color
 }
 
 export const tabBarStyle = {
-  tabBarBackgroundColor: darkPurple,
-  tabBarButtonColor: mainWhite,
+  tabBarBackgroundColor: darkMagenta, // A dark blue color
+  tabBarButtonColor: 'rgb(255,255,255)', // A white color
   tabBarSelectedButtonColor: actionBlue,
   forceTitlesDisplay: true
 }
