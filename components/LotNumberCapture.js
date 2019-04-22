@@ -1,4 +1,6 @@
 
+//expPattern1 Must be 6 Digits/Letters long, only numbers (0-9) & uppercase letters
+let expPattern8 = new RegExp(/^\b[0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z]$\b/);
 //expPattern1 Must be 7 Digits/Letters long, only numbers (0-9) & uppercase letters
 let expPattern1 = new RegExp(/^\b[0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z][0-9A-Z]$\b/);
 //expPattern2 Must be 8 Digits/Letters long, only numbers (0-9) & uppercase letters
@@ -29,7 +31,8 @@ export const capturedTextBlocksLot = (textBlocks) => {
 
             if ((lotFound === true) && (
                 expPattern1.test(textBlocks[index].components[index2].value) || expPattern2.test(textBlocks[index].components[index2].value) ||
-                expPattern3.test(textBlocks[index].components[index2].value) || expPattern4.test(textBlocks[index].components[index2].value))){    
+                expPattern3.test(textBlocks[index].components[index2].value) || expPattern4.test(textBlocks[index].components[index2].value) ||
+                expPattern8.test(textBlocks[index].components[index2].value))){    
                         return textBlocks[index].components[index2].value;
                     }
         }//end Inner for
