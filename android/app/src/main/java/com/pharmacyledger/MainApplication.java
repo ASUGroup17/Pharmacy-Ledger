@@ -13,7 +13,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.reactnativenavigation.NavigationApplication;
-import com.oblador.vectoricons.VectorIconsPackage;
 import com.github.yamill.orientation.OrientationPackage; // orientation
 
 import java.util.Arrays;
@@ -36,8 +35,7 @@ public class MainApplication extends NavigationApplication {
             new RNSoundPackage(),
             new RealmReactPackage(),
             new SplashScreenReactPackage(),
-            new RNCameraPackage(),
-            new VectorIconsPackage()
+            new RNCameraPackage()
             // eg. new VectorIconsPackage()
     );
 
